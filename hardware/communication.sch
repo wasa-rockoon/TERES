@@ -12342,39 +12342,6 @@ In this library the device names are the same as the pin names of the symbols, t
 <label x="30.48" y="68.58" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="ROLA_SCL" class="0">
-<segment>
-<pinref part="R7" gate="G$1" pin="1"/>
-<pinref part="U$3" gate="G$1" pin="PB8"/>
-<wire x1="248.92" y1="-25.4" x2="254" y2="-25.4" width="0.1524" layer="91"/>
-<label x="269.24" y="-25.4" size="1.778" layer="95" xref="yes"/>
-<wire x1="254" y1="-25.4" x2="269.24" y2="-25.4" width="0.1524" layer="91"/>
-<wire x1="254" y1="7.62" x2="254" y2="-25.4" width="0.1524" layer="91"/>
-<junction x="254" y="-25.4"/>
-</segment>
-<segment>
-<pinref part="RP1" gate="G$1" pin="GPIO13"/>
-<wire x1="33.02" y1="63.5" x2="30.48" y2="63.5" width="0.1524" layer="91"/>
-<label x="30.48" y="63.5" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="ROLA_SDA" class="0">
-<segment>
-<pinref part="R8" gate="G$1" pin="1"/>
-<pinref part="U$3" gate="G$1" pin="PB9"/>
-<wire x1="248.92" y1="-27.94" x2="256.54" y2="-27.94" width="0.1524" layer="91"/>
-<label x="269.24" y="-27.94" size="1.778" layer="95" xref="yes"/>
-<wire x1="259.08" y1="-27.94" x2="269.24" y2="-27.94" width="0.1524" layer="91"/>
-<wire x1="259.08" y1="7.62" x2="259.08" y2="-27.94" width="0.1524" layer="91"/>
-<wire x1="259.08" y1="-27.94" x2="256.54" y2="-27.94" width="0.1524" layer="91"/>
-<junction x="259.08" y="-27.94"/>
-</segment>
-<segment>
-<pinref part="RP1" gate="G$1" pin="GPIO12"/>
-<wire x1="33.02" y1="66.04" x2="30.48" y2="66.04" width="0.1524" layer="91"/>
-<label x="30.48" y="66.04" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
 <net name="TWE_RTX" class="0">
 <segment>
 <pinref part="U$1" gate="G$1" pin="DIO6"/>
@@ -12454,6 +12421,38 @@ In this library the device names are the same as the pin names of the symbols, t
 <pinref part="RP1" gate="G$1" pin="GPIO20"/>
 <wire x1="78.74" y1="83.82" x2="81.28" y2="83.82" width="0.1524" layer="91"/>
 <label x="81.28" y="83.82" size="1.778" layer="95" xref="yes"/>
+</segment>
+</net>
+<net name="ROLA_TRX" class="0">
+<segment>
+<pinref part="U$3" gate="G$1" pin="PA3/RX"/>
+<wire x1="248.92" y1="-7.62" x2="254" y2="-7.62" width="0.1524" layer="91"/>
+<pinref part="R7" gate="G$1" pin="1"/>
+<wire x1="254" y1="-7.62" x2="269.24" y2="-7.62" width="0.1524" layer="91"/>
+<wire x1="254" y1="7.62" x2="254" y2="-7.62" width="0.1524" layer="91"/>
+<junction x="254" y="-7.62"/>
+<label x="269.24" y="-7.62" size="1.778" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="RP1" gate="G$1" pin="GPIO12"/>
+<wire x1="33.02" y1="66.04" x2="30.48" y2="66.04" width="0.1524" layer="91"/>
+<label x="30.48" y="66.04" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="ROLA_RTX" class="0">
+<segment>
+<pinref part="U$3" gate="G$1" pin="PA2/TX"/>
+<wire x1="248.92" y1="-10.16" x2="259.08" y2="-10.16" width="0.1524" layer="91"/>
+<pinref part="R8" gate="G$1" pin="1"/>
+<wire x1="259.08" y1="-10.16" x2="269.24" y2="-10.16" width="0.1524" layer="91"/>
+<wire x1="259.08" y1="7.62" x2="259.08" y2="-10.16" width="0.1524" layer="91"/>
+<junction x="259.08" y="-10.16"/>
+<label x="269.24" y="-10.16" size="1.778" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="RP1" gate="G$1" pin="GPIO13"/>
+<wire x1="33.02" y1="63.5" x2="30.48" y2="63.5" width="0.1524" layer="91"/>
+<label x="30.48" y="63.5" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>
