@@ -2632,6 +2632,16 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <wire x1="-0.254" y1="3.556" x2="1.778" y2="3.556" width="0.1524" layer="1"/>
 <wire x1="-0.415" y1="3.395" x2="-0.254" y2="3.556" width="0.1524" layer="1"/>
 <wire x1="-0.415" y1="1.366" x2="-0.415" y2="3.395" width="0.1524" layer="1"/>
+<polygon width="0.1524" layer="16">
+<vertex x="-19.558" y="21.971"/>
+<vertex x="-19.558" y="-18.034"/>
+<vertex x="-18.923" y="-18.669"/>
+<vertex x="18.288" y="-18.669"/>
+<vertex x="18.288" y="19.431"/>
+<vertex x="17.907" y="19.812"/>
+<vertex x="-19.558" y="19.812"/>
+<vertex x="-20.066" y="19.304"/>
+</polygon>
 <wire x1="11.811" y1="12.7" x2="14.097" y2="10.16" width="0" layer="19" extent="1-1"/>
 <wire x1="16.002" y1="6.985" x2="14.097" y2="10.16" width="0" layer="19" extent="1-1"/>
 <wire x1="15.5" y1="5.08" x2="16.002" y2="6.985" width="0" layer="19" extent="1-1"/>
