@@ -2550,11 +2550,9 @@ Source: Data sheet</description>
 <wire x1="-7.5245" y1="-5.081" x2="-7.667" y2="-4.9385" width="0.2" layer="1"/>
 <wire x1="-7.5245" y1="-5.081" x2="-7.4615" y2="-5.081" width="0.2" layer="1"/>
 <via x="-7.4615" y="-5.081" extent="1-16" drill="0.3"/>
-<wire x1="-2.0655" y1="-4.9195" x2="-7.3" y2="-4.9195" width="0.2" layer="16"/>
+<wire x1="-4.065" y1="-4.9195" x2="-7.3" y2="-4.9195" width="0.2" layer="16"/>
 <wire x1="-7.4615" y1="-5.081" x2="-7.3" y2="-4.9195" width="0.2" layer="16"/>
-<wire x1="-2.0655" y1="-4.9195" x2="0.4775" y2="-7.4625" width="0.2" layer="16"/>
-<wire x1="0.4775" y1="-7.4625" x2="0.4775" y2="-9.462" width="0.2" layer="16"/>
-<wire x1="0.4775" y1="-9.462" x2="0.635" y2="-9.6195" width="0.2" layer="16"/>
+<wire x1="-4.065" y1="-4.9195" x2="0.635" y2="-9.6195" width="0.2" layer="16"/>
 <via x="0.635" y="-9.6195" extent="1-16" drill="0.3"/>
 <wire x1="0.504" y1="-9.7505" x2="0.504" y2="-13.2365" width="0.2" layer="1"/>
 <wire x1="0.504" y1="-13.2365" x2="0.635" y2="-13.3675" width="0.2" layer="1"/>
@@ -2572,10 +2570,9 @@ Source: Data sheet</description>
 <wire x1="-10.601525" y1="-5.3455" x2="-7.9255" y2="-5.3455" width="0.2" layer="1"/>
 <via x="-7.4605" y="-5.8105" extent="1-16" drill="0.3"/>
 <wire x1="-7.4605" y1="-5.8105" x2="-6.921" y2="-5.271" width="0.2" layer="16"/>
-<wire x1="-2.1955" y1="-5.271" x2="-6.921" y2="-5.271" width="0.2" layer="16"/>
-<wire x1="0.126" y1="-7.5925" x2="0.126" y2="-9.4955" width="0.2" layer="16"/>
-<wire x1="0.126" y1="-9.4955" x2="-0.0295" y2="-9.651" width="0.2" layer="16"/>
-<wire x1="-2.1955" y1="-5.271" x2="0.126" y2="-7.5925" width="0.2" layer="16"/>
+<wire x1="-4.4815" y1="-5.271" x2="-6.921" y2="-5.271" width="0.2" layer="16"/>
+<wire x1="-0.0295" y1="-9.651" x2="-0.1015" y2="-9.651" width="0.2" layer="16"/>
+<wire x1="-0.1015" y1="-9.651" x2="-4.4815" y2="-5.271" width="0.2" layer="16"/>
 <via x="-0.0295" y="-9.651" extent="1-16" drill="0.3"/>
 <wire x1="-0.0295" y1="-9.651" x2="0.1575" y2="-9.838" width="0.2" layer="1"/>
 <wire x1="0.1575" y1="-9.838" x2="0.1575" y2="-13.21" width="0.2" layer="1"/>
@@ -2599,17 +2596,19 @@ Source: Data sheet</description>
 <wire x1="-7.1445" y1="-3.111" x2="-7.17569375" y2="-3.111" width="0.2" layer="1"/>
 <wire x1="-7.17569375" y1="-3.111" x2="-7.64969375" y2="-3.585" width="0.2" layer="1"/>
 <via x="-7.1445" y="-3.111" extent="1-16" drill="0.3"/>
-<wire x1="-5.461" y1="-3.5245" x2="-5.8745" y2="-3.111" width="0.2" layer="16"/>
-<wire x1="-7.1445" y1="-3.111" x2="-5.8745" y2="-3.111" width="0.2" layer="16"/>
+<wire x1="-7.1445" y1="-3.111" x2="-3.9695" y2="-3.111" width="0.2" layer="16"/>
 <wire x1="-6.8875" y1="-8.89" x2="-7.239" y2="-9.2415" width="0.2" layer="1"/>
 <wire x1="-7.239" y1="-9.2415" x2="-7.239" y2="-12.192" width="0.2" layer="1"/>
-<wire x1="-5.461" y1="-3.5245" x2="-5.461" y2="-4.445" width="0.2" layer="16"/>
+<wire x1="-3.937" y1="-4.445" x2="-5.461" y2="-4.445" width="0.2" layer="16"/>
 <via x="-5.461" y="-4.445" extent="1-16" drill="0.3"/>
 <wire x1="-5.461" y1="-4.445" x2="-5.461" y2="-5.462" width="0.2" layer="1"/>
 <wire x1="-5.859" y1="-5.86" x2="-5.859" y2="-8.589" width="0.2" layer="1"/>
 <wire x1="-5.859" y1="-8.589" x2="-6.16" y2="-8.89" width="0.2" layer="1"/>
 <wire x1="-6.16" y1="-8.89" x2="-6.8875" y2="-8.89" width="0.2" layer="1"/>
 <wire x1="-5.461" y1="-5.462" x2="-5.859" y2="-5.86" width="0.2" layer="1"/>
+<wire x1="-3.9695" y1="-3.111" x2="-3.73075" y2="-3.34975" width="0.2" layer="16"/>
+<wire x1="-3.73075" y1="-3.34975" x2="-3.73075" y2="-4.23875" width="0.2" layer="16"/>
+<wire x1="-3.73075" y1="-4.23875" x2="-3.937" y2="-4.445" width="0.2" layer="16"/>
 </signal>
 <signal name="N$7">
 <contactref element="LED0" pad="A"/>
@@ -2706,32 +2705,31 @@ Source: Data sheet</description>
 </signal>
 <signal name="TRX">
 <contactref element="U3" pad="10"/>
-<wire x1="-10.094025" y1="3.028" x2="-9.793" y2="3.028" width="0.2" layer="16"/>
 <via x="-11.0785" y="-5.5405" extent="1-16" drill="0.3"/>
 <wire x1="-10.901" y1="-4.0385" x2="-11.29380625" y2="-4.0385" width="0.2" layer="1"/>
 <wire x1="-11.587990625" y1="-4.332684375" x2="-11.29380625" y2="-4.0385" width="0.2" layer="1"/>
 <wire x1="-11.587990625" y1="-4.332684375" x2="-11.587990625" y2="-5.184815625" width="0.2" layer="1"/>
 <wire x1="-11.0785" y1="-5.5405" x2="-11.23230625" y2="-5.5405" width="0.2" layer="1"/>
 <wire x1="-11.23230625" y1="-5.5405" x2="-11.587990625" y2="-5.184815625" width="0.2" layer="1"/>
-<wire x1="-10.668" y1="-3.175" x2="-11.303" y2="-2.54" width="0.2" layer="16"/>
-<wire x1="-11.303" y1="-2.54" x2="-11.303" y2="1.819025" width="0.2" layer="16"/>
+<wire x1="-11.303" y1="-2.54" x2="-10.668" y2="-3.175" width="0.2" layer="16"/>
 <wire x1="-11.0785" y1="-5.5405" x2="-10.668" y2="-5.13" width="0.2" layer="16"/>
 <wire x1="-10.668" y1="-5.13" x2="-10.668" y2="-3.175" width="0.2" layer="16"/>
-<wire x1="-11.303" y1="1.819025" x2="-10.094025" y2="3.028" width="0.2" layer="16"/>
 <contactref element="ESP32" pad="37"/>
-<wire x1="-8.75" y1="4.117" x2="-9.793" y2="3.028" width="0" layer="19" extent="16-16"/>
+<wire x1="-8.75" y1="4.117" x2="-10.742" y2="4.117" width="0.2" layer="16"/>
+<wire x1="-10.742" y1="4.117" x2="-11.303" y2="3.556" width="0.2" layer="16"/>
+<wire x1="-11.303" y1="3.556" x2="-11.303" y2="-2.54" width="0.2" layer="16"/>
 </signal>
 <signal name="RTX">
 <contactref element="U3" pad="7"/>
-<wire x1="-9.793" y1="1.758" x2="-10.094025" y2="1.758" width="0.2" layer="16"/>
-<wire x1="-10.094025" y1="1.758" x2="-10.5325" y2="1.319525" width="0.2" layer="16"/>
-<wire x1="-10.5325" y1="1.319525" x2="-10.5325" y2="-2.2795" width="0.2" layer="16"/>
 <via x="-10.5325" y="-2.2795" extent="1-16" drill="0.3"/>
 <wire x1="-10.901" y1="-2.6885" x2="-10.6805" y2="-2.6885" width="0.2" layer="1"/>
 <wire x1="-10.5325" y1="-2.2795" x2="-10.5325" y2="-2.5405" width="0.2" layer="1"/>
 <wire x1="-10.5325" y1="-2.5405" x2="-10.6805" y2="-2.6885" width="0.2" layer="1"/>
 <contactref element="ESP32" pad="36"/>
-<wire x1="-8.75" y1="2.847" x2="-9.793" y2="1.758" width="0" layer="19" extent="16-16"/>
+<wire x1="-10.5325" y1="2.4215" x2="-10.033" y2="2.921" width="0.2" layer="16"/>
+<wire x1="-10.033" y1="2.921" x2="-8.824" y2="2.921" width="0.2" layer="16"/>
+<wire x1="-8.824" y1="2.921" x2="-8.75" y2="2.847" width="0.2" layer="16"/>
+<wire x1="-10.5325" y1="-2.2795" x2="-10.5325" y2="2.4215" width="0.2" layer="16"/>
 </signal>
 <signal name="RTS">
 <contactref element="Q1" pad="1"/>
@@ -2772,11 +2770,13 @@ Source: Data sheet</description>
 <wire x1="-9.4395" y1="-1.514" x2="-8.5605" y2="-0.635" width="0.2" layer="1"/>
 <wire x1="-8.5605" y1="-0.635" x2="-7.62" y2="-0.635" width="0.2" layer="1"/>
 <via x="-7.62" y="-0.635" extent="1-16" drill="0.3"/>
-<wire x1="-7.62" y1="-0.635" x2="-7.62" y2="3.429" width="0.2" layer="16"/>
 <contactref element="ESP32" pad="3"/>
 <wire x1="8.496" y1="5.641" x2="-5.408" y2="5.641" width="0.2" layer="16"/>
 <wire x1="8.496" y1="5.641" x2="8.75" y2="5.387" width="0.2" layer="16"/>
-<wire x1="-7.62" y1="3.429" x2="-5.408" y2="5.641" width="0.2" layer="16"/>
+<wire x1="-5.6515" y1="5.3975" x2="-5.408" y2="5.641" width="0.2" layer="16"/>
+<wire x1="-7.62" y1="-0.635" x2="-6.604" y2="-0.635" width="0.2" layer="16"/>
+<wire x1="-5.6515" y1="0.3175" x2="-5.6515" y2="5.3975" width="0.2" layer="16"/>
+<wire x1="-6.604" y1="-0.635" x2="-5.6515" y2="0.3175" width="0.2" layer="16"/>
 </signal>
 <signal name="IO0">
 <contactref element="Q1" pad="3"/>
@@ -2975,7 +2975,24 @@ Source: Data sheet</description>
 <contactref element="CAM" pad="17"/>
 <wire x1="-9.398" y1="6.843" x2="-2.93858125" y2="6.843" width="0.2" layer="1"/>
 <wire x1="-2.93858125" y1="6.843" x2="-2.25" y2="6.15441875" width="0.2" layer="1"/>
-<wire x1="-2.25" y1="6.15441875" x2="-2.25" y2="1.957" width="0.2" layer="1"/>
+<wire x1="-2.25" y1="6.15441875" x2="-2.25" y2="4.826" width="0.2" layer="1"/>
+<contactref element="ESP32" pad="30"/>
+<via x="-2.794" y="4.826" extent="1-16" drill="0.35"/>
+<wire x1="-2.25" y1="4.826" x2="-2.25" y2="1.957" width="0.2" layer="1"/>
+<wire x1="-2.794" y1="4.826" x2="-2.25" y2="4.826" width="0.2" layer="1"/>
+<via x="-4.953" y="-3.81" extent="1-16" drill="0.35"/>
+<via x="-3.683" y="-2.54" extent="1-16" drill="0.35"/>
+<wire x1="-2.794" y1="4.826" x2="-2.286" y2="4.318" width="0.2" layer="16"/>
+<wire x1="-3.048" y1="1.651" x2="-3.048" y2="-2.286" width="0.2" layer="16"/>
+<wire x1="-3.048" y1="-2.286" x2="-3.302" y2="-2.54" width="0.2" layer="16"/>
+<wire x1="-3.302" y1="-2.54" x2="-3.683" y2="-2.54" width="0.2" layer="16"/>
+<wire x1="-2.286" y1="4.318" x2="-2.286" y2="2.413" width="0.2" layer="16"/>
+<wire x1="-2.286" y1="2.413" x2="-3.048" y2="1.651" width="0.2" layer="16"/>
+<wire x1="-8.75" y1="-4.773" x2="-8.157" y2="-4.18" width="0.2" layer="16"/>
+<wire x1="-8.157" y1="-4.18" x2="-7.905975" y2="-4.18" width="0.2" layer="16"/>
+<wire x1="-7.535975" y1="-3.81" x2="-4.953" y2="-3.81" width="0.2" layer="16"/>
+<wire x1="-7.905975" y1="-4.18" x2="-7.535975" y2="-3.81" width="0.2" layer="16"/>
+<wire x1="-3.683" y1="-2.54" x2="-4.953" y2="-3.81" width="0.2" layer="1"/>
 </signal>
 <signal name="N$10">
 <contactref element="R14" pad="1"/>
@@ -3048,27 +3065,147 @@ Source: Data sheet</description>
 </signal>
 <signal name="D2">
 <contactref element="CAM" pad="22"/>
+<contactref element="ESP32" pad="35"/>
+<via x="-7.239" y="1.524" extent="1-16" drill="0.35"/>
+<wire x1="-8.75" y1="1.577" x2="-7.292" y2="1.577" width="0.2" layer="16"/>
+<wire x1="-7.292" y1="1.577" x2="-7.239" y2="1.524" width="0.2" layer="16"/>
+<wire x1="-4.75" y1="1.957" x2="-4.75" y2="2.845" width="0.2" layer="1"/>
+<wire x1="-4.75" y1="2.845" x2="-4.953" y2="3.048" width="0.2" layer="1"/>
+<wire x1="-4.953" y1="3.048" x2="-6.985" y2="3.048" width="0.2" layer="1"/>
+<wire x1="-6.985" y1="3.048" x2="-7.239" y2="2.794" width="0.2" layer="1"/>
+<wire x1="-7.239" y1="2.794" x2="-7.239" y2="1.524" width="0.2" layer="1"/>
 </signal>
 <signal name="D1">
 <contactref element="CAM" pad="21"/>
+<contactref element="ESP32" pad="34"/>
+<via x="-6.477" y="3.556" extent="1-16" drill="0.35"/>
+<wire x1="-6.477" y1="0.614" x2="-6.477" y2="3.556" width="0.2" layer="16"/>
+<wire x1="-6.477" y1="0.614" x2="-6.657" y2="0.434" width="0.2" layer="16"/>
+<wire x1="-4.25" y1="1.957" x2="-4.25" y2="3.234" width="0.2" layer="1"/>
+<wire x1="-4.699" y1="3.683" x2="-4.25" y2="3.234" width="0.2" layer="1"/>
+<wire x1="-6.477" y1="3.556" x2="-6.35" y2="3.683" width="0.2" layer="1"/>
+<wire x1="-6.35" y1="3.683" x2="-4.699" y2="3.683" width="0.2" layer="1"/>
+<wire x1="-8.75" y1="0.307" x2="-6.784" y2="0.307" width="0.2" layer="16"/>
+<wire x1="-6.784" y1="0.307" x2="-6.657" y2="0.434" width="0.2" layer="16"/>
 </signal>
 <signal name="D0">
 <contactref element="CAM" pad="19"/>
+<contactref element="ESP32" pad="32"/>
+<via x="-3.302" y="3.81" extent="1-16" drill="0.35"/>
+<wire x1="-3.2048" y1="3.10391875" x2="-3.25" y2="3.05871875" width="0.2" layer="1"/>
+<wire x1="-3.25" y1="3.05871875" x2="-3.25" y2="1.957" width="0.2" layer="1"/>
+<wire x1="-3.302" y1="3.81" x2="-3.2048" y2="3.7128" width="0.2" layer="1"/>
+<wire x1="-3.2048" y1="3.7128" x2="-3.2048" y2="3.10391875" width="0.2" layer="1"/>
+<wire x1="-3.302" y1="3.81" x2="-3.302" y2="3.59728125" width="0.2" layer="16"/>
+<wire x1="-3.302" y1="3.59728125" x2="-3.2048" y2="3.50008125" width="0.2" layer="16"/>
+<wire x1="-3.2048" y1="3.50008125" x2="-3.2048" y2="2.7642" width="0.2" layer="16"/>
+<wire x1="-3.2048" y1="2.7642" x2="-4.191" y2="1.778" width="0.2" layer="16"/>
+<wire x1="-4.191" y1="1.778" x2="-4.191" y2="-1.016" width="0.2" layer="16"/>
+<wire x1="-4.191" y1="-1.016" x2="-5.408" y2="-2.233" width="0.2" layer="16"/>
+<wire x1="-5.408" y1="-2.233" x2="-8.75" y2="-2.233" width="0.2" layer="16"/>
 </signal>
 <signal name="D3">
 <contactref element="CAM" pad="20"/>
+<contactref element="ESP32" pad="33"/>
+<via x="-3.683" y="3.302" extent="1-16" drill="0.35"/>
+<wire x1="-3.683" y1="3.302" x2="-3.683" y2="2.024" width="0.2" layer="1"/>
+<wire x1="-3.683" y1="2.024" x2="-3.75" y2="1.957" width="0.2" layer="1"/>
+<wire x1="-3.683" y1="3.302" x2="-4.826" y2="2.159" width="0.2" layer="16"/>
+<wire x1="-4.826" y1="2.159" x2="-4.826" y2="-0.635" width="0.2" layer="16"/>
+<wire x1="-7.807725" y1="-1.0882" x2="-7.932925" y2="-0.963" width="0.2" layer="16"/>
+<wire x1="-7.932925" y1="-0.963" x2="-8.75" y2="-0.963" width="0.2" layer="16"/>
+<wire x1="-4.826" y1="-0.635" x2="-5.2792" y2="-1.0882" width="0.2" layer="16"/>
+<wire x1="-5.2792" y1="-1.0882" x2="-7.807725" y2="-1.0882" width="0.2" layer="16"/>
 </signal>
 <signal name="D4">
 <contactref element="CAM" pad="18"/>
+<contactref element="ESP32" pad="31"/>
+<via x="-3.683" y="4.318" extent="1-16" drill="0.35"/>
+<wire x1="-3.683" y1="4.318" x2="-3.6532" y2="4.2882" width="0.2" layer="1"/>
+<wire x1="-3.6532" y1="4.2882" x2="-3.10391875" y2="4.2882" width="0.2" layer="1"/>
+<wire x1="-3.10391875" y1="4.2882" x2="-2.75" y2="3.93428125" width="0.2" layer="1"/>
+<wire x1="-2.75" y1="3.93428125" x2="-2.75" y2="1.957" width="0.2" layer="1"/>
+<wire x1="-2.8238" y1="4.00808125" x2="-2.8238" y2="3.9668" width="0.2" layer="16"/>
+<wire x1="-2.8238" y1="3.9668" x2="-2.794" y2="3.937" width="0.2" layer="16"/>
+<wire x1="-3.683" y1="4.318" x2="-3.13371875" y2="4.318" width="0.2" layer="16"/>
+<wire x1="-3.13371875" y1="4.318" x2="-2.8238" y2="4.00808125" width="0.2" layer="16"/>
+<wire x1="-2.794" y1="3.937" x2="-2.794" y2="2.54" width="0.2" layer="16"/>
+<wire x1="-2.794" y1="2.54" x2="-3.556" y2="1.778" width="0.2" layer="16"/>
+<wire x1="-3.556" y1="1.778" x2="-3.556" y2="-1.397" width="0.2" layer="16"/>
+<wire x1="-3.556" y1="-1.397" x2="-4.8168" y2="-2.6578" width="0.2" layer="16"/>
+<wire x1="-7.332225" y1="-2.6578" x2="-7.5977" y2="-2.923275" width="0.2" layer="16"/>
+<wire x1="-7.5977" y1="-3.4067" x2="-7.747" y2="-3.556" width="0.2" layer="16"/>
+<wire x1="-7.5977" y1="-2.923275" x2="-7.5977" y2="-3.4067" width="0.2" layer="16"/>
+<wire x1="-7.747" y1="-3.556" x2="-8.697" y2="-3.556" width="0.2" layer="16"/>
+<wire x1="-8.697" y1="-3.556" x2="-8.75" y2="-3.503" width="0.2" layer="16"/>
+<wire x1="-4.8168" y1="-2.6578" x2="-7.332225" y2="-2.6578" width="0.2" layer="16"/>
 </signal>
 <signal name="D5">
 <contactref element="CAM" pad="16"/>
+<contactref element="ESP32" pad="28"/>
+<via x="-1.651" y="3.81" extent="1-16" drill="0.35"/>
+<wire x1="-1.75" y1="3.711" x2="-1.75" y2="1.957" width="0.2" layer="1"/>
+<wire x1="-1.75" y1="3.711" x2="-1.651" y2="3.81" width="0.2" layer="1"/>
+<wire x1="-1.651" y1="3.81" x2="-1.905" y2="3.556" width="0.2" layer="16"/>
+<wire x1="-1.905" y1="3.556" x2="-1.905" y2="2.032" width="0.2" layer="16"/>
+<wire x1="-1.905" y1="2.032" x2="-2.54" y2="1.397" width="0.2" layer="16"/>
+<via x="-4.572" y="-6.731" extent="1-16" drill="0.35"/>
+<wire x1="-8.75" y1="-7.313" x2="-5.154" y2="-7.313" width="0.2" layer="16"/>
+<wire x1="-5.154" y1="-7.313" x2="-4.572" y2="-6.731" width="0.2" layer="16"/>
+<via x="-0.889" y="-6.731" extent="1-16" drill="0.35"/>
+<wire x1="-2.54" y1="-5.08" x2="-0.889" y2="-6.731" width="0.2" layer="16"/>
+<wire x1="-2.54" y1="1.397" x2="-2.54" y2="-5.08" width="0.2" layer="16"/>
+<wire x1="-4.572" y1="-6.731" x2="-0.889" y2="-6.731" width="0.2" layer="1"/>
 </signal>
 <signal name="D6">
 <contactref element="CAM" pad="14"/>
+<contactref element="ESP32" pad="26"/>
+<via x="-0.762" y="4.826" extent="1-16" drill="0.35"/>
+<wire x1="-0.762" y1="4.826" x2="-0.762" y2="1.969" width="0.2" layer="1"/>
+<wire x1="-0.762" y1="1.969" x2="-0.75" y2="1.957" width="0.2" layer="1"/>
+<wire x1="-0.762" y1="4.826" x2="-1.1728" y2="4.4152" width="0.2" layer="16"/>
+<wire x1="-1.1728" y1="3.429" x2="-1.1728" y2="4.4152" width="0.2" layer="16"/>
+<wire x1="-1.546775" y1="1.800775" x2="-2.159" y2="1.18855" width="0.2" layer="16"/>
+<wire x1="-1.546775" y1="1.800775" x2="-1.546775" y2="3.055025" width="0.2" layer="16"/>
+<wire x1="-1.546775" y1="3.055025" x2="-1.1728" y2="3.429" width="0.2" layer="16"/>
+<via x="-4.318" y="-7.366" extent="1-16" drill="0.35"/>
+<wire x1="-4.318" y1="-7.366" x2="-4.826" y2="-7.874" width="0.2" layer="16"/>
+<wire x1="-4.826" y1="-7.874" x2="-6.223" y2="-7.874" width="0.2" layer="16"/>
+<wire x1="-6.223" y1="-7.874" x2="-6.985" y2="-8.636" width="0.2" layer="16"/>
+<wire x1="-6.985" y1="-9.833" x2="-6.985" y2="-8.636" width="0.2" layer="16"/>
+<via x="-0.381" y="-7.239" extent="1-16" drill="0.35"/>
+<wire x1="-0.4108" y1="-7.2092" x2="-0.381" y2="-7.239" width="0.2" layer="16"/>
+<wire x1="-0.4108" y1="-6.53291875" x2="-0.4108" y2="-7.2092" width="0.2" layer="16"/>
+<wire x1="-2.159" y1="-4.78471875" x2="-0.4108" y2="-6.53291875" width="0.2" layer="16"/>
+<wire x1="-2.159" y1="1.18855" x2="-2.159" y2="-4.78471875" width="0.2" layer="16"/>
+<wire x1="-4.318" y1="-7.366" x2="-0.508" y2="-7.366" width="0.2" layer="1"/>
+<wire x1="-0.508" y1="-7.366" x2="-0.381" y2="-7.239" width="0.2" layer="1"/>
 </signal>
 <signal name="D7">
 <contactref element="CAM" pad="12"/>
+<contactref element="ESP32" pad="24"/>
+<via x="0" y="4.826" extent="1-16" drill="0.35"/>
+<wire x1="0" y1="4.826" x2="0" y2="4.23228125" width="0.2" layer="1"/>
+<wire x1="0" y1="4.23228125" x2="0.2242" y2="4.00808125" width="0.2" layer="1"/>
+<wire x1="0.2242" y1="1.9828" x2="0.25" y2="1.957" width="0.2" layer="1"/>
+<wire x1="0.2242" y1="4.00808125" x2="0.2242" y2="1.9828" width="0.2" layer="1"/>
+<wire x1="0.2242" y1="3.61191875" x2="0.127" y2="3.51471875" width="0.2" layer="16"/>
+<wire x1="0" y1="4.826" x2="0.2242" y2="4.6018" width="0.2" layer="16"/>
+<wire x1="0.2242" y1="4.6018" x2="0.2242" y2="3.61191875" width="0.2" layer="16"/>
+<wire x1="-0.73455" y1="2.44045" x2="-0.73455" y2="1.5611" width="0.2" layer="16"/>
+<wire x1="-0.73455" y1="1.5611" x2="-1.505" y2="0.79065" width="0.2" layer="16"/>
+<wire x1="0.127" y1="3.51471875" x2="0.127" y2="3.302" width="0.2" layer="16"/>
+<wire x1="0.127" y1="3.302" x2="-0.73455" y2="2.44045" width="0.2" layer="16"/>
+<via x="-3.556" y="-8.382" extent="1-16" drill="0.35"/>
+<wire x1="-3.556" y1="-8.382" x2="-4.445" y2="-9.271" width="0.2" layer="16"/>
+<wire x1="-4.445" y1="-9.271" x2="-4.445" y2="-9.833" width="0.2" layer="16"/>
+<via x="0.635" y="-8.255" extent="1-16" drill="0.35"/>
+<wire x1="0.6052" y1="-8.2252" x2="0.635" y2="-8.255" width="0.2" layer="16"/>
+<wire x1="-1.505" y1="-4.51381875" x2="0.6052" y2="-6.62401875" width="0.2" layer="16"/>
+<wire x1="0.6052" y1="-6.62401875" x2="0.6052" y2="-8.2252" width="0.2" layer="16"/>
+<wire x1="-1.505" y1="0.79065" x2="-1.505" y2="-4.51381875" width="0.2" layer="16"/>
+<wire x1="-3.556" y1="-8.382" x2="0.508" y2="-8.382" width="0.2" layer="1"/>
+<wire x1="0.508" y1="-8.382" x2="0.635" y2="-8.255" width="0.2" layer="1"/>
 </signal>
 <signal name="CAM_RESET">
 <contactref element="CAM" pad="6"/>
@@ -3076,6 +3213,11 @@ Source: Data sheet</description>
 <wire x1="4.699" y1="4.318" x2="6.223" y2="4.318" width="0.2" layer="1"/>
 <wire x1="3.25" y1="2.869" x2="4.699" y2="4.318" width="0.2" layer="1"/>
 <via x="6.223" y="4.318" extent="1-16" drill="0.3"/>
+<contactref element="ESP32" pad="6"/>
+<wire x1="6.223" y1="4.318" x2="6.223" y2="2.413" width="0.2" layer="16"/>
+<wire x1="6.223" y1="2.413" x2="7.112" y2="1.524" width="0.2" layer="16"/>
+<wire x1="7.112" y1="1.524" x2="8.697" y2="1.524" width="0.2" layer="16"/>
+<wire x1="8.697" y1="1.524" x2="8.75" y2="1.577" width="0.2" layer="16"/>
 </signal>
 <signal name="VSYNC">
 <contactref element="CAM" pad="7"/>
@@ -3083,6 +3225,11 @@ Source: Data sheet</description>
 <wire x1="2.75" y1="3.512" x2="4.064" y2="4.826" width="0.2" layer="1"/>
 <wire x1="4.064" y1="4.826" x2="5.461" y2="4.826" width="0.2" layer="1"/>
 <via x="5.461" y="4.826" extent="1-16" drill="0.3"/>
+<contactref element="ESP32" pad="7"/>
+<wire x1="5.461" y1="4.826" x2="5.461" y2="1.016" width="0.2" layer="16"/>
+<wire x1="5.461" y1="1.016" x2="6.223" y2="0.254" width="0.2" layer="16"/>
+<wire x1="6.223" y1="0.254" x2="8.697" y2="0.254" width="0.2" layer="16"/>
+<wire x1="8.697" y1="0.254" x2="8.75" y2="0.307" width="0.2" layer="16"/>
 </signal>
 <signal name="HSYNC">
 <contactref element="CAM" pad="9"/>
@@ -3090,12 +3237,47 @@ Source: Data sheet</description>
 <wire x1="1.75" y1="4.798" x2="2.032" y2="5.08" width="0.2" layer="1"/>
 <wire x1="2.032" y1="5.08" x2="3.302" y2="5.08" width="0.2" layer="1"/>
 <via x="3.302" y="5.08" extent="1-16" drill="0.3"/>
+<contactref element="ESP32" pad="8"/>
+<wire x1="3.302" y1="5.08" x2="4.953" y2="3.429" width="0.2" layer="16"/>
+<wire x1="4.953" y1="3.429" x2="4.953" y2="-0.254" width="0.2" layer="16"/>
+<wire x1="4.953" y1="-0.254" x2="5.662" y2="-0.963" width="0.2" layer="16"/>
+<wire x1="5.662" y1="-0.963" x2="8.75" y2="-0.963" width="0.2" layer="16"/>
 </signal>
 <signal name="XCLK">
 <contactref element="CAM" pad="13"/>
+<contactref element="ESP32" pad="25"/>
+<via x="-0.254" y="3.81" extent="1-16" drill="0.35"/>
+<wire x1="-0.254" y1="3.81" x2="-0.25" y2="3.806" width="0.2" layer="1"/>
+<wire x1="-0.25" y1="3.806" x2="-0.25" y2="1.957" width="0.2" layer="1"/>
+<wire x1="-0.254" y1="3.81" x2="-0.254" y2="3.6398" width="0.2" layer="16"/>
+<wire x1="-0.254" y1="3.6398" x2="-1.06155" y2="2.83225" width="0.2" layer="16"/>
+<wire x1="-1.06155" y1="1.69655" x2="-1.832" y2="0.9261" width="0.2" layer="16"/>
+<wire x1="-1.06155" y1="1.69655" x2="-1.06155" y2="2.83225" width="0.2" layer="16"/>
+<via x="-3.937" y="-7.874" extent="1-16" drill="0.35"/>
+<wire x1="-3.937" y1="-7.874" x2="-5.715" y2="-9.652" width="0.2" layer="16"/>
+<wire x1="-5.715" y1="-9.652" x2="-5.715" y2="-9.833" width="0.2" layer="16"/>
+<via x="0.127" y="-7.747" extent="1-16" drill="0.35"/>
+<wire x1="0.0972" y1="-7.7172" x2="0.127" y2="-7.747" width="0.2" layer="16"/>
+<wire x1="-1.832" y1="-4.64926875" x2="0.0972" y2="-6.57846875" width="0.2" layer="16"/>
+<wire x1="0.0972" y1="-6.57846875" x2="0.0972" y2="-7.7172" width="0.2" layer="16"/>
+<wire x1="-1.832" y1="0.9261" x2="-1.832" y2="-4.64926875" width="0.2" layer="16"/>
+<wire x1="-3.937" y1="-7.874" x2="0" y2="-7.874" width="0.2" layer="1"/>
+<wire x1="0" y1="-7.874" x2="0.127" y2="-7.747" width="0.2" layer="1"/>
 </signal>
 <signal name="SD">
 <contactref element="MICRO_SD" pad="SWA"/>
+</signal>
+<signal name="SPI0_MISO">
+<contactref element="MICRO_SD" pad="7"/>
+</signal>
+<signal name="SPI0_CS">
+<contactref element="MICRO_SD" pad="2"/>
+</signal>
+<signal name="SPI0_MOSI">
+<contactref element="MICRO_SD" pad="3"/>
+</signal>
+<signal name="SPI0_SCK">
+<contactref element="MICRO_SD" pad="5"/>
 </signal>
 </signals>
 <mfgpreviewcolors>

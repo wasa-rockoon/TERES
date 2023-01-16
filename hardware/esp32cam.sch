@@ -12308,12 +12308,22 @@ Source: Data sheet</description>
 <label x="91.44" y="33.02" size="1.778" layer="95" rot="R90" xref="yes"/>
 <pinref part="CAM" gate="G$1" pin="PCLK"/>
 </segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO37"/>
+<wire x1="114.3" y1="104.14" x2="119.38" y2="104.14" width="0.1524" layer="91"/>
+<label x="119.38" y="104.14" size="1.778" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="D2" class="0">
 <segment>
 <wire x1="78.74" y1="43.18" x2="81.28" y2="43.18" width="0.1524" layer="91"/>
 <label x="81.28" y="43.18" size="1.778" layer="95" xref="yes"/>
 <pinref part="CAM" gate="G$1" pin="D2"/>
+</segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO42"/>
+<wire x1="114.3" y1="91.44" x2="119.38" y2="91.44" width="0.1524" layer="91"/>
+<label x="119.38" y="91.44" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="D1" class="0">
@@ -12322,12 +12332,22 @@ Source: Data sheet</description>
 <label x="81.28" y="40.64" size="1.778" layer="95" xref="yes"/>
 <pinref part="CAM" gate="G$1" pin="D1"/>
 </segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO41"/>
+<wire x1="114.3" y1="93.98" x2="119.38" y2="93.98" width="0.1524" layer="91"/>
+<label x="119.38" y="93.98" size="1.778" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="D0" class="0">
 <segment>
 <wire x1="78.74" y1="35.56" x2="81.28" y2="35.56" width="0.1524" layer="91"/>
 <label x="81.28" y="35.56" size="1.778" layer="95" xref="yes"/>
 <pinref part="CAM" gate="G$1" pin="D0"/>
+</segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO39"/>
+<wire x1="114.3" y1="99.06" x2="119.38" y2="99.06" width="0.1524" layer="91"/>
+<label x="119.38" y="99.06" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="D3" class="0">
@@ -12336,12 +12356,22 @@ Source: Data sheet</description>
 <label x="81.28" y="38.1" size="1.778" layer="95" xref="yes"/>
 <pinref part="CAM" gate="G$1" pin="D3"/>
 </segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO40"/>
+<wire x1="114.3" y1="96.52" x2="119.38" y2="96.52" width="0.1524" layer="91"/>
+<label x="119.38" y="96.52" size="1.778" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="D4" class="0">
 <segment>
 <wire x1="78.74" y1="33.02" x2="81.28" y2="33.02" width="0.1524" layer="91"/>
 <label x="81.28" y="33.02" size="1.778" layer="95" xref="yes"/>
 <pinref part="CAM" gate="G$1" pin="D4"/>
+</segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO38"/>
+<wire x1="114.3" y1="101.6" x2="119.38" y2="101.6" width="0.1524" layer="91"/>
+<label x="119.38" y="101.6" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="D5" class="0">
@@ -12350,12 +12380,22 @@ Source: Data sheet</description>
 <label x="81.28" y="27.94" size="1.778" layer="95" xref="yes"/>
 <pinref part="CAM" gate="G$1" pin="D5"/>
 </segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO35"/>
+<wire x1="114.3" y1="109.22" x2="119.38" y2="109.22" width="0.1524" layer="91"/>
+<label x="119.38" y="109.22" size="1.778" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="D6" class="0">
 <segment>
 <wire x1="78.74" y1="22.86" x2="81.28" y2="22.86" width="0.1524" layer="91"/>
 <label x="81.28" y="22.86" size="1.778" layer="95" xref="yes"/>
 <pinref part="CAM" gate="G$1" pin="D6"/>
+</segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO45"/>
+<wire x1="114.3" y1="88.9" x2="119.38" y2="88.9" width="0.1524" layer="91"/>
+<label x="119.38" y="88.9" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="D7" class="0">
@@ -12364,6 +12404,11 @@ Source: Data sheet</description>
 <label x="81.28" y="17.78" size="1.778" layer="95" xref="yes"/>
 <pinref part="CAM" gate="G$1" pin="D7"/>
 </segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO47"/>
+<wire x1="114.3" y1="83.82" x2="119.38" y2="83.82" width="0.1524" layer="91"/>
+<label x="119.38" y="83.82" size="1.778" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="CAM_RESET" class="0">
 <segment>
@@ -12371,12 +12416,22 @@ Source: Data sheet</description>
 <label x="81.28" y="2.54" size="1.778" layer="95" xref="yes"/>
 <pinref part="CAM" gate="G$1" pin="RST"/>
 </segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO6"/>
+<wire x1="83.82" y1="106.68" x2="81.28" y2="106.68" width="0.1524" layer="91"/>
+<label x="81.28" y="106.68" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
 </net>
 <net name="VSYNC" class="0">
 <segment>
 <wire x1="78.74" y1="5.08" x2="81.28" y2="5.08" width="0.1524" layer="91"/>
 <label x="81.28" y="5.08" size="1.778" layer="95" xref="yes"/>
 <pinref part="CAM" gate="G$1" pin="VSYNC"/>
+</segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO7"/>
+<wire x1="83.82" y1="104.14" x2="81.28" y2="104.14" width="0.1524" layer="91"/>
+<label x="81.28" y="104.14" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="N$10" class="0">
@@ -12392,12 +12447,22 @@ Source: Data sheet</description>
 <label x="81.28" y="10.16" size="1.778" layer="95" xref="yes"/>
 <pinref part="CAM" gate="G$1" pin="HREF"/>
 </segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO15"/>
+<wire x1="83.82" y1="83.82" x2="78.74" y2="83.82" width="0.1524" layer="91"/>
+<label x="78.74" y="83.82" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
 </net>
 <net name="XCLK" class="0">
 <segment>
 <wire x1="78.74" y1="20.32" x2="81.28" y2="20.32" width="0.1524" layer="91"/>
 <label x="81.28" y="20.32" size="1.778" layer="95" xref="yes"/>
 <pinref part="CAM" gate="G$1" pin="XCLK"/>
+</segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO48"/>
+<wire x1="114.3" y1="81.28" x2="119.38" y2="81.28" width="0.1524" layer="91"/>
+<label x="119.38" y="81.28" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="MIC" class="0">
@@ -12448,6 +12513,34 @@ Source: Data sheet</description>
 <pinref part="MICRO_SD" gate="G$1" pin="A"/>
 <wire x1="215.9" y1="104.14" x2="210.82" y2="104.14" width="0.1524" layer="91"/>
 <label x="210.82" y="104.14" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="SPI0_MISO" class="0">
+<segment>
+<pinref part="MICRO_SD" gate="G$1" pin="DAT0"/>
+<wire x1="215.9" y1="129.54" x2="210.82" y2="129.54" width="0.1524" layer="91"/>
+<label x="210.82" y="129.54" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="SPI0_CS" class="0">
+<segment>
+<pinref part="MICRO_SD" gate="G$1" pin="CD/DAT3"/>
+<wire x1="215.9" y1="121.92" x2="210.82" y2="121.92" width="0.1524" layer="91"/>
+<label x="210.82" y="121.92" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="SPI0_MOSI" class="0">
+<segment>
+<pinref part="MICRO_SD" gate="G$1" pin="CMD"/>
+<wire x1="215.9" y1="119.38" x2="210.82" y2="119.38" width="0.1524" layer="91"/>
+<label x="210.82" y="119.38" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="SPI0_SCK" class="0">
+<segment>
+<pinref part="MICRO_SD" gate="G$1" pin="CLK"/>
+<wire x1="215.9" y1="116.84" x2="210.82" y2="116.84" width="0.1524" layer="91"/>
+<label x="210.82" y="116.84" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
