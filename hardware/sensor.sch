@@ -12156,12 +12156,17 @@ Source:
 </segment>
 <segment>
 <pinref part="RP1" gate="G$1" pin="VREG_VIN"/>
-<wire x1="33.02" y1="127" x2="10.16" y2="127" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="127" x2="27.94" y2="127" width="0.1524" layer="91"/>
 <pinref part="C3" gate="G$1" pin="1"/>
+<wire x1="27.94" y1="127" x2="10.16" y2="127" width="0.1524" layer="91"/>
 <wire x1="10.16" y1="127" x2="10.16" y2="124.46" width="0.1524" layer="91"/>
 <wire x1="10.16" y1="127" x2="10.16" y2="129.54" width="0.1524" layer="91"/>
 <junction x="10.16" y="127"/>
 <pinref part="VDD8" gate="G$1" pin="VDD"/>
+<pinref part="RP1" gate="G$1" pin="RUN"/>
+<wire x1="33.02" y1="121.92" x2="27.94" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="27.94" y1="121.92" x2="27.94" y2="127" width="0.1524" layer="91"/>
+<junction x="27.94" y="127"/>
 </segment>
 <segment>
 <wire x1="248.92" y1="139.7" x2="241.3" y2="139.7" width="0.1524" layer="91"/>
@@ -12725,12 +12730,6 @@ Source:
 <wire x1="198.12" y1="109.22" x2="190.5" y2="109.22" width="0.1524" layer="91"/>
 <junction x="198.12" y="109.22"/>
 <pinref part="C21" gate="G$1" pin="2"/>
-</segment>
-</net>
-<net name="N$15" class="0">
-<segment>
-<pinref part="RP1" gate="G$1" pin="RUN"/>
-<wire x1="33.02" y1="121.92" x2="30.48" y2="121.92" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

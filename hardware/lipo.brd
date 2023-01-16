@@ -2085,10 +2085,10 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <attribute name="POPULARITY" value="18" x="5.08" y="-14.605" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="5.08" y="-14.605" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C10" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0402" package3d_urn="urn:adsk.eagle:package:23626/2" value="0.1µ" x="3.556" y="-4.064" smashed="yes">
-<attribute name="NAME" x="3.556" y="-3.175" size="0.6096" layer="25" font="vector" align="center"/>
-<attribute name="POPULARITY" value="18" x="3.556" y="-4.064" size="1.778" layer="27" display="off"/>
-<attribute name="SPICEPREFIX" value="C" x="3.556" y="-4.064" size="1.778" layer="27" display="off"/>
+<element name="C10" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0402" package3d_urn="urn:adsk.eagle:package:23626/2" value="0.1µ" x="3.556" y="-3.81" smashed="yes">
+<attribute name="NAME" x="3.556" y="-2.921" size="0.6096" layer="25" font="vector" align="center"/>
+<attribute name="POPULARITY" value="18" x="3.556" y="-3.81" size="1.778" layer="27" display="off"/>
+<attribute name="SPICEPREFIX" value="C" x="3.556" y="-3.81" size="1.778" layer="27" display="off"/>
 </element>
 <element name="C11" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0402" package3d_urn="urn:adsk.eagle:package:23626/2" value="0.1µ" x="-2.54" y="-4.064" smashed="yes" rot="R180">
 <attribute name="NAME" x="-2.54" y="-3.175" size="0.6096" layer="25" font="vector" rot="R180" align="center"/>
@@ -2099,7 +2099,6 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <attribute name="NAME" x="-5.588" y="-3.175" size="0.6096" layer="25" font="vector" align="center"/>
 <attribute name="POPULARITY" value="18" x="-5.588" y="-4.064" size="1.778" layer="27" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="-5.588" y="-4.064" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="-6.223" y="-5.969" size="1.27" layer="27"/>
 </element>
 <element name="C4" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0402" package3d_urn="urn:adsk.eagle:package:23626/2" value="1µ" x="1.27" y="-14.605" smashed="yes" rot="R270">
 <attribute name="NAME" x="1.27" y="-16.129" size="0.6096" layer="25" font="vector" align="center"/>
@@ -2112,11 +2111,10 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <attribute name="SPICEPREFIX" value="C" x="6.35" y="-14.605" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="VALUE" x="4.445" y="-13.97" size="1.27" layer="27" rot="R270"/>
 </element>
-<element name="C6" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0402" package3d_urn="urn:adsk.eagle:package:23626/2" value="0.1µ" x="0.508" y="-4.064" smashed="yes" rot="R180">
-<attribute name="NAME" x="0.508" y="-3.175" size="0.6096" layer="25" font="vector" rot="R180" align="center"/>
-<attribute name="POPULARITY" value="18" x="0.508" y="-4.064" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="SPICEPREFIX" value="C" x="0.508" y="-4.064" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="VALUE" x="1.143" y="-2.159" size="1.27" layer="27" rot="R180"/>
+<element name="C6" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0402" package3d_urn="urn:adsk.eagle:package:23626/2" value="0.1µ" x="0.508" y="-3.81" smashed="yes" rot="R180">
+<attribute name="NAME" x="0.508" y="-2.921" size="0.6096" layer="25" font="vector" rot="R180" align="center"/>
+<attribute name="POPULARITY" value="18" x="0.508" y="-3.81" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="SPICEPREFIX" value="C" x="0.508" y="-3.81" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="LED3" library="led" library_urn="urn:adsk.eagle:library:259" package="CHIPLED_0603" package3d_urn="urn:adsk.eagle:package:15822/2" value="" x="8.89" y="-13.335" smashed="yes" rot="R180">
 <attribute name="NAME" x="9.6845" y="-13.2405" size="0.6096" layer="25" font="vector" rot="R270" align="center"/>
@@ -2135,22 +2133,20 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <attribute name="NAME" x="10.796" y="-13.323" size="0.6096" layer="25" font="vector" align="center"/>
 <attribute name="POPULARITY" value="34" x="10.795" y="-12.573" size="1.778" layer="27" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="10.795" y="-12.573" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="10.16" y="-14.478" size="1.27" layer="27"/>
 </element>
 <element name="R4" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0402" package3d_urn="urn:adsk.eagle:package:23547/3" value="220" x="-10.795" y="-12.7" smashed="yes" rot="R180">
 <attribute name="NAME" x="-10.033" y="-13.462" size="0.6096" layer="25" font="vector" rot="R180" align="center"/>
 <attribute name="POPULARITY" value="34" x="-10.795" y="-12.7" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="-10.795" y="-12.7" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="VALUE" x="-10.16" y="-10.795" size="1.27" layer="27" rot="R180"/>
 </element>
 <element name="SW1" library="switches" package="TVAF06-A020B-R" value="TVAF06-A020B-R" x="-8.89" y="-8.89" smashed="yes">
-<attribute name="NAME" x="-8.89" y="-10.16" size="0.6096" layer="25" font="vector" rot="R270" align="center"/>
+<attribute name="NAME" x="-10.668" y="-7.239" size="0.6096" layer="25" font="vector" align="center"/>
 </element>
 <element name="X1" library="crystal'" package="FA-238" value="FA-238" x="8.9765" y="-8.898" smashed="yes" rot="R270">
 <attribute name="NAME" x="8.9665" y="-8.8765" size="0.6096" layer="25" font="vector" ratio="18" align="center"/>
 </element>
 <element name="R5" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0402" package3d_urn="urn:adsk.eagle:package:23547/3" value="1k" x="9.017" y="-5.207" smashed="yes" rot="R180">
-<attribute name="NAME" x="10.668" y="-5.207" size="0.6096" layer="25" font="vector" rot="R180" align="center"/>
+<attribute name="NAME" x="10.414" y="-5.207" size="0.6096" layer="25" font="vector" rot="R180" align="center"/>
 <attribute name="POPULARITY" value="34" x="9.017" y="-5.207" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="9.017" y="-5.207" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
@@ -2158,13 +2154,11 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <attribute name="NAME" x="10.929" y="-11.4285" size="0.6096" layer="25" font="vector" rot="R180" align="center"/>
 <attribute name="POPULARITY" value="18" x="9.017" y="-11.43" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="9.017" y="-11.43" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="VALUE" x="9.652" y="-9.525" size="1.27" layer="27" rot="R180"/>
 </element>
 <element name="C13" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0402" package3d_urn="urn:adsk.eagle:package:23626/2" value="10p" x="9.017" y="-6.35" smashed="yes">
-<attribute name="NAME" x="10.8895" y="-6.35" size="0.6096" layer="25" font="vector" align="center"/>
+<attribute name="NAME" x="10.7625" y="-6.35" size="0.6096" layer="25" font="vector" align="center"/>
 <attribute name="POPULARITY" value="18" x="9.017" y="-6.35" size="1.778" layer="27" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="9.017" y="-6.35" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="8.382" y="-8.255" size="1.27" layer="27"/>
 </element>
 <element name="R6" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0402" package3d_urn="urn:adsk.eagle:package:23547/3" value="1k" x="-11.43" y="-11.43" smashed="yes">
 <attribute name="NAME" x="-11.049" y="-10.668" size="0.6096" layer="25" font="vector" align="center"/>
@@ -2173,23 +2167,20 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 </element>
 <element name="TOP" library="pins" package="P5_2.54" value="P5_2.54" x="-15.5" y="0" smashed="yes"/>
 <element name="BOTTOM" library="pins" package="P5_2.54" value="P5_2.54" x="15.5" y="0" smashed="yes"/>
-<element name="U$2" library="pins" package="P2_2.54" value="P2_2_2.54" x="-11.43" y="-5.08" smashed="yes" rot="R90">
-<attribute name="VALUE" x="-7.62" y="-7.62" size="0.8128" layer="27" font="vector" rot="R90"/>
-</element>
+<element name="U$2" library="pins" package="P2_2.54" value="P2_2_2.54" x="-11.43" y="-5.08" smashed="yes" rot="R90"/>
 <element name="BAT" library="jst-ph" package="S2B-PH-K-S" value="" x="1.27" y="7.62" smashed="yes">
-<attribute name="NAME" x="-1.73" y="14.62" size="1.27" layer="25" ratio="10"/>
+<attribute name="NAME" x="-0.587" y="14.239" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="-1.73" y="3.62" size="1.27" layer="27"/>
 </element>
 <element name="U$1" library="mcp73831" package="SOT23-5L" value="MCP73831" x="3.302" y="0" smashed="yes" rot="R180">
-<attribute name="NAME" x="5.207" y="-1.905" size="1.27" layer="25" rot="R180"/>
-<attribute name="VALUE" x="5.207" y="3.429" size="1.27" layer="27" rot="R180"/>
+<attribute name="NAME" x="1.778" y="0.508" size="0.6096" layer="25" font="vector" rot="R180"/>
 </element>
 <element name="HEATER" library="jst-ph" package="S3B-PH-K-S" value="" x="-6.35" y="7.62" smashed="yes">
-<attribute name="NAME" x="-10.35" y="14.62" size="1.27" layer="25" ratio="10"/>
+<attribute name="NAME" x="-8.953" y="14.239" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="-10.35" y="3.62" size="1.27" layer="27"/>
 </element>
 <element name="SUPPLY" library="jst-ph" package="S2B-PH-K-S" value="" x="7.62" y="7.62" smashed="yes">
-<attribute name="NAME" x="4.62" y="14.62" size="1.27" layer="25" ratio="10"/>
+<attribute name="NAME" x="4.239" y="14.112" size="0.8128" layer="25" ratio="10"/>
 <attribute name="VALUE" x="4.62" y="3.62" size="1.27" layer="27"/>
 </element>
 <element name="U1" library="LT6106CS5_PBF" package="SOT95P280X100-5N_LT6106CS5#PBF" value="LT6106CS5#PBF" x="12.065" y="0.127" smashed="yes" rot="R90">
@@ -2197,78 +2188,65 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <attribute name="DESCRIPTION" value=" LT6106 - Low Cost, 36V High Side Current Sense Amplifier " x="12.065" y="0.127" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="MF" value="Linear Technology" x="12.065" y="0.127" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="MP" value="LT6106CS5#PBF" x="12.065" y="0.127" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="10.165" y="-1.873" size="0.8128" layer="25" rot="R90"/>
+<attribute name="NAME" x="12.033" y="2.799" size="0.8128" layer="25" rot="R180"/>
 <attribute name="PACKAGE" value="TSOT-23 Linear Technology" x="12.065" y="0.127" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="PRICE" value="None" x="12.065" y="0.127" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="VALUE" x="14.665" y="-2.073" size="0.8128" layer="27" rot="R90"/>
 </element>
 <element name="D2" library="diodes" package="CUHS20S30" value="CUHS20S30" x="0" y="3.81" smashed="yes" rot="R180">
-<attribute name="NAME" x="2.54" y="2.54" size="1.27" layer="25" rot="R180"/>
-<attribute name="VALUE" x="11.43" y="8.89" size="1.27" layer="27" rot="R180"/>
+<attribute name="NAME" x="0.508" y="3.048" size="0.6096" layer="25" font="vector" rot="R180"/>
 </element>
 <element name="RPROG" library="potentiometers" package="PVZ3A" value="10k" x="8.255" y="0" smashed="yes" rot="R180">
-<attribute name="NAME" x="8.255" y="-2.54" size="0.8128" layer="25" font="vector" rot="R180" align="center"/>
-<attribute name="VALUE" x="8.255" y="2.54" size="0.8128" layer="27" font="vector" rot="R180" align="center"/>
+<attribute name="NAME" x="6.35" y="-2.032" size="0.6096" layer="25" font="vector" rot="R180" align="center"/>
 </element>
 <element name="Q1" library="mosfet" package="SOT-23" value="IRLML6402" x="8.128" y="3.81" smashed="yes">
-<attribute name="NAME" x="6.477" y="5.715" size="1.27" layer="25"/>
-<attribute name="VALUE" x="6.477" y="0.635" size="1.27" layer="27"/>
+<attribute name="NAME" x="6.223" y="4.699" size="0.8128" layer="25" font="vector"/>
 </element>
 <element name="D3" library="diodes" package="CUHS20S30" value="CUHS20S30" x="3.81" y="3.81" smashed="yes" rot="R180">
-<attribute name="NAME" x="6.35" y="2.54" size="1.27" layer="25" rot="R180"/>
-<attribute name="VALUE" x="6.35" y="6.35" size="1.27" layer="27" rot="R180"/>
+<attribute name="NAME" x="4.318" y="3.048" size="0.6096" layer="25" font="vector" rot="R180"/>
 </element>
 <element name="R7" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0402" package3d_urn="urn:adsk.eagle:package:23547/3" value="100k" x="5.715" y="-0.127" smashed="yes" rot="R90">
 <attribute name="NAME" x="5.08" y="-0.762" size="1.27" layer="25" rot="R90"/>
 <attribute name="POPULARITY" value="34" x="5.715" y="-0.127" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="5.715" y="-0.127" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="VALUE" x="7.62" y="-0.762" size="1.27" layer="27" rot="R90"/>
 </element>
 <element name="R8" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0603" package3d_urn="urn:adsk.eagle:package:23555/3" value="0.033" x="12.065" y="4.445" smashed="yes">
-<attribute name="NAME" x="11.43" y="5.08" size="1.27" layer="25"/>
+<attribute name="NAME" x="10.795" y="5.461" size="0.6096" layer="25" font="vector"/>
 <attribute name="POPULARITY" value="77" x="12.065" y="4.445" size="1.778" layer="27" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="12.065" y="4.445" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="12.7" y="2.54" size="1.27" layer="27"/>
 </element>
 <element name="R9" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0402" package3d_urn="urn:adsk.eagle:package:23547/3" value="100" x="12.573" y="-2.54" smashed="yes" rot="R180">
-<attribute name="NAME" x="13.208" y="-3.175" size="1.27" layer="25" rot="R180"/>
+<attribute name="NAME" x="13.462" y="-2.667" size="0.6096" layer="25" font="vector"/>
 <attribute name="POPULARITY" value="34" x="12.573" y="-2.54" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="12.573" y="-2.54" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="VALUE" x="13.208" y="-0.635" size="1.27" layer="27" rot="R180"/>
 </element>
 <element name="R10" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0402" package3d_urn="urn:adsk.eagle:package:23547/3" value="10k" x="10.033" y="-2.54" smashed="yes">
-<attribute name="NAME" x="9.398" y="-1.905" size="1.27" layer="25"/>
+<attribute name="NAME" x="7.747" y="-2.794" size="0.6096" layer="25" font="vector"/>
 <attribute name="POPULARITY" value="34" x="10.033" y="-2.54" size="1.778" layer="27" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="10.033" y="-2.54" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="9.398" y="-4.445" size="1.27" layer="27"/>
 </element>
 <element name="C16" library="rcl" library_urn="urn:adsk.eagle:library:334" package="153CLV-0605" package3d_urn="urn:adsk.eagle:package:23398/2" value="" x="-8.89" y="0" smashed="yes">
-<attribute name="NAME" x="-12.28" y="3.63" size="1.27" layer="25"/>
+<attribute name="NAME" x="-12.393" y="1.563" size="0.8128" layer="25" font="vector" rot="R90"/>
 <attribute name="POPULARITY" value="5" x="-8.89" y="0" size="1.778" layer="27" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="-8.89" y="0" size="1.778" layer="27" display="off"/>
 <attribute name="VALUE" x="-12.315" y="-4.885" size="1.27" layer="27"/>
 </element>
 <element name="R11" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0402" package3d_urn="urn:adsk.eagle:package:23547/3" value="100k" x="12.573" y="-3.81" smashed="yes">
-<attribute name="NAME" x="11.938" y="-3.175" size="1.27" layer="25"/>
+<attribute name="NAME" x="13.462" y="-4.064" size="0.6096" layer="25" font="vector"/>
 <attribute name="POPULARITY" value="34" x="12.573" y="0" size="1.778" layer="27" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="12.573" y="0" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="11.938" y="-5.715" size="1.27" layer="27"/>
 </element>
 <element name="R12" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0402" package3d_urn="urn:adsk.eagle:package:23547/3" value="100k" x="10.033" y="-3.81" smashed="yes">
-<attribute name="NAME" x="9.398" y="-3.175" size="1.27" layer="25"/>
+<attribute name="NAME" x="7.747" y="-3.683" size="0.6096" layer="25" font="vector"/>
 <attribute name="POPULARITY" value="34" x="10.033" y="-7.62" size="1.778" layer="27" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="10.033" y="-7.62" size="1.778" layer="27" display="off"/>
-<attribute name="VALUE" x="9.398" y="-5.715" size="1.27" layer="27"/>
 </element>
 <element name="R13" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0402" package3d_urn="urn:adsk.eagle:package:23547/3" value="22k" x="-5.08" y="5.08" smashed="yes" rot="R90">
-<attribute name="NAME" x="-5.715" y="4.445" size="1.27" layer="25" rot="R90"/>
+<attribute name="NAME" x="-3.683" y="4.191" size="0.8128" layer="25" font="vector" rot="R90"/>
 <attribute name="POPULARITY" value="34" x="-5.08" y="5.08" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SPICEPREFIX" value="R" x="-5.08" y="5.08" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="VALUE" x="-3.175" y="4.445" size="1.27" layer="27" rot="R90"/>
 </element>
 <element name="Q2" library="mosfet" package="SOT-23" value="IRLML6344" x="-7.62" y="5.08" smashed="yes">
-<attribute name="NAME" x="-9.271" y="6.985" size="1.27" layer="25"/>
-<attribute name="VALUE" x="-9.271" y="1.905" size="1.27" layer="27"/>
+<attribute name="NAME" x="-10.541" y="4.191" size="0.8128" layer="25" font="vector"/>
 </element>
 </elements>
 <signals>
@@ -2308,8 +2286,8 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <wire x1="-6.35" y1="-4.486" x2="-6.35" y2="-4.176" width="0.2" layer="1"/>
 <wire x1="-6.35" y1="-4.176" x2="-6.238" y2="-4.064" width="0.2" layer="1"/>
 <wire x1="0.575" y1="-13.38" x2="0.975" y2="-12.98" width="0.2" layer="1"/>
-<wire x1="2.975" y1="-5.455" x2="2.975" y2="-4.133" width="0.2" layer="1"/>
-<wire x1="2.975" y1="-4.133" x2="2.906" y2="-4.064" width="0.2" layer="1"/>
+<wire x1="2.975" y1="-5.455" x2="2.975" y2="-3.879" width="0.2" layer="1"/>
+<wire x1="2.975" y1="-3.879" x2="2.906" y2="-3.81" width="0.2" layer="1"/>
 <wire x1="-0.9235" y1="-5.4095" x2="-0.9235" y2="-7.7125" width="0.2" layer="1"/>
 <wire x1="-0.9235" y1="-7.7125" x2="-0.746" y2="-7.89" width="0.2" layer="1"/>
 <wire x1="6.61" y1="-11.49" x2="7.045" y2="-11.49" width="0.2" layer="1"/>
@@ -2367,11 +2345,12 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <wire x1="-2.53" y1="-4.7365" x2="-1.89" y2="-4.0965" width="0.2" layer="1"/>
 <wire x1="-2.53" y1="-4.763" x2="-1.57" y2="-4.763" width="0.2" layer="1"/>
 <wire x1="-1.57" y1="-4.763" x2="-0.9235" y2="-5.4095" width="0.2" layer="1"/>
-<wire x1="2.906" y1="-4.064" x2="2.35" y2="-4.064" width="0.2" layer="1"/>
-<wire x1="2.35" y1="-4.064" x2="2.159" y2="-3.873" width="0.2" layer="1"/>
+<wire x1="2.906" y1="-3.81" x2="2.222" y2="-3.81" width="0.2" layer="1"/>
+<wire x1="2.159" y1="-3.873" x2="2.222" y2="-3.81" width="0.2" layer="1"/>
 <via x="2.159" y="-3.873" extent="1-16" drill="0.3"/>
-<wire x1="2.159" y1="-3.873" x2="1.651" y2="-4.381" width="0.2" layer="16"/>
-<wire x1="1.651" y1="-4.381" x2="-2.148" y2="-4.381" width="0.2" layer="16"/>
+<wire x1="2.159" y1="-3.873" x2="2.159" y2="-4" width="0.2" layer="16"/>
+<wire x1="2.159" y1="-4" x2="1.778" y2="-4.381" width="0.2" layer="16"/>
+<wire x1="1.778" y1="-4.381" x2="-2.148" y2="-4.381" width="0.2" layer="16"/>
 <wire x1="-2.148" y1="-4.381" x2="-2.53" y2="-4.763" width="0.2" layer="16"/>
 <wire x1="7.62" y1="-13.955" x2="7.62" y2="-14.351" width="0.3048" layer="1"/>
 <wire x1="2.975" y1="-12.325" x2="2.975" y2="-13.06155" width="0.2" layer="1"/>
@@ -2380,6 +2359,12 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <wire x1="2.159" y1="-3.873" x2="2.5055" y2="-3.5265" width="0.2" layer="16"/>
 <wire x1="7.24" y1="-3.878" x2="7.051" y2="-3.878" width="0.2" layer="16"/>
 <wire x1="7.051" y1="-3.878" x2="6.6995" y2="-3.5265" width="0.2" layer="16"/>
+<contactref element="RP1" pad="26"/>
+<via x="1.651" y="-4.635" extent="1-16" drill="0.3"/>
+<wire x1="1.375" y1="-5.455" x2="1.375" y2="-4.911" width="0.1524" layer="1"/>
+<wire x1="1.375" y1="-4.911" x2="1.651" y2="-4.635" width="0.1524" layer="1"/>
+<wire x1="1.651" y1="-4.635" x2="1.651" y2="-4.508" width="0.1524" layer="16"/>
+<wire x1="1.651" y1="-4.508" x2="1.778" y2="-4.381" width="0.1524" layer="16"/>
 </signal>
 <signal name="GND">
 <contactref element="J1" pad="GND"/>
@@ -2406,7 +2391,7 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <contactref element="C6" pad="2"/>
 <contactref element="C5" pad="2"/>
 <contactref element="C14" pad="2"/>
-<wire x1="4.175" y1="-4.095" x2="4.206" y2="-4.064" width="0.2" layer="1"/>
+<wire x1="4.175" y1="-3.841" x2="4.206" y2="-3.81" width="0.2" layer="1"/>
 <wire x1="3.1" y1="-12.69" x2="2.988" y2="-12.69" width="0.508" layer="16"/>
 <wire x1="2.988" y1="-12.69" x2="1.2" y2="-14.478" width="0.508" layer="16"/>
 <wire x1="1.2" y1="-15.24" x2="1.2" y2="-14.478" width="0.508" layer="16"/>
@@ -2422,7 +2407,7 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <contactref element="C12" pad="2"/>
 <contactref element="C13" pad="2"/>
 <contactref element="SW1" pad="P$1"/>
-<wire x1="4.206" y1="-4.064" x2="4.318" y2="-4.064" width="0.2" layer="1"/>
+<wire x1="4.206" y1="-3.81" x2="4.064" y2="-3.81" width="0.2" layer="1"/>
 <wire x1="4.318" y1="-4.064" x2="5.954" y2="-4.064" width="0.2" layer="1"/>
 <wire x1="-5.715" y1="-15.24" x2="-6.3175" y2="-14.6375" width="0.508" layer="16"/>
 <wire x1="-6.3175" y1="-14.6375" x2="-6.3175" y2="-12.9225" width="0.508" layer="16"/>
@@ -2439,13 +2424,14 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <wire x1="-4.938" y1="-4.064" x2="-4.064" y2="-4.064" width="0.2" layer="1"/>
 <wire x1="-4.064" y1="-4.064" x2="-3.19" y2="-4.064" width="0.2" layer="1"/>
 <wire x1="-0.683975" y1="-3.387" x2="-2.588025" y2="-3.387" width="0.2" layer="1"/>
-<wire x1="-0.142" y1="-4.064" x2="-0.142" y2="-3.928975" width="0.2" layer="1"/>
-<wire x1="-0.142" y1="-3.928975" x2="-0.683975" y2="-3.387" width="0.2" layer="1"/>
+<wire x1="-0.142" y1="-3.81" x2="-0.260975" y2="-3.81" width="0.2" layer="1"/>
+<wire x1="-0.260975" y1="-3.81" x2="-0.683975" y2="-3.387" width="0.2" layer="1"/>
 <wire x1="-3.19" y1="-4.064" x2="-3.19" y2="-3.988975" width="0.2" layer="1"/>
 <wire x1="-2.588025" y1="-3.387" x2="-3.19" y2="-3.988975" width="0.2" layer="1"/>
-<wire x1="-0.142" y1="-4.064" x2="0.535" y2="-3.387" width="0.2" layer="1"/>
-<wire x1="3.641" y1="-3.387" x2="4.318" y2="-4.064" width="0.2" layer="1"/>
-<wire x1="0.535" y1="-3.387" x2="3.641" y2="-3.387" width="0.2" layer="1"/>
+<wire x1="-0.142" y1="-3.81" x2="0.535" y2="-3.133" width="0.2" layer="1"/>
+<wire x1="3.387" y1="-3.133" x2="4.064" y2="-3.81" width="0.2" layer="1"/>
+<wire x1="4.064" y1="-3.81" x2="4.318" y2="-4.064" width="0.2" layer="1"/>
+<wire x1="0.535" y1="-3.133" x2="3.387" y2="-3.133" width="0.2" layer="1"/>
 <wire x1="4.175" y1="-7.89" x2="3.175" y2="-8.89" width="0.2" layer="1"/>
 <via x="-6.2575" y="-8.89" extent="1-16" drill="0.3"/>
 <wire x1="-6.2575" y1="-8.89" x2="-4.445" y2="-8.89" width="0.508" layer="1"/>
@@ -2538,7 +2524,6 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <via x="-13.081" y="-11.43" extent="1-16" drill="0.3"/>
 <via x="-12.065" y="-9.779" extent="1-16" drill="0.3"/>
 <via x="-9.652" y="-14.478" extent="1-16" drill="0.3"/>
-<via x="10.795" y="-5.334" extent="1-16" drill="0.3"/>
 <via x="12.954" y="-6.985" extent="1-16" drill="0.3"/>
 <via x="16.256" y="-3.81" extent="1-16" drill="0.3"/>
 <via x="16.256" y="-1.27" extent="1-16" drill="0.3"/>
@@ -2546,9 +2531,7 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <via x="14.605" y="3.556" extent="1-16" drill="0.3"/>
 <via x="14.605" y="1.27" extent="1-16" drill="0.3"/>
 <via x="14.097" y="-0.508" extent="1-16" drill="0.3"/>
-<via x="14.605" y="-3.683" extent="1-16" drill="0.3"/>
 <via x="12.446" y="-4.572" extent="1-16" drill="0.3"/>
-<via x="10.541" y="-6.35" extent="1-16" drill="0.3"/>
 <via x="11.811" y="-9.652" extent="1-16" drill="0.3"/>
 <via x="5.08" y="-4.064" extent="1-16" drill="0.3"/>
 <via x="7.239" y="-2.794" extent="1-16" drill="0.3"/>
@@ -2559,7 +2542,6 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <via x="-13.462" y="-1.905" extent="1-16" drill="0.3"/>
 <via x="-13.843" y="-7.239" extent="1-16" drill="0.3"/>
 <via x="-13.45" y="-4.0235" extent="1-16" drill="0.3"/>
-<via x="-11.303" y="-7.366" extent="1-16" drill="0.3"/>
 <via x="-9.3035" y="-3.6485" extent="1-16" drill="0.3"/>
 <via x="-6.8895" y="-4.8605" extent="1-16" drill="0.3"/>
 <via x="-14.605" y="3.81" extent="1-16" drill="0.3"/>
@@ -2669,41 +2651,35 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <wire x1="15.5" y1="5.08" x2="16.002" y2="6.985" width="0" layer="19" extent="1-1"/>
 <wire x1="14.06" y1="3.162" x2="14.605" y2="3.556" width="0" layer="19" extent="1-1"/>
 <wire x1="16.256" y1="3.81" x2="15.5" y2="5.08" width="0" layer="19" extent="1-1"/>
-<wire x1="7.239" y1="-2.794" x2="9.533" y2="-2.54" width="0" layer="19" extent="1-1"/>
 <wire x1="13.8385" y1="5.0585" x2="15.5" y2="5.08" width="0" layer="19" extent="1-1"/>
 <wire x1="14.605" y1="1.27" x2="14.06" y2="3.162" width="0" layer="19" extent="1-1"/>
 <wire x1="16.256" y1="1.27" x2="14.605" y2="1.27" width="0" layer="19" extent="1-1"/>
 <wire x1="14.097" y1="-0.508" x2="14.605" y2="1.27" width="0" layer="19" extent="1-1"/>
-<wire x1="10.795" y1="-5.334" x2="9.533" y2="-3.81" width="0" layer="19" extent="1-1"/>
-<wire x1="10.541" y1="-6.35" x2="10.795" y2="-5.334" width="0" layer="19" extent="1-1"/>
-<wire x1="9.667" y1="-6.35" x2="10.541" y2="-6.35" width="0" layer="19" extent="1-1"/>
+<wire x1="16.256" y1="-1.27" x2="14.097" y2="-0.508" width="0" layer="19" extent="1-1"/>
+<wire x1="7.239" y1="-2.794" x2="9.533" y2="-2.54" width="0" layer="19" extent="1-1"/>
+<wire x1="5.954" y1="-4.064" x2="7.239" y2="-2.794" width="0" layer="19" extent="1-1"/>
+<wire x1="5.08" y1="-4.064" x2="5.954" y2="-4.064" width="0" layer="19" extent="1-1"/>
+<wire x1="-1.071" y1="-3.906" x2="-0.142" y2="-3.81" width="0" layer="19" extent="1-1"/>
+<wire x1="4.175" y1="-5.455" x2="4.175" y2="-3.841" width="0" layer="19" extent="1-1"/>
 <wire x1="6.35" y1="-15.255" x2="6.3165" y2="-15.241" width="0" layer="19" extent="1-1"/>
 <wire x1="-1.27" y1="-15.255" x2="-1.2" y2="-15.24" width="0" layer="19" extent="1-16"/>
 <wire x1="1.27" y1="-15.255" x2="1.2" y2="-15.24" width="0" layer="19" extent="1-16"/>
 <wire x1="-3.49" y1="-12.6605" x2="-3.1" y2="-12.69" width="0" layer="19" extent="16-16"/>
-<wire x1="4.175" y1="-4.095" x2="4.175" y2="-5.455" width="0" layer="19" extent="1-1"/>
-<wire x1="5.08" y1="-4.064" x2="5.954" y2="-4.064" width="0" layer="19" extent="1-1"/>
-<wire x1="-1.071" y1="-3.906" x2="-0.142" y2="-4.064" width="0" layer="19" extent="1-1"/>
 <wire x1="16.256" y1="-6.35" x2="15.5" y2="-5.08" width="0" layer="19" extent="1-1"/>
 <wire x1="-16.129" y1="-6.604" x2="-15.5" y2="-5.08" width="0" layer="19" extent="1-1"/>
-<wire x1="14.605" y1="-3.683" x2="16.256" y2="-3.81" width="0" layer="19" extent="1-1"/>
-<wire x1="12.446" y1="-4.572" x2="10.795" y2="-5.334" width="0" layer="19" extent="1-1"/>
 <wire x1="11.811" y1="-9.652" x2="13.589" y2="-10.414" width="0" layer="19" extent="1-1"/>
 <wire x1="-10.287" y1="-8.128" x2="-8.89" y2="-6.665" width="0" layer="19" extent="1-1"/>
-<wire x1="-11.303" y1="-7.366" x2="-10.287" y2="-8.128" width="0" layer="19" extent="1-1"/>
 <wire x1="-10.41" y1="-9.5385" x2="-10.287" y2="-8.128" width="0" layer="19" extent="1-1"/>
-<wire x1="-11.592" y1="-5.985" x2="-11.303" y2="-7.366" width="0" layer="19" extent="1-1"/>
-<wire x1="-11.4345" y1="-4.6935" x2="-11.592" y2="-5.985" width="0" layer="19" extent="1-1"/>
 <wire x1="-12.065" y1="-9.779" x2="-10.41" y2="-9.5385" width="0" layer="19" extent="1-1"/>
 <wire x1="-13.081" y1="-11.43" x2="-12.065" y2="-9.779" width="0" layer="19" extent="1-1"/>
-<wire x1="-13.45" y1="-4.0235" x2="-11.4345" y2="-4.6935" width="0" layer="19" extent="1-1"/>
-<wire x1="-13.462" y1="-1.905" x2="-13.45" y2="-4.0235" width="0" layer="19" extent="1-1"/>
 <wire x1="-6.8895" y1="-4.8605" x2="-4.938" y2="-4.064" width="0" layer="19" extent="1-1"/>
-<wire x1="16.256" y1="-1.27" x2="14.097" y2="-0.508" width="0" layer="19" extent="1-1"/>
+<wire x1="-13.45" y1="-4.0235" x2="-15.5" y2="-5.08" width="0" layer="19" extent="1-1"/>
+<wire x1="-13.462" y1="-1.905" x2="-13.45" y2="-4.0235" width="0" layer="19" extent="1-1"/>
+<wire x1="-11.4345" y1="-4.6935" x2="-13.45" y2="-4.0235" width="0" layer="19" extent="1-1"/>
+<wire x1="-11.592" y1="-5.985" x2="-11.4345" y2="-4.6935" width="0" layer="19" extent="1-1"/>
 <wire x1="-13.843" y1="-7.239" x2="-16.129" y2="-6.604" width="0" layer="19" extent="1-1"/>
 <wire x1="-14.732" y1="-9.144" x2="-13.843" y2="-7.239" width="0" layer="19" extent="1-1"/>
 <wire x1="-9.3035" y1="-3.6485" x2="-11.4345" y2="-4.6935" width="0" layer="19" extent="1-1"/>
-<wire x1="12.954" y1="-6.985" x2="12.446" y2="-4.572" width="0" layer="19" extent="1-1"/>
 <wire x1="-16.256" y1="-1.27" x2="-16.256" y2="-3.81" width="0" layer="19" extent="1-1"/>
 <wire x1="-16.256" y1="1.27" x2="-16.256" y2="-1.27" width="0" layer="19" extent="1-1"/>
 <wire x1="-16.256" y1="3.81" x2="-16.256" y2="1.27" width="0" layer="19" extent="1-1"/>
@@ -2715,6 +2691,8 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <wire x1="-11.049" y1="-13.462" x2="-13.081" y2="-11.43" width="0" layer="19" extent="1-1"/>
 <wire x1="-9.652" y1="-14.478" x2="-11.049" y2="-13.462" width="0" layer="19" extent="1-1"/>
 <wire x1="-8.89" y1="-14.085" x2="-9.652" y2="-14.478" width="0" layer="19" extent="1-1"/>
+<wire x1="12.954" y1="-6.985" x2="11.811" y2="-9.652" width="0" layer="19" extent="1-1"/>
+<wire x1="12.446" y1="-4.572" x2="12.954" y2="-6.985" width="0" layer="19" extent="1-1"/>
 <wire x1="-14.097" y1="10.16" x2="-15.621" y2="7.62" width="0" layer="19" extent="1-1"/>
 <wire x1="8.89" y1="14.986" x2="11.811" y2="12.7" width="0" layer="19" extent="1-1"/>
 <wire x1="6.35" y1="16.256" x2="8.89" y2="14.986" width="0" layer="19" extent="1-1"/>
@@ -2924,9 +2902,9 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <wire x1="2.417" y1="-6.981" x2="2.575" y2="-6.823" width="0.2" layer="1"/>
 <wire x1="2.575" y1="-6.823" x2="2.575" y2="-5.455" width="0.2" layer="1"/>
 <wire x1="0.7935" y1="-11.2075" x2="0.7935" y2="-7.8425" width="0.2" layer="1"/>
-<wire x1="1.158" y1="-4.064" x2="1.652" y2="-4.064" width="0.2" layer="1"/>
-<wire x1="2.575" y1="-4.987" x2="2.575" y2="-5.455" width="0.2" layer="1"/>
-<wire x1="1.652" y1="-4.064" x2="2.575" y2="-4.987" width="0.2" layer="1"/>
+<wire x1="1.158" y1="-3.81" x2="1.525" y2="-3.81" width="0.2" layer="1"/>
+<wire x1="2.575" y1="-4.86" x2="2.575" y2="-5.455" width="0.2" layer="1"/>
+<wire x1="1.525" y1="-3.81" x2="2.575" y2="-4.86" width="0.2" layer="1"/>
 </signal>
 <signal name="N$6">
 <contactref element="J1" pad="VBUS"/>
