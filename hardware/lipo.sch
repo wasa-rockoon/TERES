@@ -20170,7 +20170,7 @@ I-06049</description>
 <part name="BOTTOM" library="pins" deviceset="P5_2.54" device=""/>
 <part name="U$2" library="pins" deviceset="P2_2_2.54" device=""/>
 <part name="BAT" library="jst-ph" deviceset="S2B-PH-*" device="K-S"/>
-<part name="U$1" library="mcp73831" deviceset="MCP73831" device=""/>
+<part name="U3" library="mcp73831" deviceset="MCP73831" device=""/>
 <part name="GND1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="HEATER" library="jst-ph" deviceset="S3B-PH-*" device="K-S"/>
 <part name="SUPPLY" library="jst-ph" deviceset="S2B-PH-*" device="K-S"/>
@@ -20429,7 +20429,7 @@ I-06049</description>
 <attribute name="NAME" x="245.11" y="143.51" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="256.54" y="143.51" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="U$1" gate="G$1" x="213.36" y="96.52" smashed="yes">
+<instance part="U3" gate="G$1" x="213.36" y="96.52" smashed="yes">
 <attribute name="NAME" x="208.28" y="104.14" size="1.778" layer="95"/>
 <attribute name="VALUE" x="208.28" y="86.36" size="1.778" layer="96"/>
 </instance>
@@ -20724,7 +20724,7 @@ I-06049</description>
 <pinref part="GND2" gate="1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="VSS"/>
+<pinref part="U3" gate="G$1" pin="VSS"/>
 <wire x1="223.52" y1="91.44" x2="226.06" y2="91.44" width="0.1524" layer="91"/>
 <wire x1="226.06" y1="91.44" x2="226.06" y2="88.9" width="0.1524" layer="91"/>
 <pinref part="GND3" gate="1" pin="GND"/>
@@ -21288,14 +21288,14 @@ I-06049</description>
 </net>
 <net name="CHARGE" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="STAT"/>
+<pinref part="U3" gate="G$1" pin="STAT"/>
 <wire x1="203.2" y1="93.98" x2="198.12" y2="93.98" width="0.1524" layer="91"/>
 <label x="198.12" y="93.98" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="VBAT" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="VBAT"/>
+<pinref part="U3" gate="G$1" pin="VBAT"/>
 <wire x1="223.52" y1="101.6" x2="248.92" y2="101.6" width="0.1524" layer="91"/>
 <pinref part="Q1" gate="G$1" pin="D"/>
 <label x="226.06" y="101.6" size="1.778" layer="95"/>
@@ -21310,7 +21310,7 @@ I-06049</description>
 <pinref part="RPROG" gate="G$1" pin="2"/>
 <wire x1="228.6" y1="93.98" x2="226.06" y2="93.98" width="0.1524" layer="91"/>
 <wire x1="226.06" y1="93.98" x2="226.06" y2="96.52" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="PROG"/>
+<pinref part="U3" gate="G$1" pin="PROG"/>
 <wire x1="226.06" y1="96.52" x2="223.52" y2="96.52" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -21383,7 +21383,7 @@ I-06049</description>
 <pinref part="SUPPLY2" gate="G$1" pin="VPP"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="VDD"/>
+<pinref part="U3" gate="G$1" pin="VDD"/>
 <wire x1="203.2" y1="99.06" x2="198.12" y2="99.06" width="0.1524" layer="91"/>
 <wire x1="198.12" y1="99.06" x2="198.12" y2="119.38" width="0.1524" layer="91"/>
 <pinref part="SUPPLY1" gate="G$1" pin="VPP"/>

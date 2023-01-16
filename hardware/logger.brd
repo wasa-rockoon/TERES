@@ -36,8 +36,8 @@
 <layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
-<layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
+<layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
+<layer number="30" name="bStop" color="7" fill="6" visible="yes" active="yes"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
 <layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
 <layer number="33" name="tFinish" color="6" fill="3" visible="no" active="yes"/>
@@ -188,8 +188,8 @@
 <wire x1="6.35" y1="-16.7358125" x2="-6.349996875" y2="-16.735815625" width="0" layer="20"/>
 <wire x1="-6.349996875" y1="-16.735815625" x2="-16.764" y2="-6.275209375" width="0" layer="20" curve="-48.699765"/>
 <wire x1="16.764" y1="-6.2752125" x2="6.35" y2="-16.7358125" width="0" layer="20" curve="-48.699745"/>
-<text x="0" y="14.859" size="1.27" layer="29" font="vector" ratio="10" align="center">2022 WASA Rocket</text>
-<text x="0" y="14.859" size="1.27" layer="30" font="vector" ratio="10" rot="MR0" align="center">TERES Module</text>
+<text x="0" y="14.605" size="1.27" layer="30" font="vector" ratio="10" rot="MR0" align="center">2022 WASA Rocket</text>
+<text x="0" y="12.065" size="1.016" layer="30" font="vector" ratio="10" rot="MR0" align="center">TERES Logger Module</text>
 <circle x="13" y="-8.5" radius="2.3" width="0.2" layer="22"/>
 <circle x="-13" y="-8.5" radius="2.3" width="0.2" layer="22"/>
 <circle x="13" y="8.5" radius="2.3" width="0.2" layer="22"/>
@@ -2125,13 +2125,13 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <element name="TOP" library="pins" package="P5_2.54" value="P5_2.54" x="-15.5" y="0" smashed="yes"/>
 <element name="BOTTOM" library="pins" package="P5_2.54" value="P5_2.54" x="15.5" y="0" smashed="yes"/>
 <element name="U$2" library="pins" package="P2_2.54" value="P2_2_2.54" x="-11.43" y="-5.08" smashed="yes" rot="R90"/>
-<element name="MICROSD" library="dm3at-sf-pejm5" package="HRS_DM3AT-SF-PEJM5" value="DM3AT-SF-PEJM5" x="-0.127" y="-0.254" smashed="yes" rot="R180">
+<element name="MICRO_SD" library="dm3at-sf-pejm5" package="HRS_DM3AT-SF-PEJM5" value="DM3AT-SF-PEJM5" x="-0.127" y="-0.254" smashed="yes" rot="R180">
 <attribute name="DESCRIPTION" value=" DM3 RA SMT microSD memory card push/push " x="-0.127" y="-0.254" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="DIGI-KEY_PART_NUMBER" value="HR1964CT-ND" x="-0.127" y="-0.254" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="DIGI-KEY_PURCHASE_URL" value="https://www.digikey.jp/product-detail/en/hirose-electric-co-ltd/DM3AT-SF-PEJM5/HR1964CT-ND/2533566?utm_source=snapeda&amp;utm_medium=aggregator&amp;utm_campaign=symbol" x="-0.127" y="-0.254" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="MF" value="Hirose" x="-0.127" y="-0.254" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="MP" value="DM3AT-SF-PEJM5" x="-0.127" y="-0.254" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="NAME" x="3.35661875" y="12.42395" size="1.271940625" layer="25" rot="R180"/>
+<attribute name="NAME" x="0.05461875" y="8.48695" size="1.016" layer="25" font="vector" rot="R180" align="center"/>
 <attribute name="PACKAGE" value="None" x="-0.127" y="-0.254" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="C15" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0402" package3d_urn="urn:adsk.eagle:package:23626/2" value="10µF" x="-5.207" y="-2.54" smashed="yes" rot="R180">
@@ -2150,23 +2150,23 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <attribute name="PURCHASE-URL" value="https://pricing.snapeda.com/search/part/W25Q32JVZPIQ/?ref=eda" x="19.431" y="-10.795" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="C16" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0402" package3d_urn="urn:adsk.eagle:package:23626/2" value="" x="8.89" y="8.89" smashed="yes" rot="R90">
-<attribute name="NAME" x="8.255" y="8.255" size="0.6096" layer="25" font="vector" rot="R90"/>
+<attribute name="NAME" x="8.128" y="8.255" size="0.6096" layer="25" font="vector" rot="R90"/>
 <attribute name="POPULARITY" value="18" x="-1.27" y="0" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="SPICEPREFIX" value="C" x="-1.27" y="0" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="VALUE" x="10.795" y="8.255" size="1.27" layer="27" rot="R90"/>
 </element>
-<element name="BT1" library="MS414GE-FL26E" package="BAT_MS414GE-FL26E" value="MS414GE-FL26E" x="-11.43" y="3.81" smashed="yes" rot="R270">
+<element name="BAT" library="MS414GE-FL26E" package="BAT_MS414GE-FL26E" value="MS414GE-FL26E" x="-11.43" y="3.81" smashed="yes" rot="R270">
 <attribute name="AVAILABILITY" value="In Stock" x="-11.43" y="3.81" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="DESCRIPTION" value=" Coin, 4.8mm 3 V Lithium Battery Rechargeable (Secondary) 2mAh " x="-11.43" y="3.81" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="MF" value="Seiko" x="-11.43" y="3.81" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="MP" value="MS414GE-FL26E" x="-11.43" y="3.81" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="NAME" x="-7.493" y="7.747" size="1.27" layer="26" rot="R180"/>
+<attribute name="NAME" x="-11.43" y="3.81" size="1.016" layer="26" font="vector" rot="R180" align="center"/>
 <attribute name="PACKAGE" value="Custom Package Seiko" x="-11.43" y="3.81" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="PRICE" value="None" x="-11.43" y="3.81" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="PURCHASE-URL" value="https://pricing.snapeda.com/search/part/MS414GE-FL26E/?ref=eda" x="-11.43" y="3.81" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="U$1" library="rtc" package="VSOJ12" package3d_urn="urn:adsk.eagle:package:37886091/1" value="RX-8035LC" x="10.16" y="4.445" smashed="yes" rot="R90">
-<attribute name="NAME" x="7.874" y="6.3191" size="0.6096" layer="25" font="vector" rot="R180" align="bottom-center"/>
+<element name="U1" library="rtc" package="VSOJ12" package3d_urn="urn:adsk.eagle:package:37886091/1" value="RX-8035LC" x="10.16" y="4.445" smashed="yes" rot="R90">
+<attribute name="NAME" x="10.287" y="4.7951" size="0.6096" layer="25" font="vector" rot="R180" align="bottom-center"/>
 </element>
 <element name="C17" library="rcl" library_urn="urn:adsk.eagle:library:334" package="C0402" package3d_urn="urn:adsk.eagle:package:23626/2" value="0.1µF" x="-11.303" y="-2.54" smashed="yes">
 <attribute name="NAME" x="-11.938" y="-2.032" size="0.6096" layer="25"/>
@@ -2258,11 +2258,11 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <wire x1="2.975" y1="-12.325" x2="2.975" y2="-13.06155" width="0.2" layer="1"/>
 <via x="7.366" y="-4.953" extent="1-16" drill="0.3"/>
 <wire x1="7.366" y1="-4.953" x2="3.239" y2="-4.953" width="0.2" layer="16"/>
-<contactref element="MICROSD" pad="4"/>
+<contactref element="MICRO_SD" pad="4"/>
 <contactref element="C15" pad="1"/>
 <contactref element="FLASH_LOG" pad="8"/>
 <contactref element="C16" pad="1"/>
-<contactref element="U$1" pad="2"/>
+<contactref element="U1" pad="2"/>
 <contactref element="C18" pad="1"/>
 <wire x1="-7.605" y1="-2.54" x2="-7.605" y2="-3.713" width="0.2" layer="1"/>
 <wire x1="-7.605" y1="-3.713" x2="-7.381" y2="-3.937" width="0.2" layer="1"/>
@@ -2558,18 +2558,18 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <wire x1="-13.534" y1="-7.046" x2="-15.5" y2="-5.08" width="0.508" layer="16"/>
 <via x="-11.4345" y="-4.6935" extent="1-16" drill="0.3"/>
 <via x="-11.592" y="-5.985" extent="1-16" drill="0.3"/>
-<contactref element="MICROSD" pad="SWA"/>
-<contactref element="MICROSD" pad="6"/>
+<contactref element="MICRO_SD" pad="SWA"/>
+<contactref element="MICRO_SD" pad="6"/>
 <contactref element="C15" pad="2"/>
-<contactref element="MICROSD" pad="P1"/>
-<contactref element="MICROSD" pad="P2"/>
-<contactref element="MICROSD" pad="P4"/>
-<contactref element="MICROSD" pad="P3"/>
+<contactref element="MICRO_SD" pad="P1"/>
+<contactref element="MICRO_SD" pad="P2"/>
+<contactref element="MICRO_SD" pad="P4"/>
+<contactref element="MICRO_SD" pad="P3"/>
 <contactref element="FLASH_LOG" pad="4"/>
 <contactref element="FLASH_LOG" pad="9"/>
 <contactref element="C16" pad="2"/>
-<contactref element="U$1" pad="9"/>
-<contactref element="BT1" pad="-"/>
+<contactref element="U1" pad="9"/>
+<contactref element="BAT" pad="-"/>
 <contactref element="C17" pad="2"/>
 <contactref element="C18" pad="2"/>
 <wire x1="-10.653" y1="-2.54" x2="-9.779" y2="-2.54" width="0.2" layer="1"/>
@@ -2980,7 +2980,7 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 </signal>
 <signal name="SPI0_MISO">
 <contactref element="RP1" pad="31"/>
-<contactref element="MICROSD" pad="7"/>
+<contactref element="MICRO_SD" pad="7"/>
 <wire x1="-1.27" y1="-7.09" x2="-0.26" y2="-7.09" width="0.2" layer="1"/>
 <via x="-1.397" y="-3.81" extent="1-16" drill="0.35"/>
 <via x="-1.651" y="0.889" extent="1-16" drill="0.35"/>
@@ -2996,7 +2996,7 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 </signal>
 <signal name="SPI0_CS">
 <contactref element="RP1" pad="32"/>
-<contactref element="MICROSD" pad="2"/>
+<contactref element="MICRO_SD" pad="2"/>
 <wire x1="-0.26" y1="-7.49" x2="-1.527" y2="-7.49" width="0.2" layer="1"/>
 <wire x1="-1.651" y1="-7.366" x2="-1.527" y2="-7.49" width="0.2" layer="1"/>
 <via x="-2.032" y="-3.81" extent="1-16" drill="0.35"/>
@@ -3056,7 +3056,7 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 </signal>
 <signal name="SPI0_SCK">
 <contactref element="RP1" pad="29"/>
-<contactref element="MICROSD" pad="5"/>
+<contactref element="MICRO_SD" pad="5"/>
 <wire x1="-0.26" y1="-6.29" x2="-0.26" y2="-6.078925" width="0.2" layer="1"/>
 <wire x1="-0.26" y1="-6.078925" x2="-0.3322" y2="-6.006725" width="0.2" layer="1"/>
 <wire x1="-0.3322" y1="-6.006725" x2="-0.3322" y2="-5.1288" width="0.2" layer="1"/>
@@ -3074,7 +3074,7 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 </signal>
 <signal name="SPI0_MOSI">
 <contactref element="RP1" pad="30"/>
-<contactref element="MICROSD" pad="3"/>
+<contactref element="MICRO_SD" pad="3"/>
 <wire x1="-0.26" y1="-6.69" x2="-0.333" y2="-6.617" width="0.2" layer="1"/>
 <wire x1="-0.333" y1="-6.617" x2="-0.75938125" y2="-6.617" width="0.2" layer="1"/>
 <wire x1="-0.75938125" y1="-6.617" x2="-0.943" y2="-6.43338125" width="0.2" layer="1"/>
@@ -3184,7 +3184,7 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 </signal>
 <signal name="I2C0_SDA">
 <contactref element="RP1" pad="11"/>
-<contactref element="U$1" pad="8"/>
+<contactref element="U1" pad="8"/>
 <wire x1="10.91" y1="5.82" x2="10.91" y2="4.965" width="0.2" layer="1"/>
 <wire x1="10.91" y1="4.965" x2="11.049" y2="4.826" width="0.2" layer="1"/>
 <wire x1="11.049" y1="4.826" x2="11.938" y2="4.826" width="0.2" layer="1"/>
@@ -3208,7 +3208,7 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 </signal>
 <signal name="I2C0_SCL">
 <contactref element="RP1" pad="12"/>
-<contactref element="U$1" pad="6"/>
+<contactref element="U1" pad="6"/>
 <wire x1="11.41" y1="3.07" x2="11.41" y2="2.012" width="0.2" layer="1"/>
 <wire x1="11.41" y1="2.012" x2="11.176" y2="1.778" width="0.2" layer="1"/>
 <wire x1="11.176" y1="1.778" x2="8.636" y2="1.778" width="0.2" layer="1"/>
@@ -3362,12 +3362,12 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <via x="4.699" y="-6.35" extent="1-16" drill="0.3"/>
 </signal>
 <signal name="SD">
-<contactref element="MICROSD" pad="SWB"/>
+<contactref element="MICRO_SD" pad="SWB"/>
 </signal>
 <signal name="N$1">
-<contactref element="BT1" pad="+"/>
-<contactref element="U$1" pad="4"/>
-<contactref element="U$1" pad="1"/>
+<contactref element="BAT" pad="+"/>
+<contactref element="U1" pad="4"/>
+<contactref element="U1" pad="1"/>
 <contactref element="C17" pad="1"/>
 <wire x1="-10.68" y1="0.085" x2="-10.68" y2="-1.267" width="0.2" layer="1"/>
 <wire x1="-10.68" y1="-1.267" x2="-11.953" y2="-2.54" width="0.2" layer="1"/>

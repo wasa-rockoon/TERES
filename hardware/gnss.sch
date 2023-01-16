@@ -11168,7 +11168,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <part name="TOP" library="pins" deviceset="P5_2.54" device=""/>
 <part name="BOTTOM" library="pins" deviceset="P5_2.54" device=""/>
 <part name="U$2" library="pins" deviceset="P2_2_2.54" device=""/>
-<part name="U$1" library="gps" deviceset="GYSFDMAXB" device=""/>
+<part name="GNSS" library="gps" deviceset="GYSFDMAXB" device=""/>
 <part name="D2" library="diodes" deviceset="CUHS20S30" device=""/>
 <part name="VDD1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VDD" device=""/>
 <part name="VDD2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VDD" device=""/>
@@ -11181,7 +11181,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <part name="C16" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-EU" device="C0402" package3d_urn="urn:adsk.eagle:package:23626/2" value="0.1µ"/>
 <part name="GND4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="BT1" library="MS414GE-FL26E" deviceset="MS414GE-FL26E" device=""/>
+<part name="BAT" library="MS414GE-FL26E" deviceset="MS414GE-FL26E" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -11406,7 +11406,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <attribute name="NAME" x="-5.08" y="154.94" size="1.778" layer="95"/>
 <attribute name="VALUE" x="-5.08" y="144.78" size="1.778" layer="96"/>
 </instance>
-<instance part="U$1" gate="G$1" x="218.44" y="68.58" smashed="yes" rot="MR0">
+<instance part="GNSS" gate="G$1" x="218.44" y="68.58" smashed="yes" rot="MR0">
 <attribute name="VALUE" x="233.68" y="60.96" size="1.27" layer="96" rot="MR0"/>
 </instance>
 <instance part="D2" gate="G$1" x="259.08" y="76.2" smashed="yes" rot="R270">
@@ -11450,7 +11450,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <instance part="GND5" gate="1" x="246.38" y="73.66" smashed="yes">
 <attribute name="VALUE" x="243.84" y="71.12" size="1.778" layer="96"/>
 </instance>
-<instance part="BT1" gate="G$1" x="259.08" y="60.96" smashed="yes" rot="R270">
+<instance part="BAT" gate="G$1" x="259.08" y="60.96" smashed="yes" rot="R270">
 <attribute name="NAME" x="262.89" y="64.77" size="1.778" layer="95" rot="R270"/>
 <attribute name="VALUE" x="269.24" y="64.77" size="1.778" layer="96" rot="R270"/>
 </instance>
@@ -11619,7 +11619,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <pinref part="GND44" gate="1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="GND"/>
+<pinref part="GNSS" gate="G$1" pin="GND"/>
 <wire x1="238.76" y1="66.04" x2="241.3" y2="66.04" width="0.1524" layer="91"/>
 <wire x1="241.3" y1="66.04" x2="241.3" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="GND1" gate="1" pin="GND"/>
@@ -11638,7 +11638,7 @@ In this library the device names are the same as the pin names of the symbols, t
 </segment>
 <segment>
 <pinref part="GND2" gate="1" pin="GND"/>
-<pinref part="BT1" gate="G$1" pin="-"/>
+<pinref part="BAT" gate="G$1" pin="-"/>
 </segment>
 </net>
 <net name="QSPI_SCLK" class="0">
@@ -11785,7 +11785,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <junction x="27.94" y="127"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="VDD3V3"/>
+<pinref part="GNSS" gate="G$1" pin="VDD3V3"/>
 <wire x1="238.76" y1="73.66" x2="241.3" y2="73.66" width="0.1524" layer="91"/>
 <wire x1="241.3" y1="73.66" x2="241.3" y2="86.36" width="0.1524" layer="91"/>
 <pinref part="VDD1" gate="G$1" pin="VDD"/>
@@ -12166,7 +12166,7 @@ In this library the device names are the same as the pin names of the symbols, t
 </net>
 <net name="N$1" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="VDD3V3_BACKUP"/>
+<pinref part="GNSS" gate="G$1" pin="VDD3V3_BACKUP"/>
 <wire x1="238.76" y1="71.12" x2="251.46" y2="71.12" width="0.1524" layer="91"/>
 <wire x1="251.46" y1="71.12" x2="259.08" y2="71.12" width="0.1524" layer="91"/>
 <wire x1="259.08" y1="71.12" x2="259.08" y2="68.58" width="0.1524" layer="91"/>
@@ -12176,7 +12176,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <pinref part="C16" gate="G$1" pin="1"/>
 <wire x1="251.46" y1="68.58" x2="251.46" y2="71.12" width="0.1524" layer="91"/>
 <junction x="251.46" y="71.12"/>
-<pinref part="BT1" gate="G$1" pin="+"/>
+<pinref part="BAT" gate="G$1" pin="+"/>
 </segment>
 </net>
 <net name="N$2" class="0">
@@ -12187,7 +12187,7 @@ In this library the device names are the same as the pin names of the symbols, t
 </net>
 <net name="N$3" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="1PPS"/>
+<pinref part="GNSS" gate="G$1" pin="1PPS"/>
 <wire x1="200.66" y1="66.04" x2="195.58" y2="66.04" width="0.1524" layer="91"/>
 <wire x1="195.58" y1="66.04" x2="195.58" y2="63.5" width="0.1524" layer="91"/>
 <pinref part="R7" gate="G$1" pin="2"/>
@@ -12195,7 +12195,7 @@ In this library the device names are the same as the pin names of the symbols, t
 </net>
 <net name="GPS_RESET" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="RESET"/>
+<pinref part="GNSS" gate="G$1" pin="RESET"/>
 <wire x1="200.66" y1="73.66" x2="195.58" y2="73.66" width="0.1524" layer="91"/>
 <label x="195.58" y="73.66" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -12207,7 +12207,7 @@ In this library the device names are the same as the pin names of the symbols, t
 </net>
 <net name="GPS_RTX" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="TX"/>
+<pinref part="GNSS" gate="G$1" pin="TX"/>
 <wire x1="200.66" y1="71.12" x2="195.58" y2="71.12" width="0.1524" layer="91"/>
 <label x="195.58" y="71.12" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -12219,7 +12219,7 @@ In this library the device names are the same as the pin names of the symbols, t
 </net>
 <net name="GPS_TRX" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="RX"/>
+<pinref part="GNSS" gate="G$1" pin="RX"/>
 <wire x1="200.66" y1="68.58" x2="195.58" y2="68.58" width="0.1524" layer="91"/>
 <label x="195.58" y="68.58" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>

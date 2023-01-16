@@ -11404,13 +11404,13 @@ Source:
 <part name="IC2" library="bosch-bme280" deviceset="BME280" device=""/>
 <part name="R7" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0402" package3d_urn="urn:adsk.eagle:package:23547/3" value="22k"/>
 <part name="GND1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="CN1" library="jst-ph" deviceset="S2B-PH-*" device="K-S"/>
+<part name="TMP0" library="jst-ph" deviceset="S2B-PH-*" device="K-S"/>
 <part name="VDD1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VDD" device=""/>
 <part name="R8" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0402" package3d_urn="urn:adsk.eagle:package:23547/3" value="22k"/>
 <part name="GND2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="CN2" library="jst-ph" deviceset="S2B-PH-*" device="K-S"/>
+<part name="TMP1" library="jst-ph" deviceset="S2B-PH-*" device="K-S"/>
 <part name="VDD2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VDD" device=""/>
-<part name="CN3" library="jst-ph" deviceset="B4B-PH-*" device="K-S"/>
+<part name="I2C" library="jst-ph" deviceset="B4B-PH-*" device="K-S"/>
 <part name="GND3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="VDD3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VDD" device=""/>
 <part name="GND4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -11672,7 +11672,7 @@ Source:
 <instance part="GND1" gate="1" x="241.3" y="121.92" smashed="yes">
 <attribute name="VALUE" x="238.76" y="119.38" size="1.778" layer="96"/>
 </instance>
-<instance part="CN1" gate="G$1" x="248.92" y="139.7" smashed="yes">
+<instance part="TMP0" gate="G$1" x="248.92" y="139.7" smashed="yes">
 <attribute name="NAME" x="245.11" y="143.51" size="1.778" layer="95"/>
 <attribute name="VALUE" x="245.11" y="132.08" size="1.778" layer="96"/>
 </instance>
@@ -11686,14 +11686,14 @@ Source:
 <instance part="GND2" gate="1" x="210.82" y="121.92" smashed="yes">
 <attribute name="VALUE" x="208.28" y="119.38" size="1.778" layer="96"/>
 </instance>
-<instance part="CN2" gate="G$1" x="218.44" y="139.7" smashed="yes">
+<instance part="TMP1" gate="G$1" x="218.44" y="139.7" smashed="yes">
 <attribute name="NAME" x="214.63" y="143.51" size="1.778" layer="95"/>
 <attribute name="VALUE" x="214.63" y="132.08" size="1.778" layer="96"/>
 </instance>
 <instance part="VDD2" gate="G$1" x="210.82" y="144.78" smashed="yes">
 <attribute name="VALUE" x="208.28" y="142.24" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="CN3" gate="G$1" x="287.02" y="93.98" smashed="yes">
+<instance part="I2C" gate="G$1" x="287.02" y="93.98" smashed="yes">
 <attribute name="NAME" x="283.21" y="100.33" size="1.778" layer="95"/>
 <attribute name="VALUE" x="283.21" y="83.82" size="1.778" layer="96"/>
 </instance>
@@ -11949,7 +11949,7 @@ Source:
 <pinref part="GND2" gate="1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="CN3" gate="G$1" pin="2"/>
+<pinref part="I2C" gate="G$1" pin="2"/>
 <wire x1="287.02" y1="93.98" x2="276.86" y2="93.98" width="0.1524" layer="91"/>
 <wire x1="276.86" y1="93.98" x2="276.86" y2="83.82" width="0.1524" layer="91"/>
 <pinref part="GND3" gate="1" pin="GND"/>
@@ -12171,17 +12171,17 @@ Source:
 <segment>
 <wire x1="248.92" y1="139.7" x2="241.3" y2="139.7" width="0.1524" layer="91"/>
 <wire x1="241.3" y1="139.7" x2="241.3" y2="142.24" width="0.1524" layer="91"/>
-<pinref part="CN1" gate="G$1" pin="1"/>
+<pinref part="TMP0" gate="G$1" pin="1"/>
 <pinref part="VDD1" gate="G$1" pin="VDD"/>
 </segment>
 <segment>
 <wire x1="218.44" y1="139.7" x2="210.82" y2="139.7" width="0.1524" layer="91"/>
 <wire x1="210.82" y1="139.7" x2="210.82" y2="142.24" width="0.1524" layer="91"/>
-<pinref part="CN2" gate="G$1" pin="1"/>
+<pinref part="TMP1" gate="G$1" pin="1"/>
 <pinref part="VDD2" gate="G$1" pin="VDD"/>
 </segment>
 <segment>
-<pinref part="CN3" gate="G$1" pin="1"/>
+<pinref part="I2C" gate="G$1" pin="1"/>
 <wire x1="287.02" y1="96.52" x2="276.86" y2="96.52" width="0.1524" layer="91"/>
 <wire x1="276.86" y1="96.52" x2="276.86" y2="99.06" width="0.1524" layer="91"/>
 <pinref part="VDD3" gate="G$1" pin="VDD"/>
@@ -12473,7 +12473,7 @@ Source:
 </net>
 <net name="I2C0_SDA" class="0">
 <segment>
-<pinref part="CN3" gate="G$1" pin="3"/>
+<pinref part="I2C" gate="G$1" pin="3"/>
 <wire x1="287.02" y1="91.44" x2="274.32" y2="91.44" width="0.1524" layer="91"/>
 <label x="274.32" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -12603,7 +12603,7 @@ Source:
 <label x="233.68" y="137.16" size="1.778" layer="95" rot="R180" xref="yes"/>
 <wire x1="241.3" y1="137.16" x2="248.92" y2="137.16" width="0.1524" layer="91"/>
 <junction x="241.3" y="137.16"/>
-<pinref part="CN1" gate="G$1" pin="2"/>
+<pinref part="TMP0" gate="G$1" pin="2"/>
 </segment>
 <segment>
 <pinref part="RP1" gate="G$1" pin="GPIO27/ADC1"/>
@@ -12619,7 +12619,7 @@ Source:
 <label x="203.2" y="137.16" size="1.778" layer="95" rot="R180" xref="yes"/>
 <wire x1="210.82" y1="137.16" x2="218.44" y2="137.16" width="0.1524" layer="91"/>
 <junction x="210.82" y="137.16"/>
-<pinref part="CN2" gate="G$1" pin="2"/>
+<pinref part="TMP1" gate="G$1" pin="2"/>
 </segment>
 <segment>
 <pinref part="RP1" gate="G$1" pin="GPIO26/ADC0"/>
@@ -12629,7 +12629,7 @@ Source:
 </net>
 <net name="I2C0_SCL" class="0">
 <segment>
-<pinref part="CN3" gate="G$1" pin="4"/>
+<pinref part="I2C" gate="G$1" pin="4"/>
 <wire x1="287.02" y1="88.9" x2="274.32" y2="88.9" width="0.1524" layer="91"/>
 <label x="274.32" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
