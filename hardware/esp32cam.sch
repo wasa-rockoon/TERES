@@ -11989,12 +11989,22 @@ Source: Data sheet</description>
 <wire x1="-25.4" y1="86.36" x2="-25.4" y2="88.9" width="0.1524" layer="91"/>
 <label x="-25.4" y="88.9" size="1.778" layer="95" rot="R90" xref="yes"/>
 </segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO13"/>
+<wire x1="83.82" y1="88.9" x2="81.28" y2="88.9" width="0.1524" layer="91"/>
+<label x="81.28" y="88.9" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
 </net>
 <net name="LED1" class="0">
 <segment>
 <pinref part="R2" gate="G$1" pin="2"/>
 <wire x1="-15.24" y1="86.36" x2="-15.24" y2="88.9" width="0.1524" layer="91"/>
 <label x="-15.24" y="88.9" size="1.778" layer="95" rot="R90" xref="yes"/>
+</segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO14"/>
+<wire x1="83.82" y1="86.36" x2="81.28" y2="86.36" width="0.1524" layer="91"/>
+<label x="81.28" y="86.36" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="RX0" class="0">
@@ -12449,8 +12459,8 @@ Source: Data sheet</description>
 </segment>
 <segment>
 <pinref part="ESP32" gate="G$1" pin="IO15"/>
-<wire x1="83.82" y1="83.82" x2="78.74" y2="83.82" width="0.1524" layer="91"/>
-<label x="78.74" y="83.82" size="1.778" layer="95" rot="R180" xref="yes"/>
+<wire x1="83.82" y1="83.82" x2="81.28" y2="83.82" width="0.1524" layer="91"/>
+<label x="81.28" y="83.82" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="XCLK" class="0">
@@ -12518,34 +12528,57 @@ Source: Data sheet</description>
 <net name="SPI0_MISO" class="0">
 <segment>
 <pinref part="MICRO_SD" gate="G$1" pin="DAT0"/>
-<wire x1="215.9" y1="129.54" x2="210.82" y2="129.54" width="0.1524" layer="91"/>
-<label x="210.82" y="129.54" size="1.778" layer="95"/>
+<wire x1="215.9" y1="129.54" x2="213.36" y2="129.54" width="0.1524" layer="91"/>
+<label x="213.36" y="129.54" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO12"/>
+<wire x1="83.82" y1="91.44" x2="81.28" y2="91.44" width="0.1524" layer="91"/>
+<label x="81.28" y="91.44" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SPI0_CS" class="0">
 <segment>
 <pinref part="MICRO_SD" gate="G$1" pin="CD/DAT3"/>
-<wire x1="215.9" y1="121.92" x2="210.82" y2="121.92" width="0.1524" layer="91"/>
-<label x="210.82" y="121.92" size="1.778" layer="95"/>
+<wire x1="215.9" y1="121.92" x2="213.36" y2="121.92" width="0.1524" layer="91"/>
+<label x="213.36" y="121.92" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO9"/>
+<wire x1="83.82" y1="99.06" x2="81.28" y2="99.06" width="0.1524" layer="91"/>
+<label x="81.28" y="99.06" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SPI0_MOSI" class="0">
 <segment>
 <pinref part="MICRO_SD" gate="G$1" pin="CMD"/>
-<wire x1="215.9" y1="119.38" x2="210.82" y2="119.38" width="0.1524" layer="91"/>
-<label x="210.82" y="119.38" size="1.778" layer="95"/>
+<wire x1="215.9" y1="119.38" x2="213.36" y2="119.38" width="0.1524" layer="91"/>
+<label x="213.36" y="119.38" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO10"/>
+<wire x1="83.82" y1="96.52" x2="81.28" y2="96.52" width="0.1524" layer="91"/>
+<label x="81.28" y="96.52" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="SPI0_SCK" class="0">
 <segment>
 <pinref part="MICRO_SD" gate="G$1" pin="CLK"/>
-<wire x1="215.9" y1="116.84" x2="210.82" y2="116.84" width="0.1524" layer="91"/>
-<label x="210.82" y="116.84" size="1.778" layer="95"/>
+<wire x1="215.9" y1="116.84" x2="213.36" y2="116.84" width="0.1524" layer="91"/>
+<label x="213.36" y="116.84" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO11"/>
+<wire x1="83.82" y1="93.98" x2="81.28" y2="93.98" width="0.1524" layer="91"/>
+<label x="81.28" y="93.98" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 </nets>
 </sheet>
 </sheets>
+<errors>
+<approved hash="104,1,78.74,25.4,CAM,DGND,GND,,,"/>
+</errors>
 </schematic>
 </drawing>
 <compatibility>
