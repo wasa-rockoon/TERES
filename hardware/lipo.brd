@@ -2654,6 +2654,7 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <wire x1="-10.83259375" y1="0" x2="-11.59" y2="0" width="0.508" layer="1"/>
 <wire x1="-15.5" y1="5.08" x2="-12.065" y2="1.645" width="0.508" layer="16"/>
 <wire x1="-12.065" y1="1.645" x2="-12.065" y2="1.27" width="0.508" layer="16"/>
+<contactref element="U1" pad="2"/>
 </signal>
 <signal name="USB_DM">
 <contactref element="J1" pad="D-"/>
@@ -3372,9 +3373,6 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <wire x1="1.3195" y1="-2.528" x2="-3.417" y2="-2.528" width="0.508" layer="16"/>
 <wire x1="-3.429" y1="-2.54" x2="-3.417" y2="-2.528" width="0.508" layer="16"/>
 <wire x1="-7.366" y1="-7.556" x2="-7.34964375" y2="-7.53964375" width="0" layer="19" extent="16-16"/>
-</signal>
-<signal name="N$7">
-<contactref element="U1" pad="2"/>
 </signal>
 <signal name="N$2">
 <contactref element="R9" pad="1"/>

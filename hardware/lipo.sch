@@ -20760,6 +20760,12 @@ I-06049</description>
 <pinref part="Q2" gate="G$1" pin="S"/>
 <pinref part="GND11" gate="1" pin="GND"/>
 </segment>
+<segment>
+<pinref part="U1" gate="G$1" pin="V-"/>
+<wire x1="325.12" y1="78.74" x2="322.58" y2="78.74" width="0.1524" layer="91"/>
+<pinref part="GND6" gate="1" pin="GND"/>
+<wire x1="322.58" y1="78.74" x2="322.58" y2="71.12" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="QSPI_SCLK" class="0">
 <segment>
@@ -21387,14 +21393,6 @@ I-06049</description>
 <wire x1="203.2" y1="99.06" x2="198.12" y2="99.06" width="0.1524" layer="91"/>
 <wire x1="198.12" y1="99.06" x2="198.12" y2="119.38" width="0.1524" layer="91"/>
 <pinref part="SUPPLY1" gate="G$1" pin="VPP"/>
-</segment>
-</net>
-<net name="N$7" class="0">
-<segment>
-<pinref part="U1" gate="G$1" pin="V-"/>
-<wire x1="325.12" y1="78.74" x2="322.58" y2="78.74" width="0.1524" layer="91"/>
-<wire x1="322.58" y1="78.74" x2="322.58" y2="71.12" width="0.1524" layer="91"/>
-<pinref part="GND6" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="N$2" class="0">

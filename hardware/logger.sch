@@ -12257,13 +12257,6 @@ In this library the device names are the same as the pin names of the symbols, t
 <label x="30.48" y="71.12" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
-<net name="PWM5_B" class="0">
-<segment>
-<pinref part="RP1" gate="G$1" pin="GPIO11"/>
-<wire x1="33.02" y1="68.58" x2="30.48" y2="68.58" width="0.1524" layer="91"/>
-<label x="30.48" y="68.58" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
 <net name="SW" class="0">
 <segment>
 <pinref part="SW1" gate="G$1" pin="B"/>
@@ -12343,6 +12336,11 @@ In this library the device names are the same as the pin names of the symbols, t
 <pinref part="MICRO_SD" gate="G$1" pin="B"/>
 <wire x1="215.9" y1="63.5" x2="213.36" y2="63.5" width="0.1524" layer="91"/>
 <label x="213.36" y="63.5" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="RP1" gate="G$1" pin="GPIO11"/>
+<wire x1="33.02" y1="68.58" x2="30.48" y2="68.58" width="0.1524" layer="91"/>
+<label x="30.48" y="68.58" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="N$1" class="0">

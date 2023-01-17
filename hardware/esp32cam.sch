@@ -12013,12 +12013,22 @@ Source: Data sheet</description>
 <label x="66.04" y="185.42" size="1.778" layer="95" xref="yes"/>
 <pinref part="C9" gate="G$1" pin="4"/>
 </segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO36"/>
+<wire x1="114.3" y1="106.68" x2="119.38" y2="106.68" width="0.1524" layer="91"/>
+<label x="119.38" y="106.68" size="1.778" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="TX0" class="0">
 <segment>
 <wire x1="58.42" y1="190.5" x2="66.04" y2="190.5" width="0.1524" layer="91"/>
 <label x="66.04" y="190.5" size="1.778" layer="95" xref="yes"/>
 <pinref part="C9" gate="G$1" pin="2"/>
+</segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO2"/>
+<wire x1="81.28" y1="116.84" x2="83.82" y2="116.84" width="0.1524" layer="91"/>
+<label x="81.28" y="116.84" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="RX1" class="0">
@@ -12027,12 +12037,22 @@ Source: Data sheet</description>
 <pinref part="C10" gate="G$1" pin="4"/>
 <wire x1="99.06" y1="185.42" x2="91.44" y2="185.42" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO17"/>
+<wire x1="114.3" y1="121.92" x2="116.84" y2="121.92" width="0.1524" layer="91"/>
+<label x="116.84" y="121.92" size="1.778" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="TX1" class="0">
 <segment>
 <label x="99.06" y="190.5" size="1.778" layer="95" xref="yes"/>
 <pinref part="C10" gate="G$1" pin="2"/>
 <wire x1="99.06" y1="190.5" x2="91.44" y2="190.5" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO16"/>
+<wire x1="83.82" y1="81.28" x2="81.28" y2="81.28" width="0.1524" layer="91"/>
+<label x="81.28" y="81.28" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="V+" class="0">
@@ -12523,6 +12543,11 @@ Source: Data sheet</description>
 <pinref part="MICRO_SD" gate="G$1" pin="A"/>
 <wire x1="215.9" y1="104.14" x2="210.82" y2="104.14" width="0.1524" layer="91"/>
 <label x="210.82" y="104.14" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+<segment>
+<pinref part="ESP32" gate="G$1" pin="IO21"/>
+<wire x1="114.3" y1="111.76" x2="119.38" y2="111.76" width="0.1524" layer="91"/>
+<label x="119.38" y="111.76" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="SPI0_MISO" class="0">
