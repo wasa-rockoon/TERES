@@ -3,7 +3,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 
-void i2c_scanner()
+void i2c_scanner(TwoWire& wire = Wire)
 {
     byte error, address;
     int nDevices;
@@ -16,8 +16,8 @@ void i2c_scanner()
         // The i2c_scanner uses the return value of
         // the Write.endTransmisstion to see if
         // a device did acknowledge to the address.
-        Wire.beginTransmission(address);
-        error = Wire.endTransmission();
+        wire.beginTransmission(address);
+        error = wire.endTransmission();
 
         if (error == 0)
         {

@@ -1,3 +1,5 @@
+#include <TaskScheduler.h>
+#include <Bus.h>
 #include <I2C_Scanner.h>
 #include <SPI.h>
 #include <Wire.h>
@@ -21,6 +23,10 @@
 #define SDCARD_SCK_PIN SPI0_SCK
 
 #include <SD.h>
+
+
+Scheduler scheduler;
+
 
 File file;
 int i;
@@ -48,6 +54,8 @@ void setup() {
   SPI.setTX(SPI0_MOSI);
   SPI.setRX(SPI0_MISO);
   SPI.setSCK(SPI0_SCK);
+
+  Bus.begin(Serial1, Serial2);
 
   delay(1000);
 
@@ -90,5 +98,5 @@ void loop() {
   digitalWrite(LED_STATUS, LOW);
   delay(500);
 
-  // i2c_scanner();
+  i2c_scanner();
 }
