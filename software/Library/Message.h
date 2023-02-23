@@ -87,7 +87,7 @@ public:
 //	bool pop(Message& message);
 //	bool pop();
 //
-	bool push(Message& message) {
+	bool push(const Message& message) {
 		if (size_ == N) return false;
 
 		buf[write_ptr_] = message;
@@ -138,10 +138,12 @@ public:
 
   inline unsigned getErrorCount() { return error_count_; };
 
+protected:
+  inline void error() { error_count_++; };
+
 private:
   unsigned error_count_;
 
-  inline void error() { error_count_++ };
 };
 
 class BinaryChannel: public Channel<BIN_TX_QUEUE_SIZE> {

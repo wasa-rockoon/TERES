@@ -1,28 +1,43 @@
+#include <TaskScheduler.h>
 
-#define LED_STATUS 0
-#define LED_ERROR 25
+#include "RP2040Module.h"
 
+Scheduler scheduler;
+
+RP2040Module module;
+
+void blink();
+
+Task task_blink(1000 * TASK_MILLISECOND, TASK_FOREVER, &blink, &scheduler, true);
 
 void setup() {
   // put your setup code here, to run once:
 
-  Serial.begin(115200);
-
-  pinMode(LED_STATUS, OUTPUT);
-  pinMode(LED_ERROR, OUTPUT);
-
-  digitalWrite(LED_STATUS, LOW);
-  digitalWrite(LED_ERROR, HIGH);
+  bool ok = module.begin();
 
   delay(1000);
+  
+  module.indicator.clearError();
+}
 
-  digitalWrite(LED_ERROR, LOW);
+void blink() {
+  module.indicator.blink();
+
+  Message test('T', 0, 0, 2);
+  test.entries[0].set('I', (int32_t)123);
+  test.entries[1].set('F', (float)56.7);
+
+  module.bus.send(test);
+
+  Serial.print("ok: ");
+  Serial.print(module.bus.getMessageCount());
+  Serial.print(", error: ");
+  Serial.println(module.bus.getErrorCount());
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  digitalWrite(LED_STATUS, HIGH);
-  delay(500);
-  digitalWrite(LED_STATUS, LOW);
-  delay(500);
+ 
+ scheduler.execute();
 }
+
