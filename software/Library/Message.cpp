@@ -262,7 +262,7 @@ bool BinaryChannel::read(const uint8_t* data, uint8_t len) {
 
   rx.setHeader(header);
 
-  for (uint8_t n = 0; n < header.size; n++) {
+  for (uint8_t n = 0; n < rx.size; n++) {
     if (i > len) {
       error();
       return false;
@@ -283,7 +283,7 @@ unsigned BinaryChannel::write(uint8_t* data) {
 
 	Entry header = tx.first().getHeader();
 	i += header.encode(data);
-  for (uint8_t n = 0; n < header.size; n++) {
+  for (uint8_t n = 0; n < tx.first().size; n++) {
 		i += tx.first().entries[n].encode(data + i);
   }
 
