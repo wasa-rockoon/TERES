@@ -1,4 +1,4 @@
-#include <I2C_Scanner.h>
+//#include <I2C_Scanner.h>
 #include <SPI.h>
 #include <Wire.h>
 
@@ -22,12 +22,9 @@
 
 #include <SD.h>
 
-
-
-
 File file;
 int i;
-char file_name[20]="test.txt";
+char file_name[20]="2023_224.txt";
 
 void setup() {
   // put your setup code here, to run once:
@@ -73,14 +70,11 @@ void setup() {
     Serial.println("Writing to");
     file.println("testing 1, 2, 3.");
     file.println("success!");
-    for(i=0;i<50;i++){
-      file.print(i);  file.print(',');
-      file.println(i+1);
-    }
+    
 // close the file:
     file.close();
     Serial.println("write done.");
-  } else {
+  }else {
     // if the file didn't open, print an error:
     Serial.println("error creating test.txt");
   }
@@ -92,6 +86,4 @@ void loop() {
   delay(500);
   digitalWrite(LED_STATUS, LOW);
   delay(500);
-
-  i2c_scanner(Wire);
 }

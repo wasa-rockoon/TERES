@@ -1,28 +1,25 @@
-#include <I2C_Scanner.h>
-#include <Wire.h>
-
 #define LED_STATUS 0
 #define LED_ERROR 25
-#define I2C1_SDA 14
-#define I2C1_SCL 15
 
 
 void setup() {
   // put your setup code here, to run once:
 
   Serial.begin(115200);
-
+  
   pinMode(LED_STATUS, OUTPUT);
   pinMode(LED_ERROR, OUTPUT);
 
   digitalWrite(LED_STATUS, LOW);
   digitalWrite(LED_ERROR, HIGH);
+  
+  delay(1000); 
 
-  Wire1.setSDA(I2C1_SDA);
-  Wire1.setSCL(I2C1_SCL);
-  Wire1.begin();
-
-  delay(1000);
+  /*Wire1.beginTransmission(0x29);
+  error1 = Wire1.endTransmission();
+  Wire1.beginTransmission(0x76);
+  error2 = Wire1.endTransmission();*/
+  
 
   digitalWrite(LED_ERROR, LOW);
 }
@@ -34,5 +31,5 @@ void loop() {
   digitalWrite(LED_STATUS, LOW);
   delay(500);
 
-  i2c_scanner(Wire1);
+  //i2c_scanner(Wire1);
 }
