@@ -29,17 +29,20 @@ public:
   void listen(uint8_t id, MessageCallback func);
 
   void send(const Message& message);
+  void send();
 
   void receive();
 
-  inline unsigned getErrorCount() {
-    return channel_.getErrorCount() + error_count_;
+  inline unsigned getErrorCount() const {
+    return upper_channel_.getErrorCount() + lower_channel_.getErrorCount()
+      + error_count_ + dropped_count_;
   }
-  inline unsigned getMessageCount() { return message_count_; }
+  inline unsigned getMessageCount() const { return message_count_; }
 
 private:
 
-  BinaryChannel channel_;
+  BinaryChannel upper_channel_;
+  BinaryChannel lower_channel_;
 
   Stream& upper_serial_;
   Stream& lower_serial_;
@@ -55,17 +58,19 @@ private:
 
   unsigned message_count_;
   unsigned error_count_;
+  unsigned dropped_count_;
 
   bool overflowed_;
 
-  Task task_receive_;
+  Task task_resend_;
 
+  void send(BinaryChannel& channel, Stream& serial, const Message& message);
+  void send(BinaryChannel& channel, Stream& serial);
 
-  // void receiveDataFromUpper(const uint8_t* data, const size_t size);
-  // void receiveDataFromLower(const uint8_t* data, const size_t size);
-  void receiveData(const uint8_t* data, const size_t size);
+  void receive(BinaryChannel& channel, BinaryChannel& another_channel,
+               Stream& serial, Stream& another_serial, uint8_t *buf,
+               unsigned& received);
 
-  // friend void receiveDataFromUpper_(const uint8_t* data, const size_t size);
-  // friend void receiveDataFromLower_(const uint8_t* data, const size_t size);
+  // void receiveData(const uint8_t* data, const size_t size);
 };
 
