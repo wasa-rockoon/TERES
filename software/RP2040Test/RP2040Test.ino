@@ -23,7 +23,7 @@ void setup() {
 void blink() {
   module.indicator.blink();
 
-  Message test('T', 0, 0, 2);
+  Message test('T', 0, 2);
   test.entries[0].set('I', (int32_t)123);
   test.entries[1].set('F', (float)56.7);
 
@@ -38,6 +38,6 @@ void blink() {
 void loop() {
   // put your main code here, to run repeatedly:
  
- scheduler.execute();
+  scheduler.execute();
 }
 

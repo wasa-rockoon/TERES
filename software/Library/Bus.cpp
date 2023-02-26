@@ -72,7 +72,8 @@ void Bus::send(BinaryChannel& channel, Stream& serial) {
   unsigned len;
 
   while ((len = channel.nextWriteSize()) > 0) {
-    if (serial.availableForWrite() < len + 4) {
+    if (!serial.availableForWrite()) {
+      // Serial.printf("a: %d\n", serial.availableForWrite());
       task_resend_.enable();
       return;
     }
@@ -90,7 +91,7 @@ void Bus::send(BinaryChannel& channel, Stream& serial) {
     serial.write(encoded, encoded_len + 1);
 
     // Serial.print("TX     ");
-    // printlnBytes(buf, len, 5);
+    // printlnBytes(buf, len);
     // Serial.print("TX enc ");
     // printlnBytes(encoded, encoded_len + 1);
   }
@@ -101,6 +102,7 @@ void Bus::send(BinaryChannel& channel, Stream& serial) {
 }
 
 void Bus::receive() {
+  // Serial.printf("R\n");
   receive(upper_channel_, lower_channel_, upper_serial_, lower_serial_,
           upper_buf_, upper_received_);
   receive(lower_channel_, upper_channel_, lower_serial_, upper_serial_,
@@ -113,16 +115,20 @@ void Bus::receive(BinaryChannel& channel, BinaryChannel& another_channel,
   while (serial.available() > 0) {
     uint8_t data = serial.read();
 
+    // Serial.printf("%02X", data);
+
+    buf[received] = data;
+    received++;
+
     if (received + 1 >= BUFFER_SIZE) {
       overflowed_ = true;
       error_count_++;
       received = 0;
+#ifdef DEBUG
       Serial.println("Overflowed");
+#endif
       return;
     }
-
-    buf[received] = data;
-    received++;
 
     if (data == 0) {
       // Serial.print("RX     ");
@@ -133,6 +139,10 @@ void Bus::receive(BinaryChannel& channel, BinaryChannel& another_channel,
 
       if (received == 0 || len == 0) {
         error_count_++;
+
+#ifdef DEBUG
+        Serial.println("No Data");
+#endif
         continue;
       }
 
@@ -140,14 +150,16 @@ void Bus::receive(BinaryChannel& channel, BinaryChannel& another_channel,
 
       if (crc8 != decoded[len - 1]) {
         error_count_++;
+#ifdef DEBUG
         Serial.println("CRC Error");
+#endif
         continue;
       }
 
-      // Serial.print("RX dec ");
-      // printlnBytes(decoded, len - 1, 5);
+      // Serial.print("\nRX dec ");
+      // printlnBytes(decoded, len - 1);
 
-      channel.read(buf, len - 1);
+      channel.read(decoded, len - 1);
 
       send(another_channel, another_serial, channel.rx);
 

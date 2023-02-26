@@ -1,10 +1,12 @@
 #include <TaskScheduler.h>
 #include <SoftwareSerial.h>
+#include <map>
+#include <ctype.h>
 
 #include "RP2040Module.h"
 #include "TWELITE.h"
 
-
+// #define DEBUG
 
 // Constants
 #define SEND_CONNECTION_FREQ 1
@@ -16,6 +18,8 @@
 #define TWE_CHANNEL "12,18,25"
 #define TWE_DEST_ID 0x78
 
+#define TWE_MAX_FREQ_PER_MESSAGE 11
+
 // Tasks
 
 Scheduler scheduler;
@@ -26,7 +30,6 @@ Task task_send_connection(
   &send_connection, &scheduler, false);
 
 
-
 // Objects
 
 RP2040Module module;
@@ -34,6 +37,10 @@ RP2040Module module;
 SoftwareSerial twe_serial(TWE_RX_PIN, TWE_TX_PIN);
 TWELITE twelite(twe_serial);
 unsigned twelite_error_count;
+
+
+// Variables
+std::map<uint8_t, unsigned long> twe_last_sent_millis;
 
 
 void setup() {
@@ -70,10 +77,32 @@ void send_connection() {
 }
 
 void twelite_send(const Message& message) {
-  Message reduced = message;
+  // Serial.println("SEND");
+  // message.print();
+  if (!isupper(message.id)) return;
 
-  Serial.println("TWE TX");
-  message.print();
+  if (millis() - twe_last_sent_millis[message.id]
+      < 1000 / TWE_MAX_FREQ_PER_MESSAGE) return;
+
+  twe_last_sent_millis[message.id] = millis();
+
+
+  Message reduced;
+  reduced.id = message.id;
+  reduced.from = message.from;
+  reduced.size = 0;
+  for (int n = 0; n < message.size; n++) {
+    if (isupper(message.entries[n].type)) {
+      reduced.entries[reduced.size] = message.entries[n];
+      reduced.size++;
+    }
+  }
+
+  if (reduced.size == 0) return;
+
+#ifdef DEBUG
+  reduced.print();
+#endif
 
   twelite.send(reduced);
 
@@ -81,8 +110,12 @@ void twelite_send(const Message& message) {
 }
 
 void twelite_receive(const Message& message) {
+#ifdef DEBUG
   Serial.println("TWE RX");
   message.print();
+#endif
+
+  module.bus.send(message);
 }
 
 
