@@ -137,28 +137,10 @@ Entry& Entry::operator=(const Entry& entry) {
 }
 
 
-Message::Message(): id(0), to(0), from(0), size(0) {};
-Message::Message(uint8_t id, uint8_t to, uint8_t from, uint8_t size):
-		id(id), to(to), from(from), size(size) {};
+Message::Message(): id(0), from(0), size(0) {};
+Message::Message(uint8_t id, uint8_t from, uint8_t size):
+		id(id), from(from), size(size) {};
 
-
-
-void Message::setHeader(Entry header) {
-	id = header.payload.bytes[0];
-	to = header.payload.bytes[1];
-	from = header.payload.bytes[2];
-	size = header.payload.bytes[3];
-}
-
-Entry Message::getHeader() const {
-	Entry header;
-	header.type = 0;
-	header.payload.bytes[0] = id;
-	header.payload.bytes[1] = to;
-	header.payload.bytes[2] = from;
-	header.payload.bytes[3] = size;
-	return header;
-}
 
 float Message::get(uint8_t type, uint8_t index, float dufault) const {
 	Payload p = { .float_ = 0.0 };
@@ -193,7 +175,7 @@ void Message::addTimestamp(uint32_t time) {
 }
 
 void Message::print() const {
-  Serial.printf("%c (%c<-%c) (%d)\n", id, to, from, size);
+  Serial.printf("%c (%c) [%d]\n", id, from, size);
   for (int n = 0; n < size; n++) {
     Serial.print("  ");
     entries[n].print();
@@ -203,7 +185,6 @@ void Message::print() const {
 
 Message& Message::operator=(const Message& message) {
 	id = message.id;
-	to = message.to;
 	from = message.from;
 	size = message.size;
 	for (int n = 0; n < size; n++) {
@@ -219,45 +200,6 @@ Queue<N>::Queue() {
 	write_ptr_ = 0;
 }
 
-//template<uint8_t N>
-//bool Queue<N>::push(Message& message) {
-//	if (size_ == N) return false;
-//
-//	buf[write_ptr_] = message;
-//
-//	return push();
-//}
-//
-//template<uint8_t N>
-//bool Queue<N>::push() {
-//	if (size_ == N) return false;
-//
-//	write_ptr_++;
-//	if (write_ptr_ >= N) write_ptr_ = 0;
-//	size_++;
-//
-//	return true;
-//}
-//
-//template<uint8_t N>
-//bool Queue<N>::pop(Message& message) {
-//	if (size_ == 0) return false;
-//
-//	message = first();
-//
-//	return pop();
-//}
-//
-//template<uint8_t N>
-//bool Queue<N>::pop() {
-//	if (size_ == 0) return false;
-//
-//	read_ptr_++;
-//	if (read_ptr_ >= N) read_ptr_ = 0;
-//	size_--;
-//
-//	return true;
-//}
 
 template<uint8_t TXQ>
 Channel<TXQ>::Channel() {
@@ -269,11 +211,11 @@ BinaryChannel::BinaryChannel(): Channel() {}
 
 
 bool BinaryChannel::read(const uint8_t* data, uint8_t len) {
-  unsigned i = 0;
-  Entry header;
-  i += header.decode(data);
+  rx.id   = data[0];
+  rx.from = data[1];
+  rx.size = data[2];
 
-  rx.setHeader(header);
+  unsigned i = 3;
 
   for (uint8_t n = 0; n < rx.size; n++) {
     if (i > len) {
@@ -292,12 +234,14 @@ unsigned BinaryChannel::write(uint8_t* data) {
   if (tx.size() == 0) {
 		return 0;
 	}
-  unsigned i = 0;
 
-	Entry header = tx.first().getHeader();
-	i += header.encode(data);
+  data[0] = tx.first().id;
+  data[1] = tx.first().from;
+  data[2] = tx.first().size;
+
+  unsigned i = 3;
   for (uint8_t n = 0; n < tx.first().size; n++) {
-		i += tx.first().entries[n].encode(data + i);
+    i += tx.first().entries[n].encode(data + i);
   }
 
 	tx.pop();
@@ -309,70 +253,5 @@ unsigned BinaryChannel::nextWriteSize() const {
   if (tx.size() == 0) {
     return 0;
   }
-  return (tx.first().size + 1) * 5;
+  return 3 + tx.first().size * 5;
 }
-
-// bool BinaryChannel::receive(uint8_t data) {
-//   rx_buf_[rx_buf_count_] = data;
-//   if (rx_buf_count_ == 0) {
-//     Entry entry;
-//     rx_buf_max_ = entry.decode(rx_buf_);
-//   }
-
-//   rx_buf_count_++;
-
-//   if (rx_buf_count_ >= rx_buf_max_) {
-//     Entry entry;
-//     entry.decode(rx_buf_);
-
-//     if (entry.type == 0) {
-//       rx.setHeader(entry);
-
-//       if (rx.size > MAX_ENTRIES) rx.size = MAX_ENTRIES;
-
-//       receiving_ = 0;
-//     }
-//     else if (receiving_ != -1){
-//       rx.entries[receiving_] = entry;
-//       receiving_++;
-//     }
-
-//     if (receiving_ >= rx.size) {
-//       receiving_ = -1;
-//       return true;
-//     }
-
-//     rx_buf_count_ = 0;
-//   }
-
-//   return false;
-// }
-
-
-// uint8_t BinaryChannel::send(uint8_t* data, uint8_t& len) {
-//   if (tx.size() == 0) {
-// 		len = 0;
-// 		return 0;
-// 	}
-
-// 	if (sending_ == -1) {
-// 		Entry header = tx.first().getHeader();
-// 		len = header.encode(data);
-// 		sending_ = 0;
-// 	}
-// 	else {
-// 		len = tx.first().entries[sending_].encode(data);
-// 		sending_++;
-// 	}
-
-// 	int remains = tx.first().size - sending_;
-// 	if (remains == 0) {
-// 		sending_ = -1;
-
-// 		tx.pop();
-// 	}
-
-// 	return tx.size();
-// }
-
-

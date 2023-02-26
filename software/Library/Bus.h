@@ -27,6 +27,7 @@ public:
 
   void listen(MessageCallback func);
   void listen(uint8_t id, MessageCallback func);
+  void unlisten();
 
   void send(const Message& message);
   void send();
