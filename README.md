@@ -2,6 +2,8 @@
 
 モデルロケットに搭載可能な，小型かつ拡張可能な電装
 
+![Mission Logo](docs/mission_logo.png)
+
 
 # 要求
 
