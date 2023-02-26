@@ -54,18 +54,14 @@ struct Entry {
 
 struct Message {
 	uint8_t id;
-	uint8_t to;
 	uint8_t from;
 	uint8_t size;
 	Entry entries[MAX_ENTRIES];
 
 	Message();
-	Message(uint8_t id, uint8_t to, uint8_t from, uint8_t size);
+	Message(uint8_t id, uint8_t from, uint8_t size);
 
-	void setHeader(Entry header);
-	Entry getHeader() const;
-
-	float get(uint8_t type, uint8_t index, float default_) const;
+  float get(uint8_t type, uint8_t index, float default_) const;
 	bool get(uint8_t type, uint8_t index = 0) const;
 	bool get(uint8_t type, uint8_t index, union Payload& p) const;
 

@@ -44,6 +44,11 @@ void Bus::listen(uint8_t id, MessageCallback func) {
   specified_listeners_.insert(std::make_pair(id, func));
 }
 
+void Bus::unlisten() {
+  listeners_.clear();
+  specified_listeners_.clear();
+}
+
 void Bus::send() {
   send(upper_channel_, upper_serial_);
   send(lower_channel_, lower_serial_);
@@ -64,7 +69,6 @@ void Bus::send(BinaryChannel &channel, Stream &serial, const Message &message) {
 }
 
 void Bus::send(BinaryChannel& channel, Stream& serial) {
-  uint8_t buf[BUFFER_SIZE];
   unsigned len;
 
   while ((len = channel.nextWriteSize()) > 0) {
@@ -72,6 +76,8 @@ void Bus::send(BinaryChannel& channel, Stream& serial) {
       task_resend_.enable();
       return;
     }
+
+    uint8_t buf[BUFFER_SIZE];
 
     len = channel.write(buf);
 
@@ -119,8 +125,8 @@ void Bus::receive(BinaryChannel& channel, BinaryChannel& another_channel,
     received++;
 
     if (data == 0) {
-      Serial.print("RX     ");
-      printlnBytes(buf, received - 1);
+      // Serial.print("RX     ");
+      // printlnBytes(buf, received - 1);
 
       uint8_t decoded[BUFFER_SIZE + 2];
       unsigned len = COBS::decode(buf, received - 1, decoded);
@@ -138,8 +144,8 @@ void Bus::receive(BinaryChannel& channel, BinaryChannel& another_channel,
         continue;
       }
 
-      Serial.print("RX dec ");
-      printlnBytes(decoded, len - 1, 5);
+      // Serial.print("RX dec ");
+      // printlnBytes(decoded, len - 1, 5);
 
       channel.read(buf, len - 1);
 
@@ -161,122 +167,3 @@ void Bus::receive(BinaryChannel& channel, BinaryChannel& another_channel,
   }
 }
 
-// void Bus::receive() {
-
-//   while (upper_serial_.available() > 0) {
-//     uint8_t data = upper_serial_.read();
-
-//     if (upper_received_ + 1 < BUFFER_SIZE) {
-//       upper_buf_[upper_received_] = data;
-//       upper_received_++;
-//     }
-//     else {
-//       overflowed_ = true;
-//       error_count_++;
-//       upper_received_ = 0;
-//       Serial.println("Overflowed");
-//     }
-
-//     if (data == 0) {
-
-//       Serial.print("RX     ");
-//       printlnBytes(upper_buf_, upper_received_ - 1);
-
-//       uint8_t decoded[BUFFER_SIZE + 2];
-//       unsigned len = COBS::decode(upper_buf_, upper_received_ - 1, decoded);
-
-//       if (upper_received_ == 0 || len == 0) {
-//         error_count_++;
-//       }
-//       else {
-//         uint8_t crc8 = CRC8.smbus(decoded, len - 1);
-
-//         if (crc8 != decoded[len - 1]) {
-//           error_count_++;
-//           Serial.println("CRC Error");
-//         }
-//         else {
-//           lower_serial_.write(upper_buf_, upper_received_);
-
-//           Serial.print("RX dec ");
-//           printlnBytes(decoded, len - 1, 5);
-
-//           overflowed_ = false;
-
-//           receiveData(decoded, len - 1);
-//         }
-//       }
-
-//       upper_received_ = 0;
-//     }
-//   }
-
-//   while (lower_serial_.available() > 0) {
-//     uint8_t data = lower_serial_.read();
-
-//     Serial.print(data, HEX);
-//     Serial.print(" ");
-
-//     if (lower_received_ + 1 < BUFFER_SIZE) {
-//       lower_buf_[lower_received_] = data;
-//       lower_received_++;
-//     }
-//     else {
-//       overflowed_ = true;
-//       error_count_++;
-//       lower_received_ = 0;
-//       Serial.println("Overflowed");
-//     }
-
-//     if (data == 0) {
-
-//       Serial.print("RX     ");
-//       printlnBytes(lower_buf_, lower_received_ - 1);
-
-
-//       uint8_t decoded[BUFFER_SIZE + 2];
-//       unsigned len = COBS::decode(lower_buf_, lower_received_ - 1, decoded);
-
-//       if (lower_received_ == 0 || len == 0) {
-//         error_count_++;
-//       }
-//       else {
-//         uint8_t crc8 = CRC8.smbus(decoded, len - 1);
-
-//         if (crc8 != decoded[len - 1]) {
-//           error_count_++;
-//           Serial.println("CRC Error");
-//         }
-//         else {
-//           upper_serial_.write(lower_buf_, lower_received_);
-
-//           Serial.print("RX dec ");
-//           printlnBytes(decoded, len - 1, 5);
-
-//           overflowed_ = false;
-
-//           receiveData(decoded, len - 1);
-//         }
-//       }
-
-//       lower_received_ = 0;
-//     }
-//   }
-
-// }
-
-
-// void Bus::receiveData(const uint8_t* data, const size_t size) {
-//   channel.read(data, size);
-
-//   for (const auto& f : listeners_) {
-//     f(channel.rx);
-//   }
-
-//   auto range = specified_listeners_.equal_range(channel.rx.id);
-//   for (auto itr = range.first; itr != range.second; itr++) {
-//     itr->second(channel.rx);
-//   }
-
-//   message_count_++;
-// }
