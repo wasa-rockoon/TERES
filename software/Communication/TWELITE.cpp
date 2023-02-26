@@ -56,7 +56,11 @@ void TWELITE::send() {
 
   while ((len = channel_.nextWriteSize()) > 0) {
     if (digitalRead(TWE_RTS_PIN)) {
+
+#ifdef DEBUG
       Serial.println("STOP");
+#endif
+
       return;
     }
 
@@ -90,13 +94,18 @@ void TWELITE::send() {
 void TWELITE::receive() {
   while (serial_.available() > 0) {
     rx_buf_[rx_count_] = serial_.read();
+
+#ifdef DEBUG
     Serial.printf("%02X", rx_buf_[rx_count_]);
+#endif
     rx_count_++;
 
     if (rx_count_ >= TWE_BUF_SIZE) {
       error();
       rx_count_ = 0;
+#ifdef DEBUG
       Serial.println("OVERFLOW");
+#endif
     }
 
     if (rx_count_ < 4) continue;
@@ -104,7 +113,9 @@ void TWELITE::receive() {
     if (rx_buf_[0] != 0xA5 || rx_buf_[1] != 0x5A) {
       error();
       rx_count_ = 0;
+#ifdef DEBUG
       Serial.println("INVALID");
+#endif
       continue;
     }
 
@@ -123,7 +134,9 @@ void TWELITE::receive() {
 
     if (check_sum != rx_buf_[4 + ex_len] || rx_buf_[5 + ex_len] != 0x04) {
       error();
+#ifdef DEBUG
       Serial.printf("CHECKSUM %X != %X\n", check_sum, rx_buf_[4 + ex_len]);
+#endif
     }
     else if (buf[0] == 0xDB) { // ACK message
       uint8_t ack_id = buf[2];
@@ -131,12 +144,16 @@ void TWELITE::receive() {
       if (buf[1] != 0xA1 || !ok) error();
       else sent_count_++;
 
+#ifdef DEBUG
       Serial.printf("ACK %d\n", ok);
+#endif
     }
     else if (buf[0] <= 0x64 || buf[0] == 0x78) { // Receive
       if (buf[1] != 0xA0) {
         error();
+#ifdef DEBUG
         Serial.println("ERROR");
+#endif
       }
       else {
         uint8_t ack_id = buf[2];

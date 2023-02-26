@@ -8,6 +8,8 @@
 
 #include "RP2040Module.h"
 
+#define DEBUG
+
 // #define SET_RTC_TIME
 #define SECOND_ADJUSTMENT 6
 
@@ -50,7 +52,7 @@ BinaryChannel log_channel;
 
 File file;
 bool sd_ok = false;
-unsigned wrote_bytes = 0;
+unsigned wrote_count = 0;
 unsigned dropped_count = 0;
 
 
@@ -150,9 +152,9 @@ void send_time() {
           tm.Hour, tm.Minute, tm.Second);
   Serial.println(s);
 
-  Message message('l', 0, 0, 3);
+  Message message('l', 0, 3);
   message.entries[0].set('t', (int32_t)t);
-  message.entries[1].set('w', (uint32_t)wrote_bytes);
+  message.entries[1].set('w', (uint32_t)wrote_count);
   message.entries[2].set('d', (uint32_t)dropped_count);
 
   module.bus.send(message);
@@ -163,7 +165,7 @@ void send_time() {
 
   file.flush();
 
-  Serial.printf("Wrote %d bytes.\n", wrote_bytes);
+  Serial.printf("Wrote %d bytes.\n", wrote_count);
 }
 
 void write_log(const Message& message) {
@@ -193,7 +195,7 @@ void write_log(const Message& message) {
 
     file.write(encoded, encoded_len + 1);
 
-    wrote_bytes += encoded_len + 1;
+    wrote_count += encoded_len + 1;
   }
 
   module.indicator.blink(1);
