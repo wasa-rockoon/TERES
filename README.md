@@ -110,3 +110,10 @@
 ## Arduino
 
 Arduino のライブラリディレクトリに，`software/Library/`のシンボリックリンク（またはコピー）を追加する．
+
+
+# 使い方
+## 動画を生成する
+```
+python script/make_movie.py "<連番画像フォルダのパス>"
+```
