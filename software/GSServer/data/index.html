@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ground Station</title>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="pure-min.css">
+    <link rel="stylesheet" href="style.css">
+
+
+    <script src="jquery.js"></script>
+    <script src="chart.min.js"></script>
+    <script src="colorschemes.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    </style>
+  </head>
+
+  <body>
+    <div id="connection-error" class="error">
+      <div class="message">
+        Error: cannot connect to server
+      </div>
+      <div class="buttons">
+        <button id="retry-button" class="pure-button">Retry</button>
+        <input type="file" id="select-file" accept="text/*">
+        <!-- <button id="read-file-button" class="pure-button">Read file</button> -->
+      </div>
+    </div>
+
+    <!-- <div class="pure-u-1-3">
+         <p>Rocket</p>
+         <div id="rocket-packets">
+         </div>
+         </div> -->
+    <div class="pure-u-8-24">
+    </div>
+    <div class="pure-u-8-24">
+      <div id="charts">
+      </div>
+    </div>
+    <div class="pure-u-7-24">
+      <p>Packets</p>
+      <div id="packets" class="packets">
+      </div>
+    </div>
+    </div>
+  </body>
+</html>
