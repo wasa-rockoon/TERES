@@ -1,13 +1,21 @@
+#ifdef ARDUINO_ARCH_RP2040
+
 #include "RP2040Module.h"
+#include "Bus.h"
 
 #include <Arduino.h>
 
 
-RP2040Module* rp2040_instance;
+RP2040Module *rp2040_instance;
 
-RP2040Module::RP2040Module():
-  bus(Serial2, Serial1),
-  indicator(LED_STATUS_PIN, LED_ERROR_PIN) {
+void wdt_reset(){
+  rp2040.wdt_reset();
+}
+
+RP2040Module::RP2040Module()
+    : bus(Serial2, Serial1), indicator(LED_STATUS_PIN, LED_ERROR_PIN),
+      task_wdt_(WDT_DURATION / 4 * TASK_MILLISECOND, TASK_FOREVER, wdt_reset,
+                &scheduler, false) {
   rp2040_instance = this;
 }
 
@@ -32,6 +40,9 @@ bool RP2040Module::begin() {
 
   bus_error_count_ = bus.getErrorCount();
 
+  task_wdt_.enable();
+  rp2040.wdt_begin(WDT_DURATION);
+
   return true;
 }
 
@@ -53,3 +64,5 @@ void serialEvent2() {
   }
 }
 
+
+#endif

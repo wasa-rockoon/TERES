@@ -2,6 +2,7 @@
 
 #include "Bus.h"
 #include "Indicator.h"
+#include <TaskSchedulerDeclarations.h>
 
 // Pin assign
 #define LED_STATUS_PIN 0
@@ -14,7 +15,9 @@
 
 // Constants
 #define SERIAL_BAUD 115200
-#define BUS_FIFO_SIZE 128
+#define BUS_FIFO_SIZE 4096
+
+#define WDT_DURATION 4000
 
 class RP2040Module {
 
@@ -28,6 +31,8 @@ public:
 
 private:
   unsigned bus_error_count_;
+
+  Task task_wdt_;
 
   friend void serialEvent1();
   friend void serialEvent2();

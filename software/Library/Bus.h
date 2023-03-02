@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <vector>
 #include <functional>
 #include <Arduino.h>
 #include <TaskSchedulerDeclarations.h>

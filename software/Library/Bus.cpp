@@ -1,5 +1,7 @@
 #include "Bus.h"
 
+// #define DEBUG
+
 // #include <Encoding/COBS.h>
 #include <PacketSerial.h>
 #include <FastCRC.h>
@@ -14,6 +16,7 @@ Bus* bus_instance;
 
 void resend() {
   bus_instance->send();
+  // Serial.print("R");
 }
 
 Bus::Bus(Stream& upper_serial, Stream& lower_serial):
@@ -63,8 +66,16 @@ void Bus::send(BinaryChannel &channel, Stream &serial, const Message &message) {
   if (channel.tx.isFull()) {
     channel.tx.pop();
     dropped_count_++;
+#ifdef DEBUG
+    Serial.print("DROPPED");
+#endif
   }
   channel.tx.push(message);
+
+#ifdef DEBUG
+  message.print();
+#endif
+
   send(channel, serial);
 }
 
@@ -131,8 +142,10 @@ void Bus::receive(BinaryChannel& channel, BinaryChannel& another_channel,
     }
 
     if (data == 0) {
+#ifdef DEBUG
       // Serial.print("RX     ");
       // printlnBytes(buf, received - 1);
+#endif
 
       uint8_t decoded[BUFFER_SIZE + 2];
       unsigned len = COBS::decode(buf, received - 1, decoded);
@@ -160,6 +173,10 @@ void Bus::receive(BinaryChannel& channel, BinaryChannel& another_channel,
       // printlnBytes(decoded, len - 1);
 
       channel.read(decoded, len - 1);
+
+#ifdef DEBUG
+      channel.rx.print();
+#endif
 
       send(another_channel, another_serial, channel.rx);
 

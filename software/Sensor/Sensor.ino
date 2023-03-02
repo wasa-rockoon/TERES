@@ -1,8 +1,10 @@
+
 #include <TaskScheduler.h>
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
 #include <Adafruit_BME280.h>
+
 
 #include "RP2040Module.h"
 
@@ -12,8 +14,10 @@
 #define BNO055_ADDR 0x28
 #define BNE280_ADDR 0x76
 
-#define SEND_ATT_FREQ 10
-#define SEND_ALT_FREQ 1
+#define SEND_ATT_FREQ 25
+#define SEND_ATT_FREQ_STANDBY 1
+#define SEND_ALT_FREQ 10
+#define SEND_ALT_FREQ_STANDBY 1
 
 #define QNH_HPA (1013.25)
 
@@ -22,12 +26,12 @@
 Scheduler scheduler;
 
 void send_attitude();
-Task task_send_attitude(1000 / SEND_ATT_FREQ * TASK_MILLISECOND, TASK_FOREVER,
-                    &send_attitude, &scheduler, false);
+Task task_send_attitude(TASK_SECOND / SEND_ATT_FREQ_STANDBY,
+                        TASK_FOREVER, &send_attitude, &scheduler, false);
 
 void send_altitude();
-Task task_send_altitude(1000 / SEND_ALT_FREQ * TASK_MILLISECOND, TASK_FOREVER,
-                        &send_altitude, &scheduler, false);
+Task task_send_altitude(TASK_SECOND / SEND_ALT_FREQ_STANDBY,
+                        TASK_FOREVER, &send_altitude, &scheduler, false);
 
 
 // Objects
@@ -56,6 +60,8 @@ void setup() {
 
   if (bno_ok) task_send_attitude.enable();
   if (bme_ok) task_send_altitude.enable();
+
+  module.bus.listen('m', changeMode);
 
   if (module_ok && bno_ok && bme_ok) {
     module.indicator.clearError();
@@ -111,6 +117,17 @@ void send_altitude() {
 
   module.indicator.blink(1);
 
+}
+
+void changeMode(const Message& message) {
+  /* if (message.get('F')) { */
+    task_send_attitude.setInterval(TASK_SECOND / SEND_ATT_FREQ);
+    task_send_altitude.setInterval(TASK_SECOND / SEND_ALT_FREQ);
+  /* } */
+  /* else if (message.get('S')) { */
+  /*   task_send_attitude.setInterval(TASK_SECOND / SEND_ATT_FREQ_STANDBY); */
+  /*   task_send_altitude.setInterval(TASK_SECOND / SEND_ALT_FREQ_STANDBY); */
+  /* } */
 }
 
 void loop() {
