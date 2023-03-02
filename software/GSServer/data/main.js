@@ -40,13 +40,13 @@ const command_format = {
       'd': { name: 'Vdd', unit: 'A', datatype: 'float' },
     }
   },
-  'L': {
+  'P': {
     name: 'GPS',
     entries: {
       'O': { name: 'Longitude',    unit: '°',   datatype: 'int' },
       'A': { name: 'Latitude',     unit: '°',   datatype: 'int' },
       'H': { name: 'Altitude',      unit: 'm',   datatype: 'float' },
-      'U': { name: 'Time',         unit: 's',   datatype: 'time' },
+      'T': { name: 'Time',         unit: 's',   datatype: 'time' },
       'S': { name: 'Satellites', datatype: 'int' },
     }
   },
@@ -125,7 +125,7 @@ function chartConfig() {
     {
       name: 'Altitude',
       x: 't',
-      y: ['H.A', 'L.H'],
+      y: ['H.A', 'P.H'],
       xLabel: 't [s]',
       yLabel: 'Altitude [m]'
     },
@@ -138,8 +138,8 @@ function chartConfig() {
     },
     {
       name: 'Location',
-      x: 'L.O',
-      y: ['L.A'],
+      x: 'P.O',
+      y: ['P.A'],
       xLabel: 'Longitude [deg]',
       yLabel: 'Latitude [deg]',
       // xMin: 132,
@@ -166,7 +166,7 @@ function chartConfig() {
     {
       name: 'Satelites',
       x: 't',
-      y: ['L.S'],
+      y: ['P.S'],
       xLabel: 't [s]',
       yLabel: 'Satelites'
     },

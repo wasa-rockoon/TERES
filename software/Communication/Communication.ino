@@ -6,7 +6,7 @@
 #include "RP2040Module.h"
 #include "TWELITE.h"
 
-// #define DEBUG
+/* #define DEBUG */
 
 // Constants
 #define SEND_CONNECTION_FREQ 1
@@ -26,7 +26,7 @@ Scheduler scheduler;
 
 void send_connection();
 Task task_send_connection(
-  1000 / SEND_CONNECTION_FREQ * TASK_MILLISECOND, TASK_FOREVER,
+  TASK_SECOND / SEND_CONNECTION_FREQ, TASK_FOREVER,
   &send_connection, &scheduler, false);
 
 
@@ -115,7 +115,10 @@ void twelite_receive(const Message& message) {
   message.print();
 #endif
 
-  module.bus.send(message);
+  Message received = message;
+  received.from = 'G';
+
+  module.bus.send(received);
 }
 
 

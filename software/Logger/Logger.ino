@@ -98,6 +98,8 @@ bool sd_init() {
     return false;
   }
 
+  delay(100);
+
   Serial.println("SD card init.");
 
   if (!SD.begin(SDCARD_SS_PIN)) {
@@ -164,7 +166,7 @@ void send_time() {
 
   file.flush();
 
-  Serial.printf("Wrote %d bytes.\n", wrote_count);
+  Serial.printf("Wrote %d, Dropped %d.\n", wrote_count, dropped_count);
 }
 
 void write_log(const Message& message) {
@@ -184,7 +186,10 @@ void write_log(const Message& message) {
   unsigned len;
 
   while ((len = log_channel.nextWriteSize()) > 0) {
-    if (file.availableForWrite() < len + 3) return;
+    /* Serial.println(file.availableForWrite()); */
+    if (!file.availableForWrite()) {
+      return;
+    }
 
     len = log_channel.write(buf);
 
@@ -194,7 +199,7 @@ void write_log(const Message& message) {
 
     file.write(encoded, encoded_len + 1);
 
-    wrote_count += encoded_len + 1;
+    wrote_count++;
   }
 
   module.indicator.blink(1);

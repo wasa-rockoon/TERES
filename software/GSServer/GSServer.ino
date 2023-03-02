@@ -231,7 +231,7 @@ void loop1() {
     printSwitchState();
 
     if (switch_state != SwitchState::NotSelected) {
-      Command command('M', 'L', 0, 1);
+      Command command('m', 'L', 0, 1);
       uint8_t type = switch_state == SwitchState::AllowLaunch ? 'F' : 'S';
       command.entries[0].set(type);
 
