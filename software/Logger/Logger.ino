@@ -59,24 +59,6 @@ unsigned dropped_count = 0;
 void setup() {
   // put your setup code here, to run once:
 
-  Wire.setSDA(I2C0_SDA_PIN);
-  Wire.setSCL(I2C0_SCL_PIN);
-  Wire.begin();
-
-  // RTC
-
-#ifdef SET_RTC_TIME
-  tmElements_t tm;
-  initDateTime(tm);
-  rtc.write(tm);
-#endif
-
-  task_send_time.enable();
-
-  bool ok = module.begin();
-}
-
-void setup1() {
   pinMode(SD_INSERTED_PIN, INPUT_PULLUP);
 
   pinMode(SPI0_CS_PIN, OUTPUT);
@@ -93,6 +75,22 @@ void setup1() {
   }
 
   delay(100);
+
+  Wire.setSDA(I2C0_SDA_PIN);
+  Wire.setSCL(I2C0_SCL_PIN);
+  Wire.begin();
+
+  // RTC
+
+#ifdef SET_RTC_TIME
+  tmElements_t tm;
+  initDateTime(tm);
+  rtc.write(tm);
+#endif
+
+  task_send_time.enable();
+
+  bool ok = module.begin();
 }
 
 bool sd_init() {
@@ -191,9 +189,9 @@ void write_log(const Message& message) {
 
   while ((len = log_channel.nextWriteSize()) > 0) {
     /* Serial.println(file.availableForWrite()); */
-    /* if (!file.availableForWrite()) { */
-    /*   return; */
-    /* } */
+    if (!file.availableForWrite()) {
+      return;
+    }
 
     len = log_channel.write(buf);
 
@@ -212,10 +210,6 @@ void write_log(const Message& message) {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  scheduler.execute();
-}
-
-void loop1() {
   if (sd_ok) {
     if (digitalRead(SD_INSERTED_PIN)) {
       Serial.println("SD card removed.");
@@ -228,6 +222,8 @@ void loop1() {
     sd_ok = sd_init();
     if (sd_ok) module.indicator.clearError();
   }
+
+  scheduler.execute();
 }
 
 bool initDateTime(tmElements_t& tm) {
