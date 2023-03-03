@@ -966,6 +966,9 @@ function parseCommandHex(line) {
       case 'bytes':
         entry.payload = [0, 1, 2, 3].map(i => view.getUint8(3 - i));
         break;
+      case 'int_deg':
+        entry.payload = view.getInt32(0) / 10000000.0;
+        break;
       case 'diag':
         entry.payload = view.getUint32(0);
         const modules = view.getUint8(0);
