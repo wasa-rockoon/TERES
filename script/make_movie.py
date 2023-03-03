@@ -6,8 +6,8 @@ import sys
 import subprocess
 import shutil
 
-FRAMERATE = 30
-FRAMERATE_OUT = 60
+FRAMERATE = 25
+FRAMERATE_OUT = 25
 
 FILE_NAME  = 'pic%d.jpg'
 OUTPUT = 'out.mp4'

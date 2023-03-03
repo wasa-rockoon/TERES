@@ -15,7 +15,7 @@
 #include "Bus.h"
 #include "Indicator.h"
 
-/* #define OV5640 */
+#define OV5640
 
 #define SPI0_SCK 11
 #define SPI0_MOSI 10
@@ -47,6 +47,8 @@
 
 #define SEND_TLM_FREQ 1
 
+#define CHANGE_FOLDER_FRAMES (25 * 60)
+
 
 Scheduler scheduler;
 
@@ -77,7 +79,7 @@ sd_t sd;
 file_t file;
 
 bool camera_ok = false;
-bool recording = false;
+bool recording = true;
 
 
 Bus bus(Serial2, Serial1);
@@ -168,6 +170,7 @@ void setup() {
 
   camera_ok = true;
 
+
   Serial.println("Start");
 
   xTaskCreatePinnedToCore(core0, "core0", 8192, NULL, 3, &thp[0], 0);
@@ -243,6 +246,11 @@ void loop1() {
 
   unsigned long start_millis = millis();
 
+  if (i > CHANGE_FOLDER_FRAMES) {
+    new_capture();
+    i = 0;
+  }
+
   if (camera_ok && recording) {
     camera_fb_t * fb = NULL;
     // Take Picture with Camera
@@ -282,7 +290,6 @@ void loop1() {
       sleep_millis = sleep_millis % frame;
       i++;
     }
-
 
     Serial.printf("%d cap, %d sd, %d sleep, skip:%d\n",
                   captured_millis - start_millis,
