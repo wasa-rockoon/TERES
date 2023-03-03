@@ -619,9 +619,8 @@ function addHexCommand(line) {
   command.updated = true;
   command.local = command.from == '\0';
 
-  addHistory(command);
-
   if (!command.local) {
+    addHistory(command);
     packets[command.id] = command;
   }
 
