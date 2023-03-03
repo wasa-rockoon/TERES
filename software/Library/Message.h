@@ -6,9 +6,7 @@
 #define MAX_ENTRIES 16
 #endif
 
-#define BIN_TX_QUEUE_SIZE 8
-#define HEX_TX_QUEUE_SIZE 8
-#define CAN_TX_QUEUE_SIZE 8
+#define BIN_TX_QUEUE_SIZE 16
 
 union Payload {
 	uint8_t bytes[4];
