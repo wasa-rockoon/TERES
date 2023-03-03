@@ -154,6 +154,8 @@ function chartConfig() {
       // xMax: 134,
       // yMin: 32,
       // yMax: 34,
+      // xStepSize: 0.001,
+      // yStepSize: 0.001,
       aspect: 1,
       // background: mapImage,
     },
@@ -212,7 +214,8 @@ function createCharts() {
         if (!command) console.error(ids[0], 'not found');
         return {
           id: ids[0],
-          entry_type: ids[1],
+          entry_type_x: chart.x.split('.').slice(-1),
+          entry_type_y: ids[1],
           index: ids.length > 2 ? ids[2] : null,
           label: command.entries[ids[1]].name +
             (ids.length > 2 ? '.' + ids[2] : ''),
@@ -250,7 +253,8 @@ function createCharts() {
             },
             ticks:  {
               min: chart.xMin,
-              max: chart.xMax
+              max: chart.xMax,
+              stepSize: chart.xStepSize,
             },
             scaleLabel: {
               display: true,
@@ -264,7 +268,8 @@ function createCharts() {
             },
             ticks:  {
               min: chart.yMin,
-              max: chart.yMax
+              max: chart.yMax,
+              stepSize: chart.yStepSize,
             },
             scaleLabel: {
               display: true,
@@ -288,27 +293,30 @@ function addHistory(command) {
   for (chart of charts) {
     if (true) {
       // console.log(chart, command)
-      const x_entry = command.entries.find(entry => entry.type == chart.x)
-      if (!x_entry) {
-        // console.log('Can\'t find x', chart.id, chart.x);
-        continue;
-      }
-      const x = x_entry.payload;
       chart.chart.data.datasets.forEach((dataset) => {
         if (dataset.id != command.id) return;
 
+        const x_entry = command.entries.find(
+          entry => entry.type == dataset.entry_type_x)
+        if (!x_entry) {
+          console.log('Can\'t find x', dataset.id, dataset.entry_type_x);
+          return;
+        }
+        const x = x_entry.payload;
+
+
         let y_entry = command.entries.find(
-          entry => entry.type == dataset.entry_type);
+          entry => entry.type == dataset.entry_type_y);
 
         if (dataset.index) {
           y_entry = command.entries.find(
-            entry => entry.type == dataset.entry_type
+            entry => entry.type == dataset.entry_type_y
               && entry.index == dataset.index );
         }
 
-        // console.log(command.entries, dataset.entry_type)
+        // console.log(command.entries, dataset.entry_type_y)
         if (!y_entry) {
-          console.log('Can\'t find y', chart.y, dataset.entry_type);
+          console.log('Can\'t find y', chart.y, dataset.entry_type_y);
           return;
         }
         const y = y_entry.payload;
