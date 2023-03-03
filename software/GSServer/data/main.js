@@ -107,6 +107,14 @@ const command_format = {
       'F': { name: 'Mode', payload: 'Flight' },
     }
   },
+  'l': {
+    name: 'Logger',
+    entries: {
+      'w': { name: 'Wrote', datatype: 'uint' },
+      'd': { name: 'Dropoed', datatype: 'uint' },
+    }
+  },
+
 
   // 'Sample': {
   //   name: 'Sample',
@@ -282,7 +290,7 @@ function addHistory(command) {
       // console.log(chart, command)
       const x_entry = command.entries.find(entry => entry.type == chart.x)
       if (!x_entry) {
-        // console.error('Can\'t find x', chart.id, chart.x);
+        // console.log('Can\'t find x', chart.id, chart.x);
         continue;
       }
       const x = x_entry.payload;
@@ -300,7 +308,7 @@ function addHistory(command) {
 
         // console.log(command.entries, dataset.entry_type)
         if (!y_entry) {
-          // console.error('Can\'t find y', chart.y, dataset.entry_type);
+          console.log('Can\'t find y', chart.y, dataset.entry_type);
           return;
         }
         const y = y_entry.payload;
@@ -375,13 +383,14 @@ function main() {
   // console.log(sample);
 
   createCharts();
-  render(true);
-  render(false);
+  render();
   updateCharts();
 }
 
 function readFile() {
   fetchCancel();
+
+  createCharts();
 
   var file = $('#select-file')[0].files[0];
   if(!file) {
@@ -389,43 +398,109 @@ function readFile() {
     return;
   }
   var reader = new FileReader();
-  reader.readAsText(file);
+  reader.readAsArrayBuffer(file);
   reader.onload = () => {
-    let lines = reader.result.split('\n').filter(line => line != "");
-    console.log('File read', lines.length);
-    createCharts();
 
-    const size = lines.length;
+    const len = reader.result.byteLength;
+    // const len = 10000;
 
-    function add() {
-      console.log(`${size - lines.length} / ${size}`);
-      for (let n = 0; n < READ_FILE_BREAK; n++) {
-        if (lines.length == 0) {
-          console.log("complete");
-          return;
+    var encoded = new Uint8Array(reader.result, 0, len);
+
+    var decoded_buf = new ArrayBuffer(256);
+    var decoded = new Uint8Array(decoded_buf, 0, 256);
+
+    var next_zero = 0xFF;
+    var src = 0;
+    var rest = 0;
+    var dest = 0;
+
+    console.log(len);
+    // console.log(encoded);
+
+    var packet_bufs = [];
+
+
+    num = 0;
+
+    for (; src < len; src++, rest--) {
+      if (rest == 0) {
+        if (next_zero != 0xFF) {
+          next_zero = encoded[src];
+          rest = next_zero;
+          if (next_zero == 0) {
+            addCommand(decoded.slice(1, dest));
+            num++;
+            dest = 0;
+            next_zero = 0xFF;
+            rest = 1;
+          }
+          else {
+            decoded[dest++] = 0;
+          }
         }
-        let line = lines.shift();
-        let command = addHexCommand(line);
+        else {
+          next_zero = encoded[src];
+          rest = next_zero;
+          if (next_zero == 0) {
+            addCommand(decoded.slice(1, dest));
+            num++;
+            dest = 0;
+            next_zero = 0xFF;
+            rest = 1;
+          }
+          else {
+            decoded[dest++] = 0;
+          }
+        }
       }
-      render(true);
-      render(false);
-      updateCharts();
-      setTimeout(add, 1);
-      // if (command.id == 'n') console.log(command);
+      else {
+        decoded[dest++] = encoded[src];
+      }
     }
 
-    add();
+    // console.log(packet_bufs);
 
-    // addHexCommands('0\n' + reader.result, false);
+    console.log('returned', num);
 
-    setTimeout(() => {
-      fetchCancel();
-      $('#connection-error').hide();
+    $('#connection-error').hide();
+    serevr_error_count = 0;
 
-      render(true);
-      render(false);
-      updateCharts();
-    }, 1000)
+    render();
+    updateCharts();
+
+    // let lines = reader.result.split('\n').filter(line => line != "");
+    // console.log('File read', lines.length);
+    // createCharts();
+
+    // const size = lines.length;
+
+    // function add() {
+    //   console.log(`${size - lines.length} / ${size}`);
+    //   for (let n = 0; n < READ_FILE_BREAK; n++) {
+    //     if (lines.length == 0) {
+    //       console.log("complete");
+    //       return;
+    //     }
+    //     let line = lines.shift();
+    //     let command = addHexCommand(line);
+    //   }
+    //   render();
+    //   updateCharts();
+    //   setTimeout(add, 1);
+    //   // if (command.id == 'n') console.log(command);
+    // }
+
+    // add();
+
+    // // addHexCommands('0\n' + reader.result, false);
+
+    // setTimeout(() => {
+    //   fetchCancel();
+    //   $('#connection-error').hide();
+
+    //   render();
+    //   updateCharts();
+    // }, 1000)
 
   }
 }
@@ -516,6 +591,26 @@ function addHexCommands(str) {
   });
 }
 
+function addCommand(buf) {
+  let command = parseCommand(buf);
+
+  // console.log(buf, command);
+
+  if (!command) return null;
+
+  command.updated = true;
+  command.local = command.from == '\0';
+
+  addHistory(command);
+
+  // if (!command.local) {
+  packets[command.id] = command;
+  // }
+
+  return command;
+}
+
+
 function addHexCommand(line) {
   let command = parseCommandHex(line);
 
@@ -526,7 +621,9 @@ function addHexCommand(line) {
 
   addHistory(command);
 
-  packets[command.id] = command;
+  if (!command.local) {
+    packets[command.id] = command;
+  }
 
   return command;
 }
@@ -656,6 +753,128 @@ function diagnosticsItem(entry) {
 
   return dom;
 }
+
+
+function parseCommand(bytes) {
+
+  const id = String.fromCharCode(bytes[0]);
+  const from = String.fromCharCode(bytes[1]);
+  const size = bytes[2];
+
+  const format = command_format[id];
+  let command = {id: id, to: null, from: from, size: size,
+                 name: format && format.name,
+                 hex: bytes, t: null,
+                 entries: []}
+
+  let indices = {};
+
+  let i = 3;
+  while (true) {
+    if (i >= bytes.length) break;
+
+    const type = String.fromCharCode(bytes[i] & 0b01111111);
+
+    const index = indices[type] == undefined ? 0 : indices[type] + 1;
+    indices[type] = index;
+
+    let entry = {type, index};
+
+    if (format && format.entries[type]) {
+      Object.assign(entry, format.entries[type]);
+    }
+    else {
+      entry.name = type;
+    }
+
+    if ('0' <= type && type <= '9') entry.datatype = 'diag';
+
+
+    let buf = new ArrayBuffer(4);
+    let view = new DataView(buf);
+
+    if (bytes[i] & 0b10000000) {
+      if (entry.payload == undefined) {
+        view.setUint32(0, 0);
+      }
+
+      i += 1;
+    }
+    else {
+      for (let n = 0; n < 4; n++) {
+        view.setUint8(3 - n, bytes[i + n + 1]);
+      }
+
+      i += 5;
+    }
+
+    if (entry.payload != undefined) {
+    }
+    else if (type == 't') {
+      entry.payload = view.getUint32(0) / 1000.0;
+      command.t = entry.payload;
+    }
+    else if (entry.datatype) {
+      switch (entry.datatype) {
+      case 'float':
+        entry.payload = view.getFloat32(0);
+        break;
+      case 'int':
+        entry.payload = view.getInt32(0);
+        break;
+      case 'uint':
+        entry.payload = view.getUint32(0);
+        break;
+      case 'time':
+        entry.payload = new Date(view.getUint32(0) * 1000);
+        break;
+      case 'bytes':
+        entry.payload = [0, 1, 2, 3].map(i => view.getUint8(3 - i));
+        break;
+      case 'diag':
+        entry.payload = view.getUint32(0);
+        const modules = view.getUint8(0);
+
+        const status_bits = [];
+        for (let n = 0; n < 3; n++) {
+          status_bits.push((view.getUint8(3 - n) & 0b1111));
+          status_bits.push((view.getUint8(3 - n) >>> 4) & 0b1111);
+        }
+
+        entry.modules = [];
+        for (let n = 0; n < diagnostics.length; n++) {
+          let s = [];
+          for (let i = 0; i < 4; i++) {
+            s.push(((status_bits[n] & (1 << i)) != 0));
+          }
+          entry.modules.push({
+            error: (modules & (1 << n)) != 0,
+            status: s,
+          })
+          // console.log(modules.toString(2), entry, entry.payload.toString(2), status_bits);
+          // fetchCancel();
+        }
+        break;
+      default:
+        // entry.payload = line.slice(i * 2 + 2, i * 2 + 12);
+        entry.payload = [0, 1, 2, 3].map(i => view.getUint8(3 - i));
+        break;
+      }
+    }
+    else {
+      // entry.payload = line.slice(i * 2 + 2, i * 2 + 12);
+      entry.payload = [0, 1, 2, 3].map(i => view.getUint8(3 - i));
+    }
+
+    command.entries.push(entry);
+  }
+
+  // console.log(command)
+
+  return command;
+}
+
+
 
 function parseCommandHex(line) {
   const hexes = line.replace(/\r?\n/g, '').match(/.{2}/g);
