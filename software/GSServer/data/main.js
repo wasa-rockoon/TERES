@@ -43,8 +43,8 @@ const command_format = {
   'P': {
     name: 'GPS',
     entries: {
-      'O': { name: 'Longitude',    unit: '°',   datatype: 'int' },
-      'A': { name: 'Latitude',     unit: '°',   datatype: 'int' },
+      'O': { name: 'Longitude',    unit: '°',   datatype: 'int_deg' },
+      'A': { name: 'Latitude',     unit: '°',   datatype: 'int_deg' },
       'H': { name: 'Altitude',      unit: 'm',   datatype: 'float' },
       'T': { name: 'Time',         unit: 's',   datatype: 'time' },
       'S': { name: 'Satellites', datatype: 'int' },
@@ -313,11 +313,11 @@ function addHistory(command) {
         }
         const y = y_entry.payload;
 
-        if (chart.name == 'Pressure' && y < 100) {
-          console.log(chart.name, dataset, command.entries, y_entry.type, x, y, )
-        }
+        // if (chart.name == 'Pressure' && y < 100) {
+        //   console.log(chart.name, dataset, command.entries, y_entry.type, x, y, )
+        // }
 
-        if (Math.abs(x) > 1E8 || Math.abs(y) > 1E8) return;
+        // if (Math.abs(x) > 1E8 || Math.abs(y) > 1E8) return;
         if (chart.xDataMin != undefined && x < chart.xDataMin) return;
         if (chart.xDataMax != undefined && x > chart.xDataMax) return;
         if (chart.yDataMin != undefined && y < chart.yDataMin) return;
@@ -829,6 +829,9 @@ function parseCommand(bytes) {
         break;
       case 'bytes':
         entry.payload = [0, 1, 2, 3].map(i => view.getUint8(3 - i));
+        break;
+      case 'int_deg':
+        entry.payload = view.getInt32(0) / 10000000.0;
         break;
       case 'diag':
         entry.payload = view.getUint32(0);
