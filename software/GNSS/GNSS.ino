@@ -8,7 +8,7 @@
 #define GPS_BAUD 9600
 
 #define STATUS_FREQ 1
-#define GPS_LOST_AGE 1000
+#define GPS_LOST_AGE 10000
 
 Scheduler scheduler;
 
