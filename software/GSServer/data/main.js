@@ -29,6 +29,8 @@ let charts = null;
 let mapImage = new Image();
 mapImage.src = 'map.png';
 
+history = {}
+
 const command_format = {
   'B': {
     name: 'Battery',
@@ -111,7 +113,7 @@ const command_format = {
     name: 'Logger',
     entries: {
       'w': { name: 'Wrote', datatype: 'uint' },
-      'd': { name: 'Dropoed', datatype: 'uint' },
+      'd': { name: 'Dropped', datatype: 'uint' },
     }
   },
 
@@ -289,6 +291,11 @@ function createCharts() {
 }
 
 function addHistory(command) {
+
+  if (!history[command.id]) history[command.id] = [];
+
+  history[command.id].push(command);
+
 
   for (chart of charts) {
     if (true) {
@@ -677,7 +684,10 @@ function commandItem(command) {
             ${entries.map(entryItem).join('\n')}
             ${diagnostics.map(diagnosticsItem).join('\n')}
           </table>`);
-  dom.on('click', () => { console.log(command); });
+  dom.on('click', () => {
+    console.log(command);
+    downloadHistory(command.id);
+  });
   return dom;
 }
 function entryItem(entry) {
@@ -761,6 +771,33 @@ function diagnosticsItem(entry) {
   return dom;
 }
 
+
+function downloadHistory(id) {
+  const commands = history[id];
+
+  let data = "";
+
+  for (let entry of commands[0].entries) {
+    data += entry.name + ",";
+  }
+  data += "\n"
+
+  for (let command of commands) {
+    for (let entry of command.entries) {
+      data += entry.payload + ",";
+    }
+    data += "\n"
+  }
+
+  const blob = new Blob([data], {type: "text/csv"})
+
+  const url = (window.URL || window.webkitURL).createObjectURL(blob);
+  const download = document.createElement("a");
+  download.href = url;
+  download.download = commands[0].name;
+  download.click();
+  (window.URL || window.webkitURL).revokeObjectURL(url);
+}
 
 function parseCommand(bytes) {
 
