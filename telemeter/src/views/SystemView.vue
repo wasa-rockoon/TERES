@@ -40,7 +40,7 @@
             Active Flight
           </v-list-subheader>
           
-          <v-dialog v-if="system?.admin" v-model="new_flight.dialog"
+          <v-dialog v-if="system?.admin" v-model="newFlight.dialog"
                     width="auto">
             <template v-slot:activator="{ props }">
               
@@ -53,8 +53,8 @@
               <v-card-title class="my-5">
                 Start New Flight
               </v-card-title>
-              <v-form v-model="form" @submit.prevent="onNewFlight">
-                <v-text-field v-model="new_flight.name"
+              <v-form v-model="newFlight.form" @submit.prevent="onNewFlight">
+                <v-text-field v-model="newFlight.name"
                               label="Name"
                               :rules="[required]">
                 </v-text-field>
@@ -64,9 +64,9 @@
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="primary" @click="new_flight.dialog = false">
+                  <v-btn color="primary" @click="newFlight.dialog = false">
                     Cancel</v-btn>
-                  <v-btn color="primary" :disabled="!new_flight.name"
+                  <v-btn color="primary" :disabled="!newFlight.name"
                          type="submit">
                     Start
                   </v-btn>
@@ -76,17 +76,17 @@
           </v-dialog>
         </v-row>
         
-        <v-list-item v-if="system?.active_flight"
-                     :to="'/flight?id=' + system.active_flight.id">
+        <v-list-item v-if="system?.activeFlight"
+                     :to="'/flight?id=' + system.activeFlight.id">
           <template v-slot:prepend>
             <v-icon icon="mdi-rocket-launch" color="primary"></v-icon>
           </template>
-          <v-list-item-title v-text="system?.active_flight.name">
+          <v-list-item-title v-text="system?.activeFlight.name">
           </v-list-item-title>
           <v-list-item-subtitle>
-            {{showDatetime(system?.active_flight.start_time)}}
+            {{showDatetime(system?.activeFlight.startTime)}}
             ~
-            {{showDatetime(system?.active_flight.end_time)}}
+            {{showDatetime(system?.activeFlight.endTime)}}
           </v-list-item-subtitle>
           
         </v-list-item>
@@ -109,8 +109,7 @@
                 Upload Log File
               </v-card-title>
               <v-form v-model="upload.form" @submit.prevent="onUpload">
-                <v-text-field v-model="upload.name"
-                              label="Name"
+                <v-text-field v-model="upload.name" label="Name"
                               :rules="[required]">
                 </v-text-field>
                 <div class="my-5">
@@ -118,13 +117,21 @@
                   <VueDatePicker v-model="upload.start_date" dark>
                   </VueDatePicker>
                 </div>
-                <v-file-input label="File input" prepend-icon="mdi-file">
+                <v-file-input label="File input" v-model="upload.file"
+                              show-size prepend-icon="mdi-file">
                 </v-file-input>
                 <v-select
                   v-model="upload.version"
                   label="Log file version"
                   :items="['v1', 'v2', 'v3']"
                 ></v-select>
+                <v-text-field v-model="upload.source"
+                              label="Source name"
+                              :rules="[required, sourceName]">
+                </v-text-field>
+                <v-text-field v-model="upload.origin" label="Default origin"
+                              :rules="[charactor]">
+                </v-text-field>
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="primary" @click="upload.dialog = false">
@@ -148,9 +155,9 @@
           </template>
           <v-list-item-title v-text="flight.name"></v-list-item-title>
           <v-list-item-subtitle>
-            {{showDatetime(flight.start_time)}}
+            {{showDatetime(flight.startTime)}}
             ~
-            {{showDatetime(flight.end_time)}}
+            {{showDatetime(flight.endTime)}}
           </v-list-item-subtitle>
         </v-list-item>
       </v-list>
@@ -168,7 +175,8 @@ import { useRouter } from 'vue-router'
 import axios from 'axios';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-import { System, Flight } from '../library/types'
+import { System, Flight, api } from '../library/api'
+import { Packet } from '../library/packet'
 
 
 const system = ref<System | undefined>(undefined)
@@ -178,7 +186,7 @@ const login = reactive({
   form: false,
   password: null,
 })
-const new_flight = reactive({
+const newFlight = reactive({
   dialog: false,
   form: false,
   name: "New Flight",
@@ -187,84 +195,103 @@ const upload = reactive({
   dialog: false,
   form: false,
   name: null,
+  source: 'log',
   start_date: new Date(),
-  version: 'v3'
+  file: null,
+  version: 'v3',
+  origin: '',
 })
 
-onMounted(() => {
-  const system_id = inject('system_id')
-  axios.get(`/systems/${system_id}`, {
-    params: {
-      password: localStorage.password
+const router = useRouter()
+
+onMounted(async () => {
+  const systemId = inject('systemId')
+  try {
+    system.value = await api.getSystem(systemId)
+    console.log('system', system.value)
+
+    const allFlights = await api.getFlights(systemId)
+    console.log('flights', allFlights)
+    for (const flight of allFlights) {
+      if (system.value?.activeFlight &&
+          flight.id == system.value?.activeFlight.id) {
+        // this.system.activeFlight = flight
+      }
+      else flights.push(flight)
     }
-  })
-       .then(response => {
-         console.log(response.data)
-         
-         system.value = response.data
-         
-         axios.get(`/systems/${system_id}/flights/`)
-              .then(response => {
-                console.log(response.data)
-                for (const flight of response.data.flights) {
-                  if (system.value?.active_flight &&
-                      flight.id == system.value?.active_flight.id) {
-                    // this.system.active_flight = flight
-                  }
-                  else flights.push(flight)
-                }
-              })
-       })
-       .catch(() => {
-         console.log('unknown system', inject('system_id'))
-         useRouter().push('/systems')
-       })
+  } catch (e) {
+    console.log('unknown system', systemId, e)
+    router.push('/systems')
+  }
 })
 
-const onLogin = () => {
+const onLogin = async () => {
   if (!login.form) return
-  
+
+  localStorage.password = login.password
   login.dialog = false
-  
-  axios.get(`systems/${inject('system_id')}`, {
-    params: {
-      password: login.password
+
+  system.value = await api.getSystem(system.value.id)
+
+ }
+const onNewFlight = async () => {
+  if (!newFlight.name) return
+
+  console.log(newFlight.name)
+  newFlight.dialog = false
+
+  const flight = await api.postFlight(system.value.id, newFlight.name, true)
+  console.log('new flight', flight)
+
+  if (system.value?.activeFlight)
+    flights.push(system.value?.activeFlight)
+  if (system.value) system.value.activeFlight = flight
+}
+
+const onUpload = async () => {
+  console.log('file', upload.file)
+  if (!upload.file) return
+
+  upload.dialog = false
+
+  const version = {'v1': 1, 'v2': 2, 'v3': 3}[upload.version]
+  const packets = await Packet.decodeLogFile(upload.file[0], version)
+
+  for (const packet of packets) {
+    packet.from = packet.from ?? upload.origin
+  }
+
+  const flight = await api.postFlight(system.value.id, upload.name, false)
+  console.log('new flight', flight)
+  flights.push(flight)
+
+  const connection = await api.connect(flight.id, upload.source)
+  for (const packet of packets) {
+    if (packet.entries.at(-1).type == 't') {
+      const time = upload.start_date.getTime()
+                 + packet.entries.at(-1).payload.uint32
+      connection.send(packet, new Date(time))
     }
-  })
-       .then(response => {
-         console.log(response.data)
-         system.value = response.data
-         localStorage.password = login.password
-       })
+    else {
+      console.warn('No timestamp in packet', packet)
+    }
+  }
+  connection.close()
 }
-const onNewFlight = () => {
-  if (!new_flight.name) return
-  
-  console.log(new_flight.name)
-  
-  new_flight.dialog = false
-  
-  axios.post(`systems/${inject('system_id')}/flights/`, null,
-             {
-               params: {
-                 name: new_flight.name,
-                 activate: true,
-                 password: localStorage.password,
-               }
-  })
-       .then(response => {
-         console.log(response.data)
-         if (system.value?.active_flight)
-           flights.push(system.value?.active_flight)
-         if (system.value) system.value.active_flight = response.data
-       })
-}
-const onUpload = () => {
-    console.log(upload)
-}
+
 const required = (v: any) => {
   return !!v || 'Field is required'
 }
+
+const sourceName = (v: string) => {
+  return v.length <= 8 || 'Length of source name must be smaller than 8'
+}
+
+const charactor = (v: string) => {
+  return v.length <= 1 || 'Origin id must be a charactor'
+}
+
+
 const showDatetime = (str: string) => {
   if (!str) return ""
   const date = new Date(str)

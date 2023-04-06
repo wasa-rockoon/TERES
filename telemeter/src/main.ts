@@ -6,12 +6,10 @@ import { loadFonts } from './plugins/webfontloader'
 import router from './router'
 import axios from 'axios'
 import '@mdi/font/css/materialdesignicons.css'
+import * as settings from './settings'
+
 
 loadFonts()
-
-axios.defaults.baseURL = 'http://localhost:8888/api';
-axios.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
-axios.defaults.headers.put['Access-Control-Allow-Origin'] = '*';
 
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
@@ -20,11 +18,10 @@ declare module '@vue/runtime-core' {
     }
 }
 
-const app = createApp(App)
-app.provide('system_id', 'teres1')
+console.log('mode', process.env.NODE_ENV, settings)
 
-app.config.globalProperties.$system_id = 'teres1'
-app.config.globalProperties.$password = undefined
+const app = createApp(App)
+app.provide('systemId', settings.systemId)
 
 app.use(router)
   .use(vuetify)

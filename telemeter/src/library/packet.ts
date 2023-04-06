@@ -6,10 +6,12 @@ type Version = 1 | 2 | 3
 export class Payload {
     raw: ArrayBuffer
     view: DataView
+    size: number
 
     constructor() {
         this.raw = new ArrayBuffer(4)
         this.view = new DataView(this.raw)
+        this.size = 0
     }
 
     get int8(): number {
@@ -25,7 +27,7 @@ export class Payload {
         return this.view.getUint8(0)
     }
     get uint16(): number {
-        return this.view.getUint16(0)
+        return this.view.getUint16(0, true)
     }
     get uint32(): number {
         return this.view.getUint32(0, true)
@@ -57,9 +59,26 @@ export class Payload {
     get float32(): number {
         return this.view.getFloat32(0, true)
     }
+    set int8(value: number) {
+        this.view.setUint32(0, 0, true)
+        this.view.setInt8(0, value)
+    }
+    set int16(value: number) {
+        this.view.setUint32(0, 0, true)
+        this.view.setInt16(0, value, true)
+    }
     set int32(value: number) {
         this.view.setInt32(0, value, true)
     }
+    set uint8(value: number) {
+        this.view.setUint32(0, 0, true)
+        this.view.setUint8(0, value)
+    }
+    set uint16(value: number) {
+        this.view.setUint32(0, 0, true)
+        this.view.setUint16(0, value, true)
+    }
+
     set uint32(value: number) {
         this.view.setUint32(0, value, true)
     }
@@ -140,7 +159,8 @@ export class Entry {
             else len = 4
         }
         else {
-            this.type = String.fromCharCode(view.getUint8(0) & 0b00111111 + 64)
+            this.type = String.fromCharCode(
+                (view.getUint8(0) & 0b00111111) + 64)
             switch (view.getUint8(0) & 0b11000000) {
                 case 0b01000000:
                     len = 1
@@ -167,27 +187,28 @@ export class Entry {
                 this.payload.view.setUint32(0, view.getUint32(1, true), true)
                 break
         }
+        this.payload.size = len
 
         return 1 + len
     }
 }
 
 export class Packet {
-    id: Char
-    from: Char
+    id?: Char
+    from?: Char
     size: number
     entries: Entry[]
 
-    constructor(id: Char, from: Char, size: any) {
+    constructor(id: Char | undefined, from: Char | undefined, size: any) {
         this.id = id
         this.from = from
         this.size = size
         this.entries = []
     }
 
-    encode(view: DataView) {
-        view.setUint8(0, this.id.charCodeAt(0))
-        view.setUint8(1, this.from.charCodeAt(0))
+    encode(view: DataView): number {
+        view.setUint8(0, this.id ? this.id.charCodeAt(0) : 0)
+        view.setUint8(1, this.from ? this.from.charCodeAt(0) : 0)
         view.setUint8(2, this.size)
 
         let i = 3;
@@ -202,11 +223,14 @@ export class Packet {
 
             i += len
         }
+        return i
     }
 
     static decode(view: DataView, version: Version = 3): Packet {
-        const id = String.fromCharCode(view.getUint8(0))
-        const from = String.fromCharCode(view.getUint8(1))
+        const id = view.getUint8(0) ?
+            String.fromCharCode(view.getUint8(0)) : undefined
+        const from = view.getUint8(1) ?
+            String.fromCharCode(view.getUint8(1)) : undefined
         const size = view.getUint8(2)
         const packet = new Packet(id, from, size)
 
@@ -241,7 +265,7 @@ export class Packet {
 }
 
 
-function readFileAsArrayBuffer(file: File): Promise<ArrayBuffer> {
+export function readFileAsArrayBuffer(file: File): Promise<ArrayBuffer> {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => {
@@ -252,7 +276,7 @@ function readFileAsArrayBuffer(file: File): Promise<ArrayBuffer> {
     })
 }
 
-function decodeCOBS<A>(buffer: ArrayBuffer, map: (buffer: ArrayBuffer) => A): A[] {
+export function decodeCOBS<A>(buffer: ArrayBuffer, map: (buffer: ArrayBuffer) => A): A[] {
     const result = []
 
     const len = buffer.byteLength;
