@@ -43,10 +43,11 @@
 
 <script setup lang="ts">
     import { reactive, ref, onMounted, inject } from 'vue';
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute, useRouter, onBeforeRouteLeave } from 'vue-router'
 import axios from 'axios'
-import { Flight, System } from '../library/types'
+import { Flight, System, api } from '../library/api'
 import '../library/packet'
+import { Packet } from '../library/packet';
 
 const flight = ref<Flight | undefined>()
 const system = ref<System | undefined>()
@@ -56,33 +57,41 @@ const login = reactive({
     password: null,
 })
 
-onMounted(() => {
-  axios.get(`/systems/${inject('system_id')}/flights/${useRoute().query.id}`,
-            {
-              params: {
-                password: localStorage.password
-              }
-  })
-       .then(response => {
-         console.log(response.data)
-         
-         flight.value = response.data
-         system.value = response.data.system
-       })
-       .catch(() => {
-         console.log('unknown flight', inject('system_id'),
-                     useRoute().query.id,)
-         useRouter().push('/systems')
-       })
-  
+let connection = undefined
+
+let route = useRoute()
+let router = useRouter()
+
+onMounted(async () => {
+  try {
+    flight.value = await api.getFlight(route.query.id)
+    system.value = flight.value.system
+    connection = await api.connect(flight.value.id, 'web',
+                                   flight.value.start_time, undefined,
+                                   onReceive)
+    console.log('flight', flight.value, connection)
+  }
+  catch {
+    console.log('unknown flight', inject('systemId'), route.query.id)
+    router.push('/systems')
+  }
 })
+
+onBeforeRouteLeave((to, from) => {
+  connection?.close()
+})
+
+
+const onReceive = (packet: Packet, time: Date, source: string) => {
+  // console.log(packet)
+}
 
 const onLogin = () => {
   if (!login.form) return
   
   login.dialog = false
   
-  axios.get(`/systems/${inject('system_id')}`, {
+  axios.get(`/systems/${inject('systemId')}`, {
     params: {
       password: login.password
     }

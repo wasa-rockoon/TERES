@@ -55,8 +55,9 @@
 </template>
 
 <script setup lang="ts">
-import axios from 'axios';
-import { onMounted, reactive, ref } from 'vue';
+import axios from 'axios'
+import { onMounted, reactive, ref } from 'vue'
+import { api } from '@/library/api'
 
 
 const systems = ref([])
@@ -70,32 +71,20 @@ const new_system = reactive({
 })
 
 
-onMounted(() => {
-  axios.get('systems/')
-    .then(response => {
-      systems.value = response.data.systems
-      console.log(response.data.systems)
-    })
+onMounted(async () => {
+  systems.value = await api.getSystems()
+  console.log('systems', systems.value)
 })
 
-const onRegisterNewSystem = () => {
+const onRegisterNewSystem = async () => {
   if (!form.value) return
 
-  console.log(new_system)
   dialog.value = false
 
-  axios.put(`systems/${new_system.id}`, null, {
-    params: {
-      name: new_system.name,
-      password: new_system.password,
-      client: new_system.client || ''
-    }
-  })
-    .then(response => {
-      systems.value.push(response.data)
-      localStorage.password = new_system.password
-      console.log(response.data)
-    })
+  const system = await api.putSystem(new_system)
+  systems.value.push(system)
+  localStorage.password = new_system.password
+  console.log('new system', new_system, system)
 }
 const required = (v: any) => {
   return !!v || 'Field is required'
