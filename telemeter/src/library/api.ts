@@ -14,7 +14,7 @@ axios.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers.put['Access-Control-Allow-Origin'] = '*';
 
 
-interface Flight {
+export interface Flight {
     id: string,
     name: string,
     system: System | string,
@@ -23,14 +23,14 @@ interface Flight {
     endTime?: Date,
 }
 
-interface System {
+export interface System {
     id: string,
     name: string,
     activeFlight?: Flight,
     client: string,
 }
 
-interface NewSystem {
+export interface NewSystem {
     id: string,
     name: string,
     password: string,
@@ -71,6 +71,23 @@ class API {
         return this.makeFlight(response.data)
     }
 
+    async putFlight(id: string, name: string,
+                    startTime?: Date, launchTime?: Date, endTime?: Date)
+    : Promise<Flight> {
+        const response = await axios.put<Flight>(
+            `/flights/${id}`, null,
+            { params: {
+                password: localStorage.password,
+                name: name,
+                startTime: startTime,
+                launchTime: launchTime,
+                endTime: endTime,
+            }
+            })
+        return this.makeFlight(response.data)
+    }
+
+
     async postFlight(system_id: string, name: string, activate: boolean = false)
     : Promise<Flight> {
         const response = await axios.post<Flight>(
@@ -88,7 +105,7 @@ class API {
                   source: string,
                   startTime?: Date,
                   endTime?: Date,
-                  callback?: (packet: Packet, time: Date) => void)
+                  callback?: PacketCallback)
     : Promise<Connection> {
         return new Connection(flightId, source, startTime, endTime, callback)
             .open()
@@ -97,15 +114,20 @@ class API {
 
 
     makeFlight(flight: any): Flight {
-        flight.startTime = new Date(flight.startTime)
-        flight.launchTime = new Date(flight.launchTime)
-        if (flight.endTime) flight.endTime = new Date(flight.endTime)
-        return flight
+        const flight_ = Object.assign({}, flight)
+        console.log('make', flight)
+        flight_.startTime = new Date(flight.startTime)
+        flight_.launchTime = new Date(flight.launchTime)
+        if (flight.endTime) flight_.endTime = new Date(flight.endTime)
+        return flight_
     }
 }
 
 
-type PacketCallback = (packet: Packet, time: Date, source: string) => void
+type PacketCallback =
+    (packets: {packet: Packet, time: Date, source: string }[]) => void
+
+const MAX_UPDATE_PER_SECOND = 20
 
 class Connection {
     private socket?: WebSocket
@@ -114,6 +136,8 @@ class Connection {
     private startTime?: Date
     private endTime?: Date
     private callback: PacketCallback
+    private timer?: any
+    private receivedPackets: { packet: Packet, time: Date, source: string }[]
 
     constructor(flightId: string,
                 source: string,
@@ -125,6 +149,7 @@ class Connection {
         this.startTime = startTime
         this.endTime = endTime
         this.callback = callback ?? (() => {})
+        this.receivedPackets = []
     }
 
     async open(): Promise<Connection> {
@@ -149,23 +174,17 @@ class Connection {
                 console.error(e)
                 // this.open()
             }
-            this.socket.onmessage = e => {
-
-                if (e.data instanceof ArrayBuffer) {
-                    const buffer = new ArrayBuffer(256)
-                    new Uint8Array(buffer).set(new Uint8Array(e.data))
-                    const unixTime =
-                        Number(new DataView(buffer).getBigInt64(0, true))
-                    const time = new Date(unixTime)
-                    const source = String.fromCharCode.apply(
-                        null, Array.from(new Uint8Array(buffer, 8, 8)))
-                    const packet = Packet.decode(new DataView(buffer, 16))
-                    this.callback(packet, time, source)
-                }
-            }
+            this.socket.onmessage = e => { this.onMessage(e) }
             this.socket.onclose = e => {
                 console.log('closed', e)
             }
+
+            this.timer = setInterval(() => {
+                if (this.receivedPackets.length > 0) {
+                    this.callback(this.receivedPackets)
+                    this.receivedPackets = []
+                }
+            }, 1000 / MAX_UPDATE_PER_SECOND)
         })
     }
 
@@ -177,8 +196,25 @@ class Connection {
         this.socket?.send(new DataView(buffer, 0, 8 + len))
     }
 
+    onMessage(e: any) {
+        if (e.data instanceof ArrayBuffer) {
+            const buffer = new ArrayBuffer(256)
+            new Uint8Array(buffer).set(new Uint8Array(e.data))
+            const unixTime =
+                Number(new DataView(buffer).getBigInt64(0, true))
+            const time = new Date(unixTime)
+            const source = String.fromCharCode.apply(
+                null, Array.from(new Uint8Array(buffer, 8, 8)))
+                .split('\u0000')[0]
+            const packet = Packet.decode(new DataView(buffer, 16))
+
+            this.receivedPackets.push({packet, time, source})
+        }
+    }
+
     close() {
         this.socket?.close()
+        clearInterval(this.timer)
     }
 }
 

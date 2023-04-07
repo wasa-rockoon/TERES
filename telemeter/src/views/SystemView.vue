@@ -114,7 +114,7 @@
                 </v-text-field>
                 <div class="my-5">
                   Start Date
-                  <VueDatePicker v-model="upload.start_date" dark>
+                  <VueDatePicker v-model="upload.startTime" enable-seconds dark>
                   </VueDatePicker>
                 </div>
                 <v-file-input label="File input" v-model="upload.file"
@@ -196,7 +196,7 @@ const upload = reactive({
   form: false,
   name: null,
   source: 'log',
-  start_date: new Date(),
+  startTime: new Date(),
   file: null,
   version: 'v3',
   origin: '',
@@ -232,7 +232,6 @@ const onLogin = async () => {
   login.dialog = false
 
   system.value = await api.getSystem(system.value.id)
-
  }
 const onNewFlight = async () => {
   if (!newFlight.name) return
@@ -268,7 +267,7 @@ const onUpload = async () => {
   const connection = await api.connect(flight.id, upload.source)
   for (const packet of packets) {
     if (packet.entries.at(-1).type == 't') {
-      const time = upload.start_date.getTime()
+      const time = upload.startTime.getTime()
                  + packet.entries.at(-1).payload.uint32
       connection.send(packet, new Date(time))
     }
