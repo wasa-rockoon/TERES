@@ -1,7 +1,7 @@
 
-type Char = string
+export type Char = string
 
-type Version = 1 | 2 | 3
+export type Version = 1 | 2 | 3
 
 export class Payload {
     raw: ArrayBuffer
@@ -204,6 +204,20 @@ export class Packet {
         this.from = from
         this.size = size
         this.entries = []
+    }
+
+    get(type: Char, index: number = 0): Entry | undefined {
+        let i = 0;
+        let prev_type = ''
+        for (const entry of this.entries) {
+            if (entry.type == prev_type) i++
+            else i = 0
+
+            if (entry.type == type && i == index) return entry
+
+            prev_type = entry.type
+        }
+        return undefined
     }
 
     encode(view: DataView): number {
