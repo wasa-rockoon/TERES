@@ -5,6 +5,12 @@ export const wsEndpoint = ""
 export const apiEndpointDev = "http://localhost:8888/api"
 export const wsEndpointDev = "ws://localhost:8888/api"
 
+function formatLatOrLon(v: number): string {
+    const degrees = Math.trunc(v / 10000000)
+    const decimal = Math.abs(v) % 10000000
+    return `${degrees}.${decimal}`
+}
+
 export const packetFormats : {[id: string] : any} = {
     'A': {
         name: 'Attitude',
@@ -16,7 +22,7 @@ export const packetFormats : {[id: string] : any} = {
             },
             'A': {
               name: 'Accel',
-              unit: 'm/s^2',
+                unit: 'm/s²',
               datatype: 'float32',
               index: ['x', 'y', 'z']
             },
@@ -37,11 +43,32 @@ export const packetFormats : {[id: string] : any} = {
     'P': {
         name: 'GPS',
         entries: {
-            'O': { name: 'Longitude',    unit: '°',   datatype: 'int32' },
-            'A': { name: 'Latitude',     unit: '°',   datatype: 'int32' },
-            'H': { name: 'Altitude',      unit: 'm',   datatype: 'float32' },
-            'T': { name: 'Time',         unit: 's',   datatype: 'uint32' },
-            'S': { name: 'Satellites', datatype: 'int32' },
+            'O': {
+                name: 'Longitude',
+                unit: '°',
+                datatype: 'int32',
+                format: formatLatOrLon,
+            },
+            'A': {
+                name: 'Latitude',
+                unit: '°',
+                datatype: 'int32',
+                format: formatLatOrLon,
+            },
+            'H': {
+                name: 'Altitude',
+                unit: 'm',
+                datatype: 'float32'
+            },
+            'T': {
+                name: 'Time',
+                unit: 's',
+                datatype: 'uint32'
+            },
+            'S': {
+                name: 'Satellites',
+                datatype: 'int32'
+            },
         }
     },
     'C': {
@@ -72,6 +99,12 @@ export const packetFormats : {[id: string] : any} = {
 
 }
 
-export const packetList = ['A', 'P', 'H', 'C', 'l']
+export const packetList = [
+    {
+        from: 'R',
+        name: 'Rocket',
+        ids: ['A', 'P', 'H', 'C', 'l']
+    }
+]
 
 export const charts = []

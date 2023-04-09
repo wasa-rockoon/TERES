@@ -191,6 +191,14 @@ export class Entry {
 
         return 1 + len
     }
+
+    format(f: any): string {
+        const value: number = (this.payload as any)[f.datatype]
+        if (f.format) return f.format(value)
+        else if (f.datatype == 'float16') return value.toPrecision(3)
+        else if (f.datatype == 'float32') return value.toPrecision(7)
+        else return String(value)
+    }
 }
 
 export class Packet {

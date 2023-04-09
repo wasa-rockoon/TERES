@@ -1,28 +1,40 @@
 <template>
-  Packets
-  <v-list v-model:opened="open" density="compact">
-    <v-list-group :value="p.packet.id" v-for="p in packets" :key="p.packet.id">
-      <template v-slot:activator="{ props }">
-        <v-list-item v-bind="props" :title="p.format.name"
-                     :subtitle="datastore.showT(p.t)">
-        </v-list-item>
-      </template>
 
-      <v-table density="compact">
-        <tbody>
-          <tr
-            v-for="(entry, i) in packetEntries(p.format, p.packet)"
-            :key="i"
-          >
-            <td class="text-left">{{ entry.title }}</td>
-            <td class="text-right">{{ entry.value }}</td>
-          </tr>
-        </tbody>
-      </v-table>
-    </v-list-group>
-  </v-list>
-</template>>
+  <v-card v-for="list in packets" :key="list.from">
+    <v-card-item>
+      <v-card-title>{{list.name}}</v-card-title>
+    </v-card-item>
+    <v-card-text class="pa-0">
+      <v-list v-model:opened="open[list.from]">
+        <v-list-group v-for="p in list.data" :key="p.id" :value="p.id">
+          <template v-slot:activator="{ props }">
+            <v-list-item v-bind="props">
+              <v-list-item-title>{{p.format.name}}</v-list-item-title>
+              <v-list-item-subtitle v-if="p.packet">
+                {{datastore.showT(p.t)}} #{{p.count}} {{p.source}}
+              </v-list-item-subtitle>
+              <v-list-item-subtitle v-if="!p.packet">
+                N/A
+              </v-list-item-subtitle>
+            </v-list-item>
+          </template>
 
+          <v-table density="compact" v-if="p.packet">
+            <tbody>
+              <tr
+                v-for="(entry, i) in packetEntries(p.format, p.packet)"
+                :key="i"
+              >
+                <td class="text-left">{{ entry.title }}</td>
+                <td class="text-right">{{ entry.value }}</td>
+              </tr>
+            </tbody>
+          </v-table>
+        </v-list-group>
+      </v-list>
+    </v-card-text>
+  </v-card>
+</template>
 
 <script setup lang="ts">
 import { reactive, ref, onMounted, inject, computed, Ref, watch } from 'vue';
@@ -31,14 +43,21 @@ import * as settings from '../settings'
 
 const datastore = inject<Ref<DataStore>>('datastore')
 
-const open = ref<string[]>(settings.packetList)
+const initialOpen = {}
+settings.packetList.forEach(list => {
+  initialOpen[list.from] = list.ids
+})
+
+const open = ref(initialOpen)
 
 const packets = computed(() => {
   if (!datastore.value) return []
-  return settings.packetList.map(id => {
-    return datastore.value.getById(id)
-          ?.at(datastore.value.currentTime)
-  })?.filter(p => p)
+  return settings.packetList.map(list => {
+    const data = list.ids.map(id =>
+      datastore.value.getBy(list.from, id)?.at(datastore.value.currentTime)
+    ).filter(p => p)
+    return { data: data, from: list.from, name: list.name }
+  })
 })
 
 
@@ -65,7 +84,8 @@ const packetEntries = (format, packet) => {
 
       const value = entry.payload[f.datatype]
       let valueStr = String(value)
-      if (f.datatype == 'float16') valueStr = value.toPrecision(3)
+      if (f.format) valueStr = f.format(value)
+      else if (f.datatype == 'float16') valueStr = value.toPrecision(3)
       else if (f.datatype == 'float32') valueStr = value.toPrecision(7)
 
       entries.push({title: title, value: valueStr})

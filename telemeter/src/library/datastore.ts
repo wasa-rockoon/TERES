@@ -9,9 +9,7 @@ export class DataStore {
 
     currentTime: Date
 
-    dataframes: {[id: Char]: dfd.DataFrame}
-
-    dataseries: { [id: Char]: DataSeries }
+    dataseries: { [from: Char]: { [id: Char]: DataSeries } }
 
     get startTime(): Date { return this.flight.startTime }
     get launchTime(): Date { return this.flight.launchTime }
@@ -33,8 +31,7 @@ export class DataStore {
     get earliestT(): number | undefined {
         const min = Math.min.apply(
             null,
-            Object.values(this.dataseries)
-                .map(d => d.earliest?.t).filter(t => t) as number[]
+            this.mapDataseries(d => d.earliest?.t).filter(t => t) as number[]
         )
         if (isFinite(min)) return min
         else return undefined
@@ -43,135 +40,54 @@ export class DataStore {
     get latestT(): number | undefined {
         const max = Math.max.apply(
             null,
-            Object.values(this.dataseries)
-                .map(d => d.latest?.t).filter(t => t) as number[]
+            this.mapDataseries(d => d.latest?.t).filter(t => t) as number[]
         )
         if (isFinite(max)) return max
         else return undefined
     }
 
+    mapDataseries<A>(f: (dataseries: DataSeries) => A): A[] {
+        return Object.values(this.dataseries).flatMap(ds =>
+            Object.values(ds).map(f)
+        )
+    }
+
     constructor(flight: Flight) {
         this.flight = flight
         this.currentTime = new Date()
-        this.dataframes = {}
         this.dataseries = {}
     }
 
-    getById(id: Char): DataSeries | undefined {
-        return this.dataseries[id]
-    }
-
-    getCurrent(id: Char): any {
-        const df = this.dataframes[id]
-
-        // console.log('current', this.currentTime.getTime(), df.values)
-
-        if (!df) return undefined
-        const query = df.query(df['time'].lt(this.currentTime.getTime())).tail(1)
-        return query.values[0]
+    getBy(from: Char, id: Char): DataSeries | undefined {
+        return (this.dataseries[from] ?? {})[id]
     }
 
     addPackets(packets: { packet: Packet, time: Date, source: string }[]) {
-        const packetsById:
-            {[id: Char]: { packet: Packet, time: Date, source: string }[]} = {}
+        const packetsByFromAndId: {[from: Char]: {[id: Char]:
+                                                  { packet: Packet,
+                                                    time: Date,
+                                                    source: string }[]}} = {}
         for (const p of packets) {
-            if (!p.packet.id) continue
-            if (!packetsById[p.packet.id]) packetsById[p.packet.id] = []
-            packetsById[p.packet.id].push(p)
+            if (!p.packet.from || !p.packet.id) continue
+            if (!packetsByFromAndId[p.packet.from])
+                packetsByFromAndId[p.packet.from] = {}
+            if (!packetsByFromAndId[p.packet.from][p.packet.id])
+                packetsByFromAndId[p.packet.from][p.packet.id] = []
+            packetsByFromAndId[p.packet.from][p.packet.id].push(p)
         }
-        for (const [id, packets] of Object.entries(packetsById)) {
-            // this.addPacketsById(id, packets)
-            if (!this.dataseries[id])
-                this.dataseries[id] = new DataSeries(this, id)
+        for (const [from, packetsById] of Object.entries(packetsByFromAndId)) {
+            if (!this.dataseries[from]) this.dataseries[from] = {}
 
-            this.dataseries[id].addPackets(packets.map((p: any) => {
-                p.unixTime = p.time.getTime()
-                return p
-            }))
-        }
-    }
+            for (const [id, packets] of Object.entries(packetsById)) {
+                if (!this.dataseries[from][id])
+                    this.dataseries[from][id] = new DataSeries(this, from, id)
 
-    addPacketsById(id: Char,
-                  packets: { packet: Packet, time: Date, source: string }[]) {
-
-        const format = settings.packetFormats[id]
-        const dataframe = this.dataframes[id]
-        let columns: string[]
-
-        if (dataframe) {
-            columns = dataframe.columns
-        }
-        else {
-            if (format) columns = this.columnsFromFormat(format)
-            else columns = this.columnsFromPacket(packets[0].packet)
-
-            console.debug('new dataframe', id, columns)
-        }
-
-        const raws = packets.map(p => {
-            return this.rawFromPacket(format, columns, p.packet, p.time, p.source)
-        })
-
-        if (dataframe) {
-            const range = [...Array(raws.length)].map(
-                (_, i) => i + dataframe.index.length)
-            this.dataframes[id] =
-                dataframe.append(raws, range)
-        }
-        else {
-            this.dataframes[id] =
-                new dfd.DataFrame(raws, {columns: columns})
-        }
-
-    }
-
-    rawFromPacket(format: any, columns: string[],
-                  packet: Packet, time: Date, source: String): any[] {
-        const raw: any[] = [time.getTime(), source, packet.from, packet.size]
-
-        for (const title of columns.slice(4)) {
-            const type = title.slice(0, 1)
-            const index = title.length > 1 ? parseInt(title.slice(1)) : 0
-
-            const entry = packet.get(type, index) ?? null
-            const entry_format = format?.entries.find((d: any) => d.type == type)
-            if (entry_format) {
-                if (entry_format.datatype) {
-                    const datatype = entry_format.datatype as string
-                    raw.push((entry?.payload as any)[datatype])
-                }
-                else raw.push(true)
+                this.dataseries[from][id].addPackets(packets.map((p: any) => {
+                    p.unixTime = p.time.getTime()
+                    return p
+                }))
             }
-            else raw.push(entry?.payload.uint32)
         }
-        return raw
-    }
-
-    columnsFromFormat(format: any): string[] {
-        let columns = ['time', 'source', 'name', 'from', 'size']
-
-        for (const entry of format.entries) {
-            if (entry.index)
-                columns = columns.concat(entry.index.map(
-                    (_: any, i: number) => { return entry.type + i }))
-            else
-                columns.push(entry.type)
-        }
-        return columns
-    }
-
-    columnsFromPacket(packet: Packet): string[] {
-        const columns = ['id', 'time', 'source', 'from', 'size']
-        let index = 0;
-        let prev_type = ''
-        for (const entry of packet.entries.slice(0, -1)) {
-            if (entry.type == prev_type) index++
-            else index = 0
-            prev_type = entry.type
-            if (index > 0) columns.push(entry.type + index)
-            else columns.push(entry.type)
-        }
-        return columns
     }
 
     showT(t: number): string {
@@ -204,14 +120,17 @@ export class DataStore {
 }
 
 interface PacketInfo {
-    packet: Packet
-    t: number
-    source: string
+    id: Char
+    packet?: Packet
+    t?: number
+    source?: string
     format: any
+    count: number
 }
 
 class DataSeries {
     datastore: DataStore
+    from: Char
     id: Char
     format: any
 
@@ -224,31 +143,36 @@ class DataSeries {
         return Object.keys(this.sourceAvailables)
     }
 
-    get earliest(): PacketInfo | undefined {
-        if (this.data.length == 0) return undefined
-        const p = this.data[0]
-        return p && {
-            packet: p.packet,
-            t: this.datastore.time2t(new Date(p.unixTime)),
-            source: p.source,
-            format: this.format
+    get earliest(): PacketInfo {
+        let p = undefined
+        if (this.data.length > 0) p = this.data.at(0)
+        return {
+            id: this.id,
+            packet: p && p.packet,
+            t: p && this.datastore.time2t(new Date(p.unixTime)),
+            source: p && p.source,
+            format: this.format,
+            count: p ? 1 : 0
         }
     }
 
-    get latest(): PacketInfo | undefined {
-        if (this.data.length == 0) return undefined
-        const p = this.data.at(-1)
-        return p && {
-            packet: p.packet,
-            t: this.datastore.time2t(new Date(p.unixTime)),
-            source: p.source,
-            format: this.format
+    get latest(): PacketInfo {
+        let p = undefined
+        if (this.data.length > 0) p = this.data.at(-1)
+        return {
+            id: this.id,
+            packet: p && p.packet,
+            t: p && this.datastore.time2t(new Date(p.unixTime)),
+            source: p && p.source,
+            format: this.format,
+            count: this.data.length
         }
     }
 
 
-    constructor(datastore: DataStore, id: Char) {
+    constructor(datastore: DataStore, from: Char, id: Char) {
         this.datastore = datastore
+        this.from = from
         this.id = id
         this.format = settings.packetFormats[id]
         this.data = []
@@ -256,15 +180,17 @@ class DataSeries {
         this.cursor = 0
     }
 
-    at(time: Date): PacketInfo | undefined {
+    at(time: Date): PacketInfo {
         const index = this.searchIndex(time.getTime())
-        if (index < 0) return undefined
-        const p = this.data[index]
-        return p && {
-            packet: p.packet,
-            t: this.datastore.time2t(new Date(p.unixTime)),
-            source: p.source,
-            format: this.format
+        let p = undefined
+        if (index >= 0) p = this.data[index]
+        return {
+            id: this.id,
+            packet: p && p.packet,
+            t: p && this.datastore.time2t(new Date(p.unixTime)),
+            source: p && p.source,
+            format: this.format,
+            count: p ? index + 1 : 0
         }
     }
 

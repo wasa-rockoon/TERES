@@ -1,11 +1,13 @@
 <template>
-  <span v-if="datastore">{{datastore.showT(datastore.currentT)}}</span>
-	<vue-slider v-model="slider"
-              :min="sliderMin" :max="sliderMax" :interval="0.001"
-              :process="process"
-              :enable-cross="false" :drag-on-click="true"
-              :contained="true">
-  </vue-slider>
+  <div class="w-100">
+    <span v-if="datastore">{{datastore.showT(datastore.currentT)}}</span>
+    <vue-slider v-model="slider"
+                :min="sliderMin" :max="sliderMax" :interval="0.001"
+                :process="process"
+                :enable-cross="false" :drag-on-click="true"
+                :contained="true">
+    </vue-slider>
+  </div>
 </template>
 
 <script setup lang="ts">
