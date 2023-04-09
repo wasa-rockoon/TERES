@@ -192,6 +192,13 @@ export class Entry {
         return 1 + len
     }
 
+    formatNumber(f: any): number {
+        const value: number = (this.payload as any)[f.datatype]
+        if (f.formatNumber) return f.formatNumber(value)
+        else if (f.format) return Number(f.format(value))
+        else return value
+    }
+
     format(f: any): string {
         const value: number = (this.payload as any)[f.datatype]
         if (f.format) return f.format(value)

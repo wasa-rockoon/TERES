@@ -18,7 +18,7 @@ import { DataStore } from '../library/datastore'
 
 const datastore = inject<Ref<DataStore>>('datastore')
 
-const slider = ref([0.0, 0.0, 100.0])
+const slider = ref([])
 
 const sliderMin = computed<number>(() => (datastore.value?.startT))
 const sliderMax = computed<number>(() => datastore.value?.endT
@@ -30,7 +30,13 @@ const process = dotPos => {
   const latestT = datastore.value.latestT ?? datastore.value.endT
                  ?? datastore.value.nowT
   const sliderRange = sliderMax.value - sliderMin.value
-  return [[earliestT / sliderRange * 100.0, latestT / sliderRange * 100.0]]
+  const fit = (t: number) => {
+    const p = (t - sliderMin.value) / sliderRange * 100.0
+    if (p < 0) return 0
+    else if (t > 100) return 100
+    else return p
+  }
+  return [[fit(earliestT), fit(latestT)]]
 }
 
 watch(slider, (cr, prev) => {

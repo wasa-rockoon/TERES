@@ -43,6 +43,8 @@ import * as settings from '../settings'
 
 const datastore = inject<Ref<DataStore>>('datastore')
 
+window.datastore = datastore
+
 const initialOpen = {}
 settings.packetList.forEach(list => {
   initialOpen[list.from] = list.ids
@@ -75,6 +77,7 @@ const packetEntries = (format, packet) => {
 
     if (entry.type == prevType) index++
     else index = 0
+    prevType = entry.type
 
     const f = format?.entries[entry.type]
     if (f) {
@@ -82,13 +85,7 @@ const packetEntries = (format, packet) => {
       if (f.index) title += ` (${f.index[index]})`
       if (f.unit) title += ` [${f.unit}]`
 
-      const value = entry.payload[f.datatype]
-      let valueStr = String(value)
-      if (f.format) valueStr = f.format(value)
-      else if (f.datatype == 'float16') valueStr = value.toPrecision(3)
-      else if (f.datatype == 'float32') valueStr = value.toPrecision(7)
-
-      entries.push({title: title, value: valueStr})
+      entries.push({title: title, value: entry.format(f)})
     }
     else {
       entries.push({
@@ -96,7 +93,6 @@ const packetEntries = (format, packet) => {
         value: entry.payload.int32
       })
     }
-    prevType = entry.type
   })
   return entries
 }

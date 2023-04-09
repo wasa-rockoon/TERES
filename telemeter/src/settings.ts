@@ -107,4 +107,15 @@ export const packetList = [
     }
 ]
 
-export const charts = []
+export const charts = [
+    {
+        title: 'Altitude',
+        y: [['R', 'H', 'A'], ['R', 'P', 'H']],
+        yLabel: 'Altitude [m]',
+    },
+    {
+        title: 'Accelaraion',
+        y: [['R', 'A', 'A', 0], ['R', 'A', 'A', 1], ['R', 'A', 'A', 2]],
+        yLabel: 'Accelaration [m/s²]',
+    }
+]
