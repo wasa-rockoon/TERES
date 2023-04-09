@@ -1,6 +1,6 @@
 <template>
-  <div class="system">
-  <v-app-bar color="primary" height=40>
+  <div class="system h-screen overflow-hidden">
+    <v-app-bar color="primary" height=40>
     <v-btn icon="mdi-arrow-left" :to="'/'"></v-btn>
     <v-spacer></v-spacer>
 
@@ -72,17 +72,34 @@
         </v-form>
       </v-card>
     </v-dialog>
-  </v-app-bar>
-  <v-main>
+    </v-app-bar>
+    <v-main class="h-100 overflow-hidden">
+      <v-container class="ma-0 w-screen h-100">
+        <v-row class="h-100">
+          <v-container id="graphics-panel" class="ma-0">
+            <v-row>
+              <v-col>
 
-    <PacketList/>
+              </v-col>
+              <v-col>
 
-    <v-card class="ma-10">
-      Card
-    </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+          <v-col id="packets-panel" class="overflow-y-auto h-100 pb-16">
+            <v-card>
+              <PacketList/>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
 
-    <FlightTimeline/>
+
     </v-main>
+
+    <v-footer fixed elevation="20">
+      <FlightTimeline/>
+    </v-footer>
   </div>
 </template>
 
@@ -159,8 +176,6 @@ onBeforeRouteLeave((to, from) => {
 const onReceive = (packets: {packet: Packet, time: Date, source: string }[]) => {
   console.log('received', packets.length)
   datastore.value.addPackets(packets)
-
-  console.log(datastore.value.dataframes['l']?.values)
 }
 
 const onSaveSetting = async () => {
@@ -187,3 +202,21 @@ const required = (v: any) => {
 
 
 </script>
+
+<style>
+#graphics-panel {
+  width: calc(100% - 300px);
+}
+#packets-panel {
+  width: 300px;
+}
+
+.v-main>.v-container {
+  max-width: 100vw;
+}
+
+ .v-footer {
+   position: sticky;
+   bottom: 0;
+ }
+</style>
