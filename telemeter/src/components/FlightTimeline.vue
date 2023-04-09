@@ -1,7 +1,8 @@
 <template>
-  {{timeText}}
+  <span v-if="datastore">{{datastore.showT(datastore.currentT)}}</span>
 	<vue-slider v-model="slider"
               :min="sliderMin" :max="sliderMax" :interval="0.001"
+              :process="process"
               :enable-cross="false" :drag-on-click="true"
               :contained="true">
   </vue-slider>
@@ -21,11 +22,14 @@ const sliderMin = computed<number>(() => (datastore.value?.startT))
 const sliderMax = computed<number>(() => datastore.value?.endT
                                          ?? datastore.value?.nowT)
 
-const timeText = computed<number>(() => {
-  return `T${datastore.value?.currentT > 0 ? '+' : ''}`
-       + `${datastore.value?.currentT?.toFixed(3)}`
-})
-
+const process = dotPos => {
+  if (!datastore.value) return []
+  const earliestT = datastore.value.earliestT ?? datastore.value.startT
+  const latestT = datastore.value.latestT ?? datastore.value.endT
+                 ?? datastore.value.nowT
+  const sliderRange = sliderMax.value - sliderMin.value
+  return [[earliestT / sliderRange * 100.0, latestT / sliderRange * 100.0]]
+}
 
 watch(slider, (cr, prev) => {
   datastore.value.currentT = slider.value[1]

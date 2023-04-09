@@ -1,16 +1,26 @@
 <template>
   Packets
-  <v-expansion-panels v-model="panel" multiple variant="accordion">
-    <v-expansion-panel v-for="packet in packets" :key="packet.id" value="packet.id">
-    <v-expansion-panel-title>
-    {{packet[2]}}
-    </v-expansion-panel-title>
-    <v-expansion-panel-text>
-      {{packet[0]}}
-    </v-expansion-panel-text>
-  </v-expansion-panel>
-  </v-expansion-panels>
+  <v-list v-model:opened="open" density="compact">
+    <v-list-group :value="p.packet.id" v-for="p in packets" :key="p.packet.id">
+      <template v-slot:activator="{ props }">
+        <v-list-item v-bind="props" :title="p.format.name"
+                     :subtitle="datastore.showT(p.t)">
+        </v-list-item>
+      </template>
 
+      <v-table density="compact">
+        <tbody>
+          <tr
+            v-for="(entry, i) in packetEntries(p.format, p.packet)"
+            :key="i"
+          >
+            <td class="text-left">{{ entry.title }}</td>
+            <td class="text-right">{{ entry.value }}</td>
+          </tr>
+        </tbody>
+      </v-table>
+    </v-list-group>
+  </v-list>
 </template>>
 
 
@@ -21,17 +31,55 @@ import * as settings from '../settings'
 
 const datastore = inject<Ref<DataStore>>('datastore')
 
-const panel = ref<string[]>(settings.packetList)
+const open = ref<string[]>(settings.packetList)
 
 const packets = computed(() => {
   if (!datastore.value) return []
-  return settings.packetList.map(id => datastore.value.getCurrent(id))
-                 .filter(p => p)
+  return settings.packetList.map(id => {
+    return datastore.value.getById(id)
+          ?.at(datastore.value.currentTime)
+  })?.filter(p => p)
 })
 
+
 watch(packets, () => {
-  // console.log('packets', packets.value[0])
+  // console.log('packets', packets.value)
 })
+
+
+const packetEntries = (format, packet) => {
+  const entries = []
+  let index = 0;
+  let prevType = ''
+  packet.entries.forEach((entry, n) => {
+    if (n == packet.entries.length - 1 && entry.type == "t") return
+
+    if (entry.type == prevType) index++
+    else index = 0
+
+    const f = format?.entries[entry.type]
+    if (f) {
+      let title = f.name
+      if (f.index) title += ` (${f.index[index]})`
+      if (f.unit) title += ` [${f.unit}]`
+
+      const value = entry.payload[f.datatype]
+      let valueStr = String(value)
+      if (f.datatype == 'float16') valueStr = value.toPrecision(3)
+      else if (f.datatype == 'float32') valueStr = value.toPrecision(7)
+
+      entries.push({title: title, value: valueStr})
+    }
+    else {
+      entries.push({
+        title: entry.type,
+        value: entry.payload.int32
+      })
+    }
+    prevType = entry.type
+  })
+  return entries
+}
 
 
 </script>
