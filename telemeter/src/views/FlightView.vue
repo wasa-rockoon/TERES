@@ -76,19 +76,19 @@
     <v-main class="h-100 overflow-hidden">
       <v-container class="ma-0 w-screen h-100">
         <v-row class="h-100">
-          <v-container id="graphics-panel" class="ma-0 pa-3">
-            <v-row>
+          <v-container id="graphics-panel" class="ma-0 pa-3 h-100">
+            <v-row class="h-100">
               <v-col>
 
               </v-col>
               <v-col class="overflow-y-auto h-100 pb-16">
-                <ChartList/>
+                <ChartList :range="chartRange" />
               </v-col>
             </v-row>
           </v-container>
           <v-col id="packets-panel" class="overflow-y-auto h-100 pb-16">
             <v-card>
-              <PacketList/>
+              <PacketList :time="currentTime"/>
             </v-card>
           </v-col>
         </v-row>
@@ -98,14 +98,15 @@
     </v-main>
 
     <v-footer fixed elevation="20">
-      <FlightTimeline/>
+      <FlightTimeline v-on:change-chart-range="onChangeChartRange"
+                      v-on:change-time="onChangeTime" />
     </v-footer>
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref, onMounted, inject, provide, computed,
-         getCurrentInstance, watch} from 'vue';
+         getCurrentInstance, watch, shallowRef, triggerRef} from 'vue';
 import { useRoute, useRouter, onBeforeRouteLeave } from 'vue-router'
 import axios from 'axios'
 import VueDatePicker from '@vuepic/vue-datepicker';
@@ -117,7 +118,7 @@ import FlightTimeline from '../components/FlightTimeline'
 import PacketList from '../components/PacketList'
 import ChartList from '../components/ChartList'
 
-const datastore = ref<DataStore | undefined>(undefined)
+const datastore = shallowRef<DataStore | undefined>(undefined)
 
 const flight = computed<Flight>(() => datastore.value?.flight)
 const system = computed<System | undefined>(() => flight.value?.system)
@@ -138,16 +139,15 @@ const setting = reactive({
   endTime: null,
 })
 
+const currentTime = ref(new Date())
+const chartRange = ref({})
+
 let connection = undefined
 
 const route = useRoute()
 const router = useRouter()
 
 const instance = getCurrentInstance()
-
-watch(datastore, () => {
-
-})
 
 onMounted(async () => {
   try {
@@ -177,6 +177,7 @@ onBeforeRouteLeave((to, from) => {
 const onReceive = (packets: {packet: Packet, time: Date, source: string }[]) => {
   console.log('received', packets.length)
   datastore.value.addPackets(packets)
+  triggerRef(datastore)
 }
 
 const onSaveSetting = async () => {
@@ -195,6 +196,14 @@ const onLogin = async () => {
   login.dialog = false
 
   system.value = await api.getSystem(system.value.id)
+}
+
+const onChangeTime = (time) => {
+  currentTime.value = time
+}
+
+const onChangeChartRange = (range) => {
+  chartRange.value = range
 }
 
 const required = (v: any) => {
