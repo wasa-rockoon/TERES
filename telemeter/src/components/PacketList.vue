@@ -37,9 +37,12 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, onMounted, inject, computed, Ref, watch } from 'vue';
+import { reactive, ref, onMounted, inject, computed, Ref, watch,
+         defineProps } from 'vue'
 import { DataStore } from '../library/datastore'
 import * as settings from '../settings'
+
+const props = defineProps(['time'])
 
 const datastore = inject<Ref<DataStore>>('datastore')
 
@@ -56,7 +59,7 @@ const packets = computed(() => {
   if (!datastore.value) return []
   return settings.packetList.map(list => {
     const data = list.ids.map(id =>
-      datastore.value.getBy(list.from, id)?.at(datastore.value.currentTime)
+      datastore.value.getBy(list.from, id)?.at(props.time ?? new Date())
     ).filter(p => p)
     return { data: data, from: list.from, name: list.name }
   })

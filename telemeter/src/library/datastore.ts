@@ -7,18 +7,12 @@ import * as settings from '../settings'
 export class DataStore {
     flight: Flight
 
-    currentTime: Date
-
     dataseries: { [from: Char]: { [id: Char]: DataSeries } }
 
     get startTime(): Date { return this.flight.startTime }
     get launchTime(): Date { return this.flight.launchTime }
     get endTime(): Date | undefined { return this.flight.endTime }
 
-    get currentT(): number { return this.time2t(this.currentTime) }
-    set currentT(t: number) {
-        this.currentTime = this.t2time(t)
-    }
     get startT(): number { return this.time2t(this.startTime) }
     get launchT(): number { return this.time2t(this.launchTime) }
     get endT(): number | undefined {
@@ -54,7 +48,6 @@ export class DataStore {
 
     constructor(flight: Flight) {
         this.flight = flight
-        this.currentTime = new Date()
         this.dataseries = {}
     }
 
@@ -206,12 +199,57 @@ class DataSeries {
         }
     }
 
-    getTimes(): number[] {
+    getTimes(t_min?: number, t_max?: number, maxPoints?: number): number[] {
+        const cursor = this.cursor
+
+        let min_index = (t_min &&
+            this.searchIndex(this.datastore.t2time(t_min).getTime()))
+        if (!min_index || min_index < 0) min_index = 0
+
+        let max_index = (t_max &&
+            this.searchIndex(this.datastore.t2time(t_max).getTime()))
+        if (!max_index || max_index < 0) max_index = this.times.length - 1
+
+        const step = 1
+
+        const times = this.times.slice(min_index, max_index)
+        // const times = []
+        // for (let i = min_index; i < max_index; i += step) {
+        //     times.push(this.times[i])
+        // }
+
+
+        this.cursor = cursor
+
         return this.times
     }
 
-    getValues(type: number, index: number = 0): number[] {
-        return (this.values[type] ?? [])[index]
+    getValues(type: number, index: number = 0, t_min?: number, t_max?: number,
+              maxPoints?: number): number[] {
+        const cursor = this.cursor
+
+        if (!this.values[type] || !this.values[type][index]) return []
+
+        let min_index = (t_min &&
+            this.searchIndex(this.datastore.t2time(t_min).getTime()))
+        if (!min_index || min_index < 0) min_index = 0
+
+        let max_index = (t_max &&
+            this.searchIndex(this.datastore.t2time(t_max).getTime()))
+        if (!max_index || max_index < 0) max_index = this.times.length - 1
+
+        const step = 1
+
+        const values = this.values[type][index].slice(min_index, max_index)
+
+        // const values = []
+        // for (let i = min_index; i < max_index; i += step) {
+        //     values.push(this.values[type][index][i])
+        // }
+
+        this.cursor = cursor
+
+        return values
     }
 
     // Packets need to be sorted by time

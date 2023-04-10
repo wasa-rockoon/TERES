@@ -115,7 +115,6 @@ class API {
 
     makeFlight(flight: any): Flight {
         const flight_ = Object.assign({}, flight)
-        console.log('make', flight)
         flight_.startTime = new Date(flight.startTime)
         flight_.launchTime = new Date(flight.launchTime)
         if (flight.endTime) flight_.endTime = new Date(flight.endTime)
