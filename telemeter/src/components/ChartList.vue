@@ -1,8 +1,8 @@
 <template>
   <v-card v-for="(chart, i) in charts" :key="i">
-    <v-card-item>{{chart.config.title}}</v-card-item>
+    <v-card-item class="pb-0">{{chart.config.title}}</v-card-item>
     <div v-if="chart.data" >
-      <Scatter :data="chart.data" :options="chart.options" />
+      <Scatter :data="chart.data" :options="chart.options" class="pa-3 pt-0" />
     </div>
   </v-card>
 </template>
