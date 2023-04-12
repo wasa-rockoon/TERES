@@ -189,6 +189,7 @@ class DataSeries {
         const index = this.searchIndex(time.getTime())
         let p = undefined
         if (index >= 0) p = this.data[index]
+
         return {
             id: this.id,
             packet: p && p.packet,
@@ -252,10 +253,11 @@ class DataSeries {
         return values
     }
 
-    // Packets need to be sorted by time
     addPackets(packets: { packet: Packet, unixTime: number, source: string }[]) {
         if (packets.length == 0) return
         this.cursor = this.data.length - 1
+
+        packets.sort((a, b) => a.unixTime - b.unixTime)
 
         const newValues: {[type: string]: number[][]} = {}
 
@@ -282,7 +284,7 @@ class DataSeries {
 
         for (let i = 0; i < packets.length; i++) {
             const insertAt = this.searchIndex(packets[i].unixTime)
-            if (insertAt == this.data.length - 1) {
+            if (this.data.length == 0 || insertAt == this.data.length - 1) {
                 this.data.push(...packets.slice(i))
                 this.times.push(...packets.slice(i).map(p =>
                     this.datastore.time2t(new Date(p.unixTime))))
@@ -293,12 +295,12 @@ class DataSeries {
                 }
                 break;
             }
-            this.data.splice(insertAt, 0, packets[i])
-            this.times.splice(insertAt, 0,
+            this.data.splice(insertAt + 1, 0, packets[i])
+            this.times.splice(insertAt + 1, 0,
                               this.datastore.time2t(new Date(packets[i].unixTime)))
             for (const type of Object.keys(this.format?.entries ?? {})) {
                 newValues[type].forEach((values, index) => {
-                    this.values[type][index].splice(insertAt, 0, values[i])
+                    this.values[type][index].splice(insertAt + 1, 0, values[i])
                 })
             }
 
@@ -310,6 +312,7 @@ class DataSeries {
 
     searchIndex(unixTime: number): number {
         if (this.data.length == 0) return 0
+
         let step = 0.5
         if (unixTime < this.data[this.cursor].unixTime) {
             while (unixTime < this.data[this.cursor].unixTime) {
@@ -344,6 +347,7 @@ class DataSeries {
             step /= 2
         }
         if (unixTime < this.data[this.cursor].unixTime) this.cursor--;
+
         return this.cursor
     }
 }

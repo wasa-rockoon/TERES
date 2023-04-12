@@ -119,3 +119,15 @@ export const charts = [
         yLabel: 'Accelaration [m/s²]',
     }
 ]
+
+export const mapPaths = [
+    {
+        from: 'R',
+        name: 'Rocket',
+        id: 'P',
+        lat: 'A',
+        lon: 'O',
+        color: '#4FC3F7',
+        markerColor: 'white',
+    },
+]
