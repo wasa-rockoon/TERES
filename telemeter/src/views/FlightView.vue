@@ -79,7 +79,7 @@
           <v-container id="graphics-panel" class="ma-0 pa-3 h-100">
             <v-row class="h-100">
               <v-col>
-
+                <FlightMap :time="currentTime"/>
               </v-col>
               <v-col class="overflow-y-auto h-100 pb-16">
                 <ChartList :range="chartRange" />
@@ -93,7 +93,6 @@
           </v-col>
         </v-row>
       </v-container>
-
 
     </v-main>
 
@@ -117,6 +116,7 @@ import { Packet } from '../library/packet'
 import FlightTimeline from '../components/FlightTimeline'
 import PacketList from '../components/PacketList'
 import ChartList from '../components/ChartList'
+import FlightMap from '../components/FlightMap'
 
 const datastore = shallowRef<DataStore | undefined>(undefined)
 

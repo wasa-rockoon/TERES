@@ -38,15 +38,13 @@
 
 <script setup lang="ts">
 import { reactive, ref, onMounted, inject, computed, Ref, watch,
-         defineProps } from 'vue'
+         defineProps, ShallowRef } from 'vue'
 import { DataStore } from '../library/datastore'
 import * as settings from '../settings'
 
 const props = defineProps(['time'])
 
-const datastore = inject<Ref<DataStore>>('datastore')
-
-window.datastore = datastore
+const datastore = inject<ShallowRef<DataStore>>('datastore')
 
 const initialOpen = {}
 settings.packetList.forEach(list => {
