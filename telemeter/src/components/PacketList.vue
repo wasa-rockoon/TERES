@@ -1,14 +1,40 @@
 <template>
-
-  <v-card v-for="list in packets" :key="list.from">
+  <v-card v-for="(list, i) in packets" :key="i">
     <v-card-item>
+      <template v-slot:prepend>
+        <v-icon v-if="list.data.some(p => !p.packet)" icon="mdi-help-circle">
+        </v-icon>
+        <v-icon v-else-if="list.data.some(error)" color="error"
+                icon="mdi-alert-circle"></v-icon>
+        <v-icon v-else-if="list.data.some(warning)" color="warning"
+                icon="mdi-alert"></v-icon>
+        <v-icon v-else-if="list.data.some(timeout)" color="warning"
+                icon="mdi-clock-alert-outline"></v-icon>
+        <v-icon v-else icon="mdi-check" color="primary"></v-icon>
+      </template>
+
       <v-card-title>{{list.name}}</v-card-title>
+
+      <template v-slot:append>
+        <v-btn density="compact" icon="mdi-dots-vertical"></v-btn>
+      </template>
     </v-card-item>
     <v-card-text class="pa-0">
       <v-list v-model:opened="open[list.from]">
         <v-list-group v-for="p in list.data" :key="p.id" :value="p.id">
+
           <template v-slot:activator="{ props }">
             <v-list-item v-bind="props">
+              <template v-slot:prepend>
+                <v-icon v-if="!p.packet" icon="mdi-help-circle"></v-icon>
+                <v-icon v-else-if="error(p)" color="error"
+                        icon="mdi-alert-circle"></v-icon>
+                <v-icon v-else-if="warning(p)" color="warning"
+                        icon="mdi-alert"></v-icon>
+                <v-icon v-else-if="timeout(p)" color="warning"
+                        icon="mdi-clock-alert-outline"></v-icon>
+                <v-icon v-else icon="mdi-check" color="primary"></v-icon>
+              </template>
               <v-list-item-title>{{p.format.name}}</v-list-item-title>
               <v-list-item-subtitle v-if="p.packet">
                 {{datastore.showT(p.t)}} #{{p.count}} {{p.source}}
@@ -21,13 +47,23 @@
 
           <v-table density="compact" v-if="p.packet">
             <tbody>
-              <tr
+              <v-tooltip
                 v-for="(entry, i) in packetEntries(p.format, p.packet)"
                 :key="i"
+                :text="entry.error || entry.warning || ''"
               >
-                <td class="text-left">{{ entry.title }}</td>
-                <td class="text-right">{{ entry.value }}</td>
-              </tr>
+                <template v-slot:activator="{ props }">
+                  <tr v-bind="(entry.error || entry.warning) && props">
+                    <td class="text-left">{{ entry.title }}</td>
+                    <td v-if="entry.error" class="text-right text-error">
+                      {{ entry.value }}</td>
+                    <td v-else-if="entry.warning" class="text-right text-warning">
+                      {{ entry.value }}</td>
+                    <td v-else class="text-right">{{ entry.value }}</td>
+                  </tr>
+                </template>
+              </v-tooltip>
+
             </tbody>
           </v-table>
         </v-list-group>
@@ -39,7 +75,8 @@
 <script setup lang="ts">
 import { reactive, ref, onMounted, inject, computed, Ref, watch,
          defineProps, ShallowRef } from 'vue'
-import { DataStore } from '../library/datastore'
+import { DataStore, PacketInfo } from '../library/datastore'
+import { Packet } from '../library/packet'
 import * as settings from '../settings'
 
 const props = defineProps(['time'])
@@ -69,7 +106,7 @@ watch(packets, () => {
 })
 
 
-const packetEntries = (format, packet) => {
+const packetEntries = (format: any, packet: Packet) => {
   const entries = []
   let index = 0;
   let prevType = ''
@@ -86,18 +123,51 @@ const packetEntries = (format, packet) => {
       if (f.index) title += ` (${f.index[index]})`
       if (f.unit) title += ` [${f.unit}]`
 
-      entries.push({title: title, value: entry.format(f)})
+      const value = entry.format(f)
+
+      entries.push({
+        title: title,
+        value: value,
+        error: f.error && f.error(value),
+        warning: f.warning && f.warning(value),
+      })
     }
     else {
       entries.push({
         title: entry.type,
-        value: entry.payload.int32
+        value: entry.payload.int32,
+        error: "Unknown entry",
+        warning: null,
       })
     }
   })
   return entries
 }
 
+const timeout = (p: PacketInfo) => {
+  if (!p.format.timeout) return 0
+  const t = datastore.value.time2t(props.time) - p.t
+  if (t > p.format.timeout) return t
+  else return 0
+}
+
+const error = (p: PacketInfo) => {
+  if (p.format.error && p.format.error(p.packet)) return true
+  return p.packet.entries.some(entry => {
+    const f = p.format.entries[entry.type]
+    if (entry.type != 't' && !f) return true
+    return f && f.error && f.error(entry.format(f))
+  })
+}
+
+
+const warning = (p: PacketInfo) => {
+  if (p.format.warning && p.format.warning(p.packet)) return true
+  return p.packet.entries.some(entry => {
+    const f = p.format.entries[entry.type]
+    return f && f.warning && f.warning(entry.format(f))
+  })
+}
 
 </script>
 
