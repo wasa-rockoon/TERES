@@ -3,33 +3,8 @@
   <v-app-bar color="primary" height=40>
     <v-btn icon="mdi-arrow-left" :to="'/systems'"></v-btn>
     <v-app-bar-title>{{system?.name}}</v-app-bar-title>
-    
-    <v-dialog v-model="login.dialog" width="auto">
-      <template v-slot:activator="{ props }">
-        <v-btn icon="mdi-lock" v-if="!(system?.admin)"
-               v-bind="props">
-        </v-btn>
-        <v-btn icon="mdi-check" v-if="system?.admin"
-               v-bind="props">
-        </v-btn>
-      </template>
-      <v-card class="px-10" width=600>
-        <v-card-title class="my-5">
-          Login with Password
-        </v-card-title>
-        <v-form v-model="login.form" @submit.prevent="onLogin">
-          <v-text-field v-model="login.password"
-                        label="Password" type="password" :rules="[required]">
-          </v-text-field>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" :disabled="!login.form" type="submit">
-              Login
-            </v-btn>
-          </v-card-actions>
-        </v-form>
-      </v-card>
-    </v-dialog>
+
+    <LoginModal :system="system" v-on:login="onLogin" />
   </v-app-bar>
   <v-main>
     
@@ -58,10 +33,7 @@
                               label="Name"
                               :rules="[required]">
                 </v-text-field>
-                <v-card-text>
-                  <v-icon icon="mdi-alert"></v-icon>
-                  Current flight will be terminated.
-                </v-card-text>
+
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="primary" @click="newFlight.dialog = false">
@@ -177,6 +149,7 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { System, Flight, api } from '../library/api'
 import { Packet } from '../library/packet'
+import LoginModal from '../components/LoginModal'
 
 
 const system = ref<System | undefined>(undefined)
@@ -225,14 +198,11 @@ onMounted(async () => {
   }
 })
 
-const onLogin = async () => {
-  if (!login.form) return
+const onLogin = (newSystem) => {
+  system.value = newSystem
+}
 
-  localStorage.password = login.password
-  login.dialog = false
 
-  system.value = await api.getSystem(system.value.id)
- }
 const onNewFlight = async () => {
   if (!newFlight.name) return
 
@@ -260,20 +230,20 @@ const onUpload = async () => {
     packet.from = packet.from ?? upload.origin
   }
 
-  const flight = await api.postFlight(system.value.id, upload.name, false)
+  if (packets.length == 0) return
+
+  const flight = await api.postFlight(
+    system.value.id, upload.name, upload.startTime,
+    new Date(upload.startTime.getTime() + packets.at(-1)?.getTime()))
+
   console.log('new flight', flight)
   flights.push(flight)
 
   const connection = await api.connect(flight.id, upload.source)
+
   for (const packet of packets) {
-    if (packet.entries.at(-1).type == 't') {
-      const time = upload.startTime.getTime()
-                 + packet.entries.at(-1).payload.uint32
-      connection.send(packet, new Date(time))
-    }
-    else {
-      console.warn('No timestamp in packet', packet)
-    }
+    connection.send(packet,
+                    new Date(upload.startTime.getTime() + packet.getTime()))
   }
   connection.close()
 }
