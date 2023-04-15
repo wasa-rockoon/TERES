@@ -21,6 +21,7 @@ export interface Flight {
     startTime: Date,
     launchTime: Date,
     endTime?: Date,
+    data: any,
 }
 
 export interface System {
@@ -43,9 +44,9 @@ class API {
         return response.data.systems
     }
 
-    async getSystem(system_id: string): Promise<System> {
+    async getSystem(systemId: string): Promise<System> {
         const response = await axios.get<System>(
-            `/systems/${system_id}`,
+            `/systems/${systemId}`,
             { params: { password: localStorage.password} })
         return response.data
     }
@@ -56,9 +57,9 @@ class API {
         return response.data
     }
 
-    async getFlights(system_id: string): Promise<Flight[]> {
+    async getFlights(systemId: string): Promise<Flight[]> {
         const response = await axios.get<{flights: any[]}>(
-            `/systems/${system_id}/flights/`,
+            `/systems/${systemId}/flights/`,
             { params: { password: localStorage.password} })
         return response.data.flights.map(this.makeFlight)
     }
@@ -72,7 +73,8 @@ class API {
     }
 
     async putFlight(id: string, name: string,
-                    startTime?: Date, launchTime?: Date, endTime?: Date)
+                    startTime?: Date, launchTime?: Date, endTime?: Date,
+                    data?: any)
     : Promise<Flight> {
         const response = await axios.put<Flight>(
             `/flights/${id}`, null,
@@ -82,20 +84,23 @@ class API {
                 startTime: startTime,
                 launchTime: launchTime,
                 endTime: endTime,
+                data: JSON.stringify(data ?? {}),
             }
             })
         return this.makeFlight(response.data)
     }
 
 
-    async postFlight(system_id: string, name: string, activate: boolean = false)
+    async postFlight(systemId: string, name: string, startTime?: Date,
+                     endTime?: Date)
     : Promise<Flight> {
         const response = await axios.post<Flight>(
-            `/systems/${system_id}/flights/`, null,
+            `/systems/${systemId}/flights/`, null,
             { params: {
-                name: name,
-                activate: activate,
                 password: localStorage.password,
+                name: name,
+                startTime: startTime,
+                endTime: endTime,
             }
             })
         return this.makeFlight(response.data)
@@ -118,6 +123,8 @@ class API {
         flight_.startTime = new Date(flight.startTime)
         flight_.launchTime = new Date(flight.launchTime)
         if (flight.endTime) flight_.endTime = new Date(flight.endTime)
+        flight_.data = {}
+        if (flight.data) flight_.data = JSON.parse(flight.data)
         return flight_
     }
 }

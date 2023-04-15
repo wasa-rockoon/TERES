@@ -235,6 +235,13 @@ export class Packet {
         return undefined
     }
 
+    getTime(): number | undefined {
+        if (this.entries.at(-1)?.type == 't') {
+            return this.entries.at(-1)?.payload.uint32
+        }
+        else return undefined
+    }
+
     encode(view: DataView): number {
         view.setUint8(0, this.id ? this.id.charCodeAt(0) : 0)
         view.setUint8(1, this.from ? this.from.charCodeAt(0) : 0)
