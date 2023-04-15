@@ -115,7 +115,7 @@ export class DataStore {
     }
 }
 
-interface PacketInfo {
+export interface PacketInfo {
     id: Char
     packet?: Packet
     t?: number
@@ -124,7 +124,7 @@ interface PacketInfo {
     count: number
 }
 
-class DataSeries {
+export class DataSeries {
     datastore: DataStore
     from: Char
     id: Char

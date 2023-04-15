@@ -39,6 +39,7 @@ export const packetFormats : {[id: string] : any} = {
               index: ['x', 'y', 'z']
             },
         },
+        timeout: 0.1,
     },
     'P': {
         name: 'GPS',
@@ -67,9 +68,11 @@ export const packetFormats : {[id: string] : any} = {
             },
             'S': {
                 name: 'Satellites',
-                datatype: 'int32'
+                datatype: 'int32',
+                warning: (n: number) => n < 4 && "4 satellites needed",
             },
-        }
+        },
+        timeout: 1.0,
     },
     'C': {
         name: 'TWELITE',
@@ -77,24 +80,37 @@ export const packetFormats : {[id: string] : any} = {
             'Q': { name: 'LQI', datatype: 'uint8' },
             'S': { name: 'Sent',   datatype: 'uint32' },
             'R': { name: 'Received',   datatype: 'uint32' },
-        }
+        },
+        timeout: 1.0,
     },
     'H': {
         name: 'Air',
         entries: {
-            'T': { name: 'Temperature',  unit: '℃',  datatype: 'float32' },
+            'T': {
+                name: 'Temperature',
+                unit: '℃',
+                datatype: 'float32',
+                warning: (t: number) =>
+                    (t > 40 && 'Too hot') || (t < 10 && 'Too cold'),
+            },
             'P': { name: 'Pressure',     unit: 'Pa',  datatype: 'float32' },
             'A': { name: 'Presssure Alt', unit: 'm',  datatype: 'float32' },
             'h': { name: 'Humidity',     unit: 'RH%', datatype: 'float32' },
-        }
+        },
+        timeout: 1.0,
     },
     'l': {
         name: 'Logger',
         entries: {
             't': { name: 'Time', unit: 's', datatype: 'uint32' },
             'w': { name: 'Wrote', datatype: 'uint32' },
-            'd': { name: 'Dropped', datatype: 'uint32' },
-        }
+            'd': {
+                name: 'Dropped',
+                datatype: 'uint32',
+                warning: (n: number) => n > 0 && "Some packets dropped",
+            },
+        },
+        timeout: 1.0,
     },
 
 }

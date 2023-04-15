@@ -140,10 +140,10 @@ const onChangeChartRange = (range) => {
 
 <style>
 #graphics-panel {
-  width: calc(100% - 300px);
+  width: calc(100% - 320px);
 }
 #packets-panel {
-  width: 300px;
+  width: 320px;
 }
 
 .v-main>.v-container {
