@@ -41,6 +41,36 @@ RP2040Module module;
 Adafruit_BNO055 bno = Adafruit_BNO055(55, BNO055_ADDR, &Wire1);
 Adafruit_BME280 bme;
 
+#define BNO055_ADDR 0x28
+#define BNE280_ADDR 0x76
+
+#define SEND_ATT_FREQ 25
+#define SEND_ATT_FREQ_STANDBY 1
+#define SEND_ALT_FREQ 10
+#define SEND_ALT_FREQ_STANDBY 1
+
+#define QNH_HPA (1013.25)
+
+// Tasks
+
+Scheduler scheduler;
+
+void send_attitude();
+Task task_send_attitude(TASK_SECOND / SEND_ATT_FREQ_STANDBY,
+                        TASK_FOREVER, &send_attitude, &scheduler, false);
+
+void send_altitude();
+Task task_send_altitude(TASK_SECOND / SEND_ALT_FREQ_STANDBY,
+                        TASK_FOREVER, &send_altitude, &scheduler, false);
+
+
+// Objects
+
+RP2040Module module;
+
+Adafruit_BNO055 bno = Adafruit_BNO055(55, BNO055_ADDR, &Wire1);
+Adafruit_BME280 bme;
+
 
 void setup() {
   // put your setup code here, to run once:
@@ -52,11 +82,9 @@ void setup() {
   Wire1.begin();
 
   bool bno_ok = bno.begin();
-
   bool bme_ok = bme.begin(BNE280_ADDR, &Wire1);
 
   delay(1000);
->>>>>>> 664bd85 (センサー完成)
 
   if (bno_ok) task_send_attitude.enable();
   if (bme_ok) task_send_altitude.enable();

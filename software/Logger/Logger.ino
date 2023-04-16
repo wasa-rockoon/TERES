@@ -1,5 +1,3 @@
-#include <I2C_Scanner.h>
-#include <SPI.h>
 #include <TaskScheduler.h>
 #include <PacketSerial.h>
 #include <Wire.h>
@@ -35,8 +33,6 @@
 
 
 // Tasks
-
-
 void send_time();
 Task task_send_time(1000 / SEND_TIME_FREQ * TASK_MILLISECOND, TASK_FOREVER,
                     &send_time, &scheduler, false);
