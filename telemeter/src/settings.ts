@@ -1,7 +1,7 @@
 
 export const systemId = "teres1"
-export const apiEndpoint = ""
-export const wsEndpoint = ""
+export const apiEndpoint = "https://telemeter.fujiy.dev"
+export const wsEndpoint = "ws://telemeter.fujiy.dev"
 export const apiEndpointDev = "http://localhost:8888/api"
 export const wsEndpointDev = "ws://localhost:8888/api"
 

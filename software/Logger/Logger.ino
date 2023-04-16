@@ -1,6 +1,7 @@
 #include <TaskScheduler.h>
 #include <PacketSerial.h>
 #include <Wire.h>
+#include <SPI.h>
 #include <TimeLib.h>
 #include <RX8025_RTC.h>
 
