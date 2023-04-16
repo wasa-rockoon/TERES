@@ -47,6 +47,8 @@ struct Entry {
 	uint8_t decode(const uint8_t* buf);
 	uint8_t decodeHex(const uint8_t* buf);
 
+  void print() const;
+
 	Entry& operator=(const Entry& entry);
 };
 
@@ -69,6 +71,8 @@ struct Message {
 
 	void addTimestamp(uint32_t time);
 
+  void print() const;
+
 	Message& operator=(const Message& message);
 };
 
@@ -79,23 +83,27 @@ public:
 
 	inline uint8_t size() const { return size_; };
   inline bool isEmpty() const { return size_ == 0; };
-	inline Message& first()  { return buf[read_ptr_]; };
-	inline Message& last() { return buf[(write_ptr_ - 1) % N]; };
+  inline bool isFull() const { return size_ == N; };
+  inline Message &first() { return buf[read_ptr_]; };
+  inline const Message &first() const { return buf[read_ptr_]; };
+  inline Message &last() { return buf[(write_ptr_ - 1) % N]; };
+  inline const Message &last() const { return buf[(write_ptr_ - 1) % N]; };
 
-//	bool push(Message& message);
-//	bool push();
-//	bool pop(Message& message);
-//	bool pop();
-//
-	bool push(const Message& message) {
-		if (size_ == N) return false;
+  //	bool push(Message& message);
+  //	bool push();
+  //	bool pop(Message& message);
+  //	bool pop();
+  //
+  bool push(const Message &message) {
+    if (isFull())
+      return false;
 
-		buf[write_ptr_] = message;
+    buf[write_ptr_] = message;
 
-		return push();
+    return push();
 	}
 	bool push() {
-		if (size_ == N) return false;
+		if (isFull()) return false;
 
 		write_ptr_++;
 		if (write_ptr_ >= N) write_ptr_ = 0;
@@ -104,14 +112,14 @@ public:
 		return true;
 	}
 	bool pop(Message& message) {
-		if (size_ == 0) return false;
+		if (isEmpty()) return false;
 
 		message = first();
 
 		return pop();
 	}
 	bool pop() {
-		if (size_ == 0) return false;
+		if (isEmpty()) return false;
 
 		read_ptr_++;
 		if (read_ptr_ >= N) read_ptr_ = 0;
@@ -136,7 +144,7 @@ public:
 
 	Channel();
 
-  inline unsigned getErrorCount() { return error_count_; };
+  inline unsigned getErrorCount() const { return error_count_; };
 
 protected:
   inline void error() { error_count_++; };
@@ -153,6 +161,7 @@ public:
   bool read(const uint8_t* data, uint8_t len);
 
 	unsigned write(uint8_t* data);
+  unsigned nextWriteSize() const;
 
 private:
 	uint8_t rx_buf_[6];

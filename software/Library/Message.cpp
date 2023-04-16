@@ -126,6 +126,10 @@ uint8_t Entry::decodeHex(const uint8_t* buf) {
     }
 }
 
+void Entry::print() const {
+  Serial.printf("%c: %ld %f", type, payload.int_, payload.float_);
+}
+
 Entry& Entry::operator=(const Entry& entry) {
 	type = entry.type;
 	payload.uint = entry.payload.uint;
@@ -186,6 +190,15 @@ void Message::addTimestamp(uint32_t time) {
 	}
 	entries[size].set('t', time);
 	size++;
+}
+
+void Message::print() const {
+  Serial.printf("%c (%c<-%c) (%d)\n", id, to, from, size);
+  for (int n = 0; n < size; n++) {
+    Serial.print("  ");
+    entries[n].print();
+    Serial.println();
+  }
 }
 
 Message& Message::operator=(const Message& message) {
@@ -290,6 +303,13 @@ unsigned BinaryChannel::write(uint8_t* data) {
 	tx.pop();
 
 	return i;
+}
+
+unsigned BinaryChannel::nextWriteSize() const {
+  if (tx.size() == 0) {
+    return 0;
+  }
+  return (tx.first().size + 1) * 5;
 }
 
 // bool BinaryChannel::receive(uint8_t data) {

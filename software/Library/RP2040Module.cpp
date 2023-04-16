@@ -13,6 +13,7 @@ RP2040Module::RP2040Module():
 
 bool RP2040Module::begin() {
   Serial.begin(SERIAL_BAUD);
+  while (!Serial);
 
   Serial1.setTX(TX0_PIN);
   Serial1.setRX(RX0_PIN);

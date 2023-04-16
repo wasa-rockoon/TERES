@@ -4,57 +4,76 @@
 #include <PacketSerial.h>
 #include <FastCRC.h>
 
+#include "Message.h"
 #include "Util.h"
 
 FastCRC8 CRC8;
 
-// void receive() {
-//   Packetizer::parse();
-// }
+Bus* bus_instance;
+
+
+void resend() {
+  bus_instance->send();
+}
 
 Bus::Bus(Stream& upper_serial, Stream& lower_serial):
-  upper_serial_(upper_serial), lower_serial_(lower_serial)
-  // task_receive_(RECEIVE_PERIOD_MS * TASK_MILLISECOND,
-  //               TASK_FOREVER, &receive, &scheduler, true)
+  upper_serial_(upper_serial), lower_serial_(lower_serial),
+  task_resend_(TASK_IMMEDIATE,
+                TASK_FOREVER, resend, &scheduler, false)
 {
   message_count_ = 0;
   error_count_ = 0;
+  dropped_count_ = 0;
   overflowed_ = false;
   upper_received_ = 0;
   lower_received_ = 0;
+
+  bus_instance = this;
 }
 
 bool Bus::begin() {
 
-  // upper_serial_.begin(BUS_SERIAL_BAUD);
-  // lower_serial_.begin(BUS_SERIAL_BAUD);
-
-  // task_receive_.set(RECEIVE_PERIOD_MS * TASK_MILLISECOND,
-  //                   TASK_FOREVER, &receive);
-
-  // Packetizer::subscribe
-  //   (upper_serial_,
-  //    [&](const uint8_t* data, const size_t size) {
-  //      receiveDataFromUpper(data, size);
-  //    });
-  // Packetizer::subscribe
-  //   (lower_serial_,
-  //    [&](const uint8_t* data, const size_t size) {
-  //      receiveDataFromLower(data, size);
-  //    });
-
   return true;
 }
 
+void Bus::listen(MessageCallback func) {
+  listeners_.push_back(func);
+}
+
+void Bus::listen(uint8_t id, MessageCallback func) {
+  specified_listeners_.insert(std::make_pair(id, func));
+}
+
+void Bus::send() {
+  send(upper_channel_, upper_serial_);
+  send(lower_channel_, lower_serial_);
+}
 
 void Bus::send(const Message& message) {
-  channel_.tx.push(message);
+  send(upper_channel_, upper_serial_, message);
+  send(lower_channel_, lower_serial_, message);
+}
+
+void Bus::send(BinaryChannel &channel, Stream &serial, const Message &message) {
+  if (channel.tx.isFull()) {
+    channel.tx.pop();
+    dropped_count_++;
+  }
+  channel.tx.push(message);
+  send(channel, serial);
+}
+
+void Bus::send(BinaryChannel& channel, Stream& serial) {
   uint8_t buf[BUFFER_SIZE];
   unsigned len;
 
-  while ((len = channel_.write(buf)) > 0) {
-    // Packetizer::send(lower_serial_, data, size);
-    // Packetizer::send(upper_serial_, data, size);
+  while ((len = channel.nextWriteSize()) > 0) {
+    if (serial.availableForWrite() < len + 4) {
+      task_resend_.enable();
+      return;
+    }
+
+    len = channel.write(buf);
 
     buf[len] = CRC8.smbus(buf, len);
 
@@ -62,146 +81,202 @@ void Bus::send(const Message& message) {
     unsigned encoded_len = COBS::encode(buf, len + 1, encoded);
     encoded[encoded_len] = 0;
 
-    upper_serial_.write(encoded, encoded_len + 1);
-    lower_serial_.write(encoded, encoded_len + 1);
+    serial.write(encoded, encoded_len + 1);
 
+    // Serial.print("TX     ");
+    // printlnBytes(buf, len, 5);
+    // Serial.print("TX enc ");
+    // printlnBytes(encoded, encoded_len + 1);
+  }
 
-    Serial.print("TX     ");
-    printlnBytes(buf, len, 5);
-    Serial.print("TX enc ");
-    printlnBytes(encoded, encoded_len + 1);
+  if (upper_channel_.tx.isEmpty() && lower_channel_.tx.isEmpty()) {
+    task_resend_.disable();
   }
 }
-
-
 
 void Bus::receive() {
-
-  while (upper_serial_.available() > 0) {
-    uint8_t data = upper_serial_.read();
-
-    if (upper_received_ + 1 < BUFFER_SIZE) {
-      upper_buf_[upper_received_] = data;
-      upper_received_++;
-    }
-    else {
-      overflowed_ = true;
-      error_count_++;
-      upper_received_ = 0;
-      Serial.println("Overflowed");
-    }
-
-    if (data == 0) {
-
-      Serial.print("RX     ");
-      printlnBytes(upper_buf_, upper_received_ - 1);
-
-      uint8_t decoded[BUFFER_SIZE + 2];
-      unsigned len = COBS::decode(upper_buf_, upper_received_ - 1, decoded);
-
-      if (upper_received_ == 0 || len == 0) {
-        error_count_++;
-      }
-      else {
-        uint8_t crc8 = CRC8.smbus(decoded, len - 1);
-
-        if (crc8 != decoded[len - 1]) {
-          error_count_++;
-          Serial.println("CRC Error");
-        }
-        else {
-          lower_serial_.write(upper_buf_, upper_received_);
-
-          Serial.print("RX dec ");
-          printlnBytes(decoded, len - 1, 5);
-
-          overflowed_ = false;
-
-          receiveData(decoded, len - 1);
-        }
-      }
-
-      upper_received_ = 0;
-    }
-  }
-
-  while (lower_serial_.available() > 0) {
-    uint8_t data = lower_serial_.read();
-
-    Serial.print(data, HEX);
-    Serial.print(" ");
-
-    if (lower_received_ + 1 < BUFFER_SIZE) {
-      lower_buf_[lower_received_] = data;
-      lower_received_++;
-    }
-    else {
-      overflowed_ = true;
-      error_count_++;
-      lower_received_ = 0;
-      Serial.println("Overflowed");
-    }
-
-    if (data == 0) {
-
-      Serial.print("RX     ");
-      printlnBytes(lower_buf_, lower_received_ - 1);
-
-
-      uint8_t decoded[BUFFER_SIZE + 2];
-      unsigned len = COBS::decode(lower_buf_, lower_received_ - 1, decoded);
-
-      if (lower_received_ == 0 || len == 0) {
-        error_count_++;
-      }
-      else {
-        uint8_t crc8 = CRC8.smbus(decoded, len - 1);
-
-        if (crc8 != decoded[len - 1]) {
-          error_count_++;
-          Serial.println("CRC Error");
-        }
-        else {
-          upper_serial_.write(lower_buf_, lower_received_);
-
-          Serial.print("RX dec ");
-          printlnBytes(decoded, len - 1, 5);
-
-          overflowed_ = false;
-
-          receiveData(decoded, len - 1);
-        }
-      }
-
-      lower_received_ = 0;
-    }
-  }
-
+  receive(upper_channel_, lower_channel_, upper_serial_, lower_serial_,
+          upper_buf_, upper_received_);
+  receive(lower_channel_, upper_channel_, lower_serial_, upper_serial_,
+          lower_buf_, lower_received_);
 }
 
+void Bus::receive(BinaryChannel& channel, BinaryChannel& another_channel,
+                  Stream& serial, Stream &another_serial, uint8_t *buf,
+                  unsigned& received) {
+  while (serial.available() > 0) {
+    uint8_t data = serial.read();
 
-// void Bus::receiveDataFromUpper(const uint8_t* data, const size_t size) {
-//   Packetizer::send(lower_serial_, data, size);
+    if (received + 1 >= BUFFER_SIZE) {
+      overflowed_ = true;
+      error_count_++;
+      received = 0;
+      Serial.println("Overflowed");
+      return;
+    }
 
-//   receiveData(data, size);
-// }
-// void Bus::receiveDataFromLower(const uint8_t* data, const size_t size) {
-//   Packetizer::send(lower_serial_, data, size);
+    buf[received] = data;
+    received++;
 
-//   receiveData(data, size);
-// }
+    if (data == 0) {
+      Serial.print("RX     ");
+      printlnBytes(buf, received - 1);
 
-void Bus::receiveData(const uint8_t* data, const size_t size) {
-  channel_.read(data, size);
+      uint8_t decoded[BUFFER_SIZE + 2];
+      unsigned len = COBS::decode(buf, received - 1, decoded);
 
-  for (const auto& f : listeners_) {
-    f(channel_.rx);
+      if (received == 0 || len == 0) {
+        error_count_++;
+        continue;
+      }
+
+      uint8_t crc8 = CRC8.smbus(decoded, len - 1);
+
+      if (crc8 != decoded[len - 1]) {
+        error_count_++;
+        Serial.println("CRC Error");
+        continue;
+      }
+
+      Serial.print("RX dec ");
+      printlnBytes(decoded, len - 1, 5);
+
+      channel.read(buf, len - 1);
+
+      send(another_channel, another_serial, channel.rx);
+
+      for (const auto &f : listeners_) {
+        f(channel.rx);
+      }
+
+      auto range = specified_listeners_.equal_range(channel.rx.id);
+      for (auto itr = range.first; itr != range.second; itr++) {
+        itr->second(channel.rx);
+      }
+
+      message_count_++;
+      received = 0;
+      overflowed_ = false;
+    }
   }
-
-  auto range = specified_listeners_.equal_range(channel_.rx.id);
-  for (auto itr = range.first; itr != range.second; itr++) {
-    itr->second(channel_.rx);
-  }
-
-  message_count_++;
 }
+
+// void Bus::receive() {
+
+//   while (upper_serial_.available() > 0) {
+//     uint8_t data = upper_serial_.read();
+
+//     if (upper_received_ + 1 < BUFFER_SIZE) {
+//       upper_buf_[upper_received_] = data;
+//       upper_received_++;
+//     }
+//     else {
+//       overflowed_ = true;
+//       error_count_++;
+//       upper_received_ = 0;
+//       Serial.println("Overflowed");
+//     }
+
+//     if (data == 0) {
+
+//       Serial.print("RX     ");
+//       printlnBytes(upper_buf_, upper_received_ - 1);
+
+//       uint8_t decoded[BUFFER_SIZE + 2];
+//       unsigned len = COBS::decode(upper_buf_, upper_received_ - 1, decoded);
+
+//       if (upper_received_ == 0 || len == 0) {
+//         error_count_++;
+//       }
+//       else {
+//         uint8_t crc8 = CRC8.smbus(decoded, len - 1);
+
+//         if (crc8 != decoded[len - 1]) {
+//           error_count_++;
+//           Serial.println("CRC Error");
+//         }
+//         else {
+//           lower_serial_.write(upper_buf_, upper_received_);
+
+//           Serial.print("RX dec ");
+//           printlnBytes(decoded, len - 1, 5);
+
+//           overflowed_ = false;
+
+//           receiveData(decoded, len - 1);
+//         }
+//       }
+
+//       upper_received_ = 0;
+//     }
+//   }
+
+//   while (lower_serial_.available() > 0) {
+//     uint8_t data = lower_serial_.read();
+
+//     Serial.print(data, HEX);
+//     Serial.print(" ");
+
+//     if (lower_received_ + 1 < BUFFER_SIZE) {
+//       lower_buf_[lower_received_] = data;
+//       lower_received_++;
+//     }
+//     else {
+//       overflowed_ = true;
+//       error_count_++;
+//       lower_received_ = 0;
+//       Serial.println("Overflowed");
+//     }
+
+//     if (data == 0) {
+
+//       Serial.print("RX     ");
+//       printlnBytes(lower_buf_, lower_received_ - 1);
+
+
+//       uint8_t decoded[BUFFER_SIZE + 2];
+//       unsigned len = COBS::decode(lower_buf_, lower_received_ - 1, decoded);
+
+//       if (lower_received_ == 0 || len == 0) {
+//         error_count_++;
+//       }
+//       else {
+//         uint8_t crc8 = CRC8.smbus(decoded, len - 1);
+
+//         if (crc8 != decoded[len - 1]) {
+//           error_count_++;
+//           Serial.println("CRC Error");
+//         }
+//         else {
+//           upper_serial_.write(lower_buf_, lower_received_);
+
+//           Serial.print("RX dec ");
+//           printlnBytes(decoded, len - 1, 5);
+
+//           overflowed_ = false;
+
+//           receiveData(decoded, len - 1);
+//         }
+//       }
+
+//       lower_received_ = 0;
+//     }
+//   }
+
+// }
+
+
+// void Bus::receiveData(const uint8_t* data, const size_t size) {
+//   channel.read(data, size);
+
+//   for (const auto& f : listeners_) {
+//     f(channel.rx);
+//   }
+
+//   auto range = specified_listeners_.equal_range(channel.rx.id);
+//   for (auto itr = range.first; itr != range.second; itr++) {
+//     itr->second(channel.rx);
+//   }
+
+//   message_count_++;
+// }
