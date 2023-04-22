@@ -10,17 +10,17 @@ const base = process.env.NODE_ENV == 'development' ? '/' : settings.basePath
 
 const routes = [
   {
-    path: base,
+    path: '/',
     name: 'system',
     component: SystemView
   },
   {
-    path: base + 'systems',
+    path: '/systems',
     name: 'systemlist',
     component: SystemListView
   },
   {
-    path: base + 'flight',
+    path: '/flight',
     name: 'flight',
     component: FlightView
   },
@@ -30,7 +30,7 @@ const routes = [
 console.log(process.env.BASE_URL)
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
+    history: createWebHistory(base),
     routes
 })
 
