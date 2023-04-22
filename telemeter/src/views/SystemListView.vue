@@ -7,7 +7,7 @@
     <v-container fluid class="d-flex flex-wrap justify-center">
       <v-card width=400 v-for="system in systems" :key="system.id"
               :href="system.client" elevation=6 class="ma-2">
-        <v-img :src="system.client + '/image'" height=200></v-img>
+        <v-img :src="system.client + 'image'" height=200></v-img>
         <v-card-title class="text-h5">{{system.name}}</v-card-title>
         <v-card-subtitle>{{system.id}}</v-card-subtitle>
         <v-card-text></v-card-text>
