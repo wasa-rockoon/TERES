@@ -11227,7 +11227,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <part name="R11" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0402" package3d_urn="urn:adsk.eagle:package:23547/3" value="10k"/>
 <part name="VDD9" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VDD" device=""/>
 <part name="TWE" library="pins" deviceset="P2_2_2.54" device=""/>
-<part name="U$3" library="lora" deviceset="E220-900T22S" device=""/>
+<part name="U1" library="lora" deviceset="E220-900T22S" device=""/>
 <part name="GND6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="VDD10" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VDD" device=""/>
 </parts>
@@ -11493,7 +11493,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <attribute name="NAME" x="226.06" y="139.7" size="1.778" layer="95"/>
 <attribute name="VALUE" x="226.06" y="129.54" size="1.778" layer="96"/>
 </instance>
-<instance part="U$3" gate="G$1" x="218.44" y="-10.16" smashed="yes">
+<instance part="U1" gate="G$1" x="218.44" y="-10.16" smashed="yes">
 <attribute name="NAME" x="208.28" y="2.54" size="1.27" layer="95" align="top-left"/>
 <attribute name="VALUE" x="208.28" y="-25.4" size="1.27" layer="96"/>
 </instance>
@@ -11682,7 +11682,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <pinref part="GND5" gate="1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="U$3" gate="G$1" pin="GND"/>
+<pinref part="U1" gate="G$1" pin="GND"/>
 <wire x1="231.14" y1="-20.32" x2="233.68" y2="-20.32" width="0.1524" layer="91"/>
 <wire x1="233.68" y1="-20.32" x2="233.68" y2="-22.86" width="0.1524" layer="91"/>
 <pinref part="GND6" gate="1" pin="GND"/>
@@ -11850,7 +11850,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <pinref part="VDD9" gate="G$1" pin="VDD"/>
 </segment>
 <segment>
-<pinref part="U$3" gate="G$1" pin="VCC"/>
+<pinref part="U1" gate="G$1" pin="VCC"/>
 <wire x1="231.14" y1="-2.54" x2="233.68" y2="-2.54" width="0.1524" layer="91"/>
 <wire x1="233.68" y1="-2.54" x2="233.68" y2="0" width="0.1524" layer="91"/>
 <pinref part="VDD10" gate="G$1" pin="VDD"/>
@@ -12193,7 +12193,7 @@ In this library the device names are the same as the pin names of the symbols, t
 </net>
 <net name="LORA_TRX" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="RXD"/>
+<pinref part="U1" gate="G$1" pin="RXD"/>
 <wire x1="205.74" y1="-7.62" x2="203.2" y2="-7.62" width="0.1524" layer="91"/>
 <label x="203.2" y="-7.62" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -12205,7 +12205,7 @@ In this library the device names are the same as the pin names of the symbols, t
 </net>
 <net name="LORA_RTX" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="TXD"/>
+<pinref part="U1" gate="G$1" pin="TXD"/>
 <wire x1="205.74" y1="-10.16" x2="203.2" y2="-10.16" width="0.1524" layer="91"/>
 <label x="203.2" y="-10.16" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -12217,7 +12217,7 @@ In this library the device names are the same as the pin names of the symbols, t
 </net>
 <net name="LORA_M0" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="M0"/>
+<pinref part="U1" gate="G$1" pin="M0"/>
 <wire x1="205.74" y1="-15.24" x2="203.2" y2="-15.24" width="0.1524" layer="91"/>
 <label x="203.2" y="-15.24" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -12229,7 +12229,7 @@ In this library the device names are the same as the pin names of the symbols, t
 </net>
 <net name="LORA_M1" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="M1"/>
+<pinref part="U1" gate="G$1" pin="M1"/>
 <wire x1="205.74" y1="-17.78" x2="203.2" y2="-17.78" width="0.1524" layer="91"/>
 <label x="203.2" y="-17.78" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -12241,7 +12241,7 @@ In this library the device names are the same as the pin names of the symbols, t
 </net>
 <net name="LORA_AUX" class="0">
 <segment>
-<pinref part="U$3" gate="G$1" pin="AUX"/>
+<pinref part="U1" gate="G$1" pin="AUX"/>
 <wire x1="205.74" y1="-20.32" x2="203.2" y2="-20.32" width="0.1524" layer="91"/>
 <label x="203.2" y="-20.32" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
@@ -12260,7 +12260,6 @@ In this library the device names are the same as the pin names of the symbols, t
 <approved hash="104,1,198.12,175.26,U2,VOUT,VDD,,,"/>
 <approved hash="202,1,198.12,165.1,U2,CS,,,,"/>
 <approved hash="104,1,193.04,68.58,U$1,VCC,VDD,,,"/>
-<approved hash="106,1,20.32,172.72,N$5,,,,,"/>
 </errors>
 </schematic>
 </drawing>
