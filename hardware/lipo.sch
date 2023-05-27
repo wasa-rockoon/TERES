@@ -15239,14 +15239,22 @@ Source: http://www.jst.com .. eZH.pdf</description>
 </devicesets>
 </library>
 <library name="40xx" urn="urn:adsk.eagle:library:80">
-<description>&lt;b&gt;CMOS Logic Devices, 4000 Series&lt;/b&gt;&lt;p&gt;
-Based on the following sources:
-&lt;ul&gt;
-&lt;li&gt;Motorola &lt;i&gt;CMOS LOGIC DATA&lt;/i&gt;; book, 02/88, DL131 REV 1
-&lt;li&gt;http://www.elexp.com
-&lt;li&gt;http://www.intersil.com
-&lt;li&gt;http://www.ls3c.com.tw/product/1/COMOS.html
-&lt;/ul&gt;
+<description>&lt;b&gt;CMOS Logic Devices, 4000 Series&lt;/b&gt;&lt;p&gt;
+
+Based on the following sources:
+
+&lt;ul&gt;
+
+&lt;li&gt;Motorola &lt;i&gt;CMOS LOGIC DATA&lt;/i&gt;; book, 02/88, DL131 REV 1
+
+&lt;li&gt;http://www.elexp.com
+
+&lt;li&gt;http://www.intersil.com
+
+&lt;li&gt;http://www.ls3c.com.tw/product/1/COMOS.html
+
+&lt;/ul&gt;
+
 &lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
 <packages>
 <package name="DIL14" urn="urn:adsk.eagle:footprint:16136/1" library_version="7">
@@ -15545,6 +15553,10 @@ Based on the following sources:
 <part name="GND8" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="R17" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0402" package3d_urn="urn:adsk.eagle:package:23547/3" value="10k"/>
 <part name="R16" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="R-US_" device="R0603" package3d_urn="urn:adsk.eagle:package:23555/3" value="0.033"/>
+<part name="VDD3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VDD" device=""/>
+<part name="VDD4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VDD" device=""/>
+<part name="GND17" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="GND18" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -15981,6 +15993,24 @@ Based on the following sources:
 <attribute name="NAME" x="344.17" y="47.2186" size="1.778" layer="95"/>
 <attribute name="VALUE" x="344.17" y="42.418" size="1.778" layer="96"/>
 </instance>
+<instance part="IC1" gate="P" x="287.02" y="-2.54" smashed="yes">
+<attribute name="NAME" x="285.75" y="-3.175" size="1.778" layer="95"/>
+</instance>
+<instance part="IC2" gate="P" x="287.02" y="-71.12" smashed="yes">
+<attribute name="NAME" x="285.75" y="-71.755" size="1.778" layer="95"/>
+</instance>
+<instance part="VDD3" gate="G$1" x="287.02" y="-60.96" smashed="yes">
+<attribute name="VALUE" x="284.48" y="-63.5" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="VDD4" gate="G$1" x="287.02" y="7.62" smashed="yes">
+<attribute name="VALUE" x="284.48" y="5.08" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="GND17" gate="1" x="287.02" y="-12.7" smashed="yes">
+<attribute name="VALUE" x="284.48" y="-15.24" size="1.778" layer="96"/>
+</instance>
+<instance part="GND18" gate="1" x="287.02" y="-81.28" smashed="yes">
+<attribute name="VALUE" x="284.48" y="-83.82" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -16007,12 +16037,6 @@ Based on the following sources:
 <wire x1="91.44" y1="101.6" x2="93.98" y2="101.6" width="0.1524" layer="91"/>
 <label x="93.98" y="101.6" size="1.778" layer="95" xref="yes"/>
 <pinref part="R2" gate="G$1" pin="2"/>
-</segment>
-</net>
-<net name="N$5" class="0">
-<segment>
-<pinref part="J1" gate="G$1" pin="ID"/>
-<wire x1="20.32" y1="172.72" x2="22.86" y2="172.72" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -16234,6 +16258,14 @@ Based on the following sources:
 <pinref part="NTC" gate="G$1" pin="1"/>
 <pinref part="GND8" gate="1" pin="GND"/>
 </segment>
+<segment>
+<pinref part="IC1" gate="P" pin="VSS"/>
+<pinref part="GND17" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="IC2" gate="P" pin="VSS"/>
+<pinref part="GND18" gate="1" pin="GND"/>
+</segment>
 </net>
 <net name="QSPI_SCLK" class="0">
 <segment>
@@ -16385,6 +16417,14 @@ Based on the following sources:
 <segment>
 <pinref part="R17" gate="G$1" pin="2"/>
 <pinref part="VDD2" gate="G$1" pin="VDD"/>
+</segment>
+<segment>
+<pinref part="IC2" gate="P" pin="VDD"/>
+<pinref part="VDD3" gate="G$1" pin="VDD"/>
+</segment>
+<segment>
+<pinref part="IC1" gate="P" pin="VDD"/>
+<pinref part="VDD4" gate="G$1" pin="VDD"/>
 </segment>
 </net>
 <net name="USB_DM_1" class="0">
@@ -16621,6 +16661,11 @@ Based on the following sources:
 <wire x1="203.2" y1="93.98" x2="198.12" y2="93.98" width="0.1524" layer="91"/>
 <label x="198.12" y="93.98" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
+<segment>
+<pinref part="RP1" gate="G$1" pin="GPIO15"/>
+<wire x1="78.74" y1="96.52" x2="81.28" y2="96.52" width="0.1524" layer="91"/>
+<label x="81.28" y="96.52" size="1.778" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="N$4" class="0">
 <segment>
@@ -16724,6 +16769,11 @@ Based on the following sources:
 <label x="292.1" y="45.72" size="1.778" layer="95" rot="R180" xref="yes"/>
 <wire x1="299.72" y1="45.72" x2="292.1" y2="45.72" width="0.1524" layer="91"/>
 <pinref part="U5" gate="G$1" pin="CONTROL"/>
+</segment>
+<segment>
+<pinref part="RP1" gate="G$1" pin="GPIO14"/>
+<wire x1="33.02" y1="60.96" x2="30.48" y2="60.96" width="0.1524" layer="91"/>
+<label x="30.48" y="60.96" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="VOUT" class="0">
@@ -16859,11 +16909,6 @@ Based on the following sources:
 <label x="337.82" y="129.54" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="VOUT1" class="0">
-<segment>
-<wire x1="403.86" y1="101.6" x2="447.04" y2="101.6" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="VBAT" class="0">
 <segment>
 <pinref part="BAT" gate="G$1" pin="1"/>
@@ -16935,6 +16980,11 @@ Based on the following sources:
 <junction x="215.9" y="2.54"/>
 <label x="215.9" y="22.86" size="1.778" layer="95" rot="R90" xref="yes"/>
 </segment>
+<segment>
+<pinref part="RP1" gate="G$1" pin="GPIO13"/>
+<wire x1="33.02" y1="63.5" x2="30.48" y2="63.5" width="0.1524" layer="91"/>
+<label x="30.48" y="63.5" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
 </net>
 <net name="ADC_SEL2" class="0">
 <segment>
@@ -16951,6 +17001,11 @@ Based on the following sources:
 <junction x="213.36" y="-15.24"/>
 <label x="213.36" y="22.86" size="1.778" layer="95" rot="R90" xref="yes"/>
 </segment>
+<segment>
+<pinref part="RP1" gate="G$1" pin="GPIO20"/>
+<wire x1="78.74" y1="83.82" x2="81.28" y2="83.82" width="0.1524" layer="91"/>
+<label x="81.28" y="83.82" size="1.778" layer="95" xref="yes"/>
+</segment>
 </net>
 <net name="ADC_SEL3" class="0">
 <segment>
@@ -16958,6 +17013,11 @@ Based on the following sources:
 <wire x1="218.44" y1="-104.14" x2="210.82" y2="-104.14" width="0.1524" layer="91"/>
 <wire x1="210.82" y1="-104.14" x2="210.82" y2="22.86" width="0.1524" layer="91"/>
 <label x="210.82" y="22.86" size="1.778" layer="95" rot="R90" xref="yes"/>
+</segment>
+<segment>
+<pinref part="RP1" gate="G$1" pin="GPIO18"/>
+<wire x1="78.74" y1="88.9" x2="81.28" y2="88.9" width="0.1524" layer="91"/>
+<label x="81.28" y="88.9" size="1.778" layer="95" xref="yes"/>
 </segment>
 </net>
 <net name="ADC0_IN" class="0">

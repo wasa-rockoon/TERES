@@ -1840,7 +1840,7 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <param name="mdPadVia" value="5mil"/>
 <param name="mdViaVia" value="5mil"/>
 <param name="mdSmdPad" value="5mil"/>
-<param name="mdSmdVia" value="5mil"/>
+<param name="mdSmdVia" value="0mil"/>
 <param name="mdSmdSmd" value="5mil"/>
 <param name="mdViaViaSameLayer" value="6mil"/>
 <param name="mnLayersViaInSmd" value="2"/>
@@ -2296,8 +2296,9 @@ Source: http://www.osram.convergy.de/ ... LG_LY Q971.pdf</description>
 <wire x1="7.381" y1="-1.651" x2="9.271" y2="-1.651" width="0.2" layer="1"/>
 <wire x1="9.271" y1="-1.651" x2="9.525" y2="-1.905" width="0.2" layer="1"/>
 <via x="9.525" y="-1.905" extent="1-16" drill="0.35"/>
-<wire x1="9.525" y1="-1.905" x2="8.807" y2="-1.187" width="0.2" layer="16"/>
-<wire x1="8.807" y1="-1.187" x2="6.56" y2="-1.187" width="0.2" layer="16"/>
+<wire x1="9.525" y1="-1.905" x2="9.525" y2="-1.397" width="0.2" layer="16"/>
+<wire x1="9.525" y1="-1.397" x2="9.315" y2="-1.187" width="0.2" layer="16"/>
+<wire x1="9.315" y1="-1.187" x2="6.56" y2="-1.187" width="0.2" layer="16"/>
 <wire x1="6.56" y1="-1.187" x2="5.969" y2="-1.778" width="0.2" layer="16"/>
 <wire x1="7.381" y1="-1.651" x2="6.692" y2="-2.34" width="0.2" layer="1"/>
 <wire x1="6.692" y1="-2.34" x2="4.191" y2="-2.34" width="0.2" layer="1"/>
