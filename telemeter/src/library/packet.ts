@@ -103,7 +103,7 @@ export class Payload {
         }
         // Normalized values
         else value16 = (sign << 15) |
-            (Math.max(Math.min(exp - 127 + 15, 0), 31) << 23) | (frac << 13)
+            (Math.max(Math.min(exp - 127 + 15, 0), 31) << 10) | (frac >> 13)
 
         view.setUint16(0, value16, true)
     }

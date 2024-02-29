@@ -6,9 +6,9 @@ extern Scheduler scheduler;
 
 enum class ErrorStatus {
   NoError,
-    Warning,
-    Error,
-    };
+  Warning,
+  Error,
+};
 
 class Indicator {
 
@@ -17,7 +17,7 @@ class Indicator {
 
   bool begin();
 
-  void blink(unsigned sustain_ms = 100);
+  void blink(unsigned sustain_ms = 50);
 
   void errorEvent(unsigned sustain_ms = 200);
   void setError(ErrorStatus error);

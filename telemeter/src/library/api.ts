@@ -72,6 +72,17 @@ class API {
         return this.makeFlight(response.data)
     }
 
+    async activateFlight(id: string): Promise<Flight> {
+        const response = await axios.put<Flight>(
+            `/flights/${id}`, null,
+            { params: {
+                password: localStorage.password,
+                activate: true
+            }
+            })
+        return this.makeFlight(response.data)
+    }
+
     async putFlight(id: string, name: string,
                     startTime?: Date, launchTime?: Date, endTime?: Date,
                     data?: any)
@@ -81,9 +92,9 @@ class API {
             { params: {
                 password: localStorage.password,
                 name: name,
-                startTime: startTime,
-                launchTime: launchTime,
-                endTime: endTime,
+                startTime: startTime || '',
+                launchTime: launchTime || '',
+                endTime: endTime || '',
                 data: JSON.stringify(data ?? {}),
             }
             })

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Bus.h"
+#include "Arduino.h"
 #include "Indicator.h"
-#include <TaskSchedulerDeclarations.h>
+#include "UARTBus.hpp"
 
 // Pin assign
 #define LED_STATUS_PIN 0
@@ -17,23 +17,22 @@
 #define SERIAL_BAUD 115200
 #define BUS_FIFO_SIZE 4096
 
-#define WDT_DURATION 4000
+#define WDT_DURATION 5000
+
+#define ROCKET 0x1
 
 class RP2040Module {
 
 public:
-  RP2040Module();
+  RP2040Module(uint8_t node_name);
 
   bool begin();
 
-  Bus bus;
+  UARTBus bus;
   Indicator indicator;
+
+  void update();
 
 private:
   unsigned bus_error_count_;
-
-  Task task_wdt_;
-
-  friend void serialEvent1();
-  friend void serialEvent2();
 };

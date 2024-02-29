@@ -1,29 +1,25 @@
 #ifdef ARDUINO_ARCH_RP2040
 
 #include "RP2040Module.h"
-#include "Bus.h"
 
 #include <Arduino.h>
+#include <ArduinoUniqueID.h>
+#include <EEPROM.h>
+
+#include <Bus.hpp>
 
 
-RP2040Module *rp2040_instance;
-
-void wdt_reset(){
-  rp2040.wdt_reset();
-}
-
-RP2040Module::RP2040Module()
-    : bus(Serial2, Serial1), indicator(LED_STATUS_PIN, LED_ERROR_PIN),
-      task_wdt_(WDT_DURATION / 4 * TASK_MILLISECOND, TASK_FOREVER, wdt_reset,
-                &scheduler, false) {
-  rp2040_instance = this;
-}
+RP2040Module::RP2040Module(uint8_t node_name)
+  : bus(node_name, Serial2, Serial1),
+    indicator(LED_STATUS_PIN, LED_ERROR_PIN) {}
 
 bool RP2040Module::begin() {
   Serial.begin(SERIAL_BAUD);
-// #ifdef DEBUG
-//   while (!Serial);
-// #endif
+
+  EEPROM.begin(1);
+      // #ifdef DEBUG
+      //   while (!Serial);
+      // #endif
 
   Serial1.setTX(TX0_PIN);
   Serial1.setRX(RX0_PIN);
@@ -40,29 +36,31 @@ bool RP2040Module::begin() {
 
   bus_error_count_ = bus.getErrorCount();
 
-  task_wdt_.enable();
   rp2040.wdt_begin(WDT_DURATION);
 
-  return true;
+  return bus_ok && indicator_ok;
 }
 
-void serialEvent1() {
-  rp2040_instance->bus.receive();
+void RP2040Module::update() {
+  bus.update();
 
-  if (rp2040_instance->bus.getErrorCount() != rp2040_instance->bus_error_count_) {
-    rp2040_instance->indicator.errorEvent();
-    rp2040_instance->bus_error_count_ = rp2040_instance->bus.getErrorCount();
+  if (bus.getErrorCount() != bus_error_count_) {
+    indicator.errorEvent();
+    bus_error_count_ = bus.getErrorCount();
   }
+
+  rp2040.wdt_reset();
 }
 
-void serialEvent2() {
-  rp2040_instance->bus.receive();
-
-  if (rp2040_instance->bus.getErrorCount() != rp2040_instance->bus_error_count_) {
-    rp2040_instance->indicator.errorEvent();
-    rp2040_instance->bus_error_count_ = rp2040_instance->bus.getErrorCount();
-  }
+extern unsigned getMillis() {
+  return millis();
 }
 
+uint8_t readEEPROM(unsigned addr) { return EEPROM.read(addr); }
+void writeEEPROM(unsigned addr, uint8_t value) {
+  EEPROM.write(addr, value);
+  EEPROM.commit();
+}
+unsigned getUnique() { return rp2040.hwrand32(); }
 
 #endif

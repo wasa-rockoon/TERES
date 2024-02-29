@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    
+    {
+      "cwd": "${workspaceRoot}",
+      "name": "Arduino",
+      "request": "launch",
+      "type": "cortex-debug",
+      "executable": "/private/var/folders/4n/_jcnzrss7571s_0zzmtzqtsr0000gn/T/arduino/sketches/14BE1273F20F8020EDB0A4FCB52EDF7F/RP2040Test.ino.elf",
+      "servertype": "openocd",
+      "serverpath": "/Users/yuuki.fj/Library/Arduino15/packages/rp2040/tools/pqt-openocd/1.5.0-b-c7bab52/bin/openocd",
+      "armToolchainPath": "/Users/yuuki.fj/Library/Arduino15/packages/rp2040/tools/pqt-gcc/1.5.0-b-c7bab52/bin/",
+      "configFiles": [
+        "/Users/yuuki.fj/Library/Arduino15/packages/rp2040/hardware/rp2040/3.2.0/lib/picoprobe_cmsis_dap.tcl"
+      ]
+    }
+  ]
+}

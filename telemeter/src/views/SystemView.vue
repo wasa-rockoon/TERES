@@ -48,19 +48,24 @@
           </v-dialog>
         </v-row>
         
-        <v-list-item v-if="system?.activeFlight"
-                     :to="'/flight?id=' + system.activeFlight.id">
+        <v-list-item v-if="activeFlight"
+                     :to="'/flight?id=' + activeFlight.id">
           <template v-slot:prepend>
             <v-icon icon="mdi-rocket-launch" color="primary"></v-icon>
           </template>
-          <v-list-item-title v-text="system?.activeFlight.name">
+          <v-list-item-title v-text="activeFlight.name">
           </v-list-item-title>
           <v-list-item-subtitle>
-            {{showDatetime(system?.activeFlight.startTime)}}
+            {{showDatetime(activeFlight.startTime)}}
             ~
-            {{showDatetime(system?.activeFlight.endTime)}}
+            {{showDatetime(activeFlight.endTime)}}
           </v-list-item-subtitle>
-          
+
+          <template v-slot:append v-if="system?.admin">
+            <v-btn icon="mdi-location-exit"
+                   @click.stop.prevent="deactivateFlight(activeFlight)"></v-btn>
+          </template>
+
         </v-list-item>
         
         <v-divider inset></v-divider>
@@ -118,9 +123,7 @@
           </v-dialog>
         </v-row>
 
-
-
-        <v-list-item v-for="flight in flights" :key="flight.name"
+        <v-list-item v-for="flight in pastFlights" :key="flight.name"
                      :to="'/flight?id=' + flight.id">
           <template v-slot:prepend>
             <v-icon icon="mdi-rocket"></v-icon>
@@ -131,9 +134,12 @@
             ~
             {{showDatetime(flight.endTime)}}
           </v-list-item-subtitle>
+          <template v-slot:append v-if="system?.admin">
+            <v-btn icon="mdi-location-enter"
+                   @click.stop.prevent="reactivateFlight(flight)"></v-btn>
+          </template>
         </v-list-item>
       </v-list>
-
 
     </v-card>
 
@@ -142,7 +148,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, onMounted, inject } from 'vue';
+import { reactive, ref, onMounted, inject, computed } from 'vue';
 import { useRouter } from 'vue-router'
 import axios from 'axios';
 import VueDatePicker from '@vuepic/vue-datepicker';
@@ -154,6 +160,14 @@ import LoginModal from '../components/LoginModal'
 
 const system = ref<System | undefined>(undefined)
 const flights = reactive<Flight[]>([])
+
+const activeFlight = computed<Flight | undefined>(() => {
+  return flights.find(f => !f.endTime)
+})
+const pastFlights = computed<Flight[]>(() => {
+  return flights.filter(f => f.endTime)
+})
+
 const login = reactive({
   dialog: false,
   form: false,
@@ -178,20 +192,16 @@ const upload = reactive({
 const router = useRouter()
 
 onMounted(async () => {
-  const systemId = inject('systemId')
+  const systemId: string = inject('systemId')
   try {
     system.value = await api.getSystem(systemId)
     console.log('system', system.value)
 
     const allFlights = await api.getFlights(systemId)
-    console.log('flights', allFlights)
     for (const flight of allFlights) {
-      if (system.value?.activeFlight &&
-          flight.id == system.value?.activeFlight.id) {
-        // this.system.activeFlight = flight
-      }
-      else flights.push(flight)
+      flights.push(flight)
     }
+    console.log('flights', allFlights)
   } catch (e) {
     console.log('unknown system', systemId, e)
     router.push('/systems')
@@ -246,6 +256,19 @@ const onUpload = async () => {
                     new Date(upload.startTime.getTime() + packet.getTime()))
   }
   connection.close()
+}
+
+const deactivateFlight = async (flight: Flight) => {
+  const newFlight = await api.putFlight(flight.id, flight.name, flight.startTime,
+                                  flight.launchTime, new Date(), flight.data)
+  flights.value = flights.map(f => f.id == newFlight.id ? newFlight : f)
+  console.log(flights)
+}
+
+const reactivateFlight = async (flight: Flight) => {
+  const newFlight = await api.activateFlight(flight.id)
+  flights.value = flights.map(f => f.id == newFlight.id ? newFlight : f)
+  console.log(flights)
 }
 
 const required = (v: any) => {

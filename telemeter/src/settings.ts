@@ -2,10 +2,10 @@
 export const systemId = "teres1"
 export const apiEndpoint = "https://telemeter.fujiy.dev/api"
 export const wsEndpoint = "wss://telemeter.fujiy.dev/api"
-// export const apiEndpointDev = "http://localhost:8888/api"
-// export const wsEndpointDev = "ws://localhost:8888/api"
-export const apiEndpointDev = "https://telemeter.fujiy.dev/api"
-export const wsEndpointDev =  "wss://telemeter.fujiy.dev/api"
+export const apiEndpointDev = "http://localhost:8888/api"
+export const wsEndpointDev = "ws://localhost:8888/api"
+// export const apiEndpointDev = "https://telemeter.fujiy.dev/api"
+// export const wsEndpointDev =  "wss://telemeter.fujiy.dev/api"
 
 export const basePath = "/TERES"
 
